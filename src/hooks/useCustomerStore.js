@@ -35,6 +35,7 @@ export const useCustomerStore = () => {
     try {
       const response = await axios.request(config);
       dispatch(fetchCustomerSuccess(response.data));
+      return response.data
     } catch (error) {
       if (error.response && error.response.status === 403) {
         console.log(

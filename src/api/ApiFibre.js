@@ -6,7 +6,7 @@ const { VITE_FIBRE_API_URL } = getEnvVariable();
 //fibre
 
 const ApiFibre = async () => {
-  const urlFibre = VITE_FIBRE_API_URL;
+  const urlFibre = '/api2';
   const dataFibre = {
     token: "Z1pBczJGb3ZrWHM4cVA4cG5pZ2Yxdz09",
     idcliente: "000009",

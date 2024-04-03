@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 const { VITE_SANIT_API_URL } = getEnvVariable();
 
 export const useInvoiceStore = () => {
+  const navigate = useNavigate();
   const pragma = localStorage.getItem("userInfo");
   const sinComillas = pragma.replace(/"/g, "");
-  const navigate = useNavigate();
 
   const invoicesGet = async () => {
     let config = {
@@ -97,6 +97,8 @@ export const useInvoiceStore = () => {
     try {
       const items = await axios.request(config);
       const itemInvoce = items.data;
+      
+      console.log(itemInvoce);
       dispatch(addInvoice({ itemData: itemInvoce }));
       return items.data;
     } catch (itemsError) {
@@ -112,6 +114,7 @@ export const useInvoiceStore = () => {
     try {
       const invoces = await axios.request(config1);
       const invoce = invoces.data;
+      
       dispatch(addInvoice({ invoiceData: invoce }));
     } catch (invocesError) {
       if (invocesError.response && invocesError.response.status === 403) {
@@ -122,27 +125,27 @@ export const useInvoiceStore = () => {
     }
   };
 
-  const invoicePost =
-    ({ invoiceData }) =>
-    async (dispatch) => {
-      const data = invoiceData;
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: `${VITE_SANIT_API_URL}adm/invoice`,
-        headers: {
-          Pragma: sinComillas,
-        },
-        data: data,
-      };
-      axios(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  const invoicePost = (invoiceData) => async (dispatch) => {
+    const data = invoiceData;
+    let config = {
+      method: "post",
+      //  maxBodyLength: Infinity,
+      url: `${VITE_SANIT_API_URL}adm/invoice`,
+      headers: {
+        "Content-Type": "application/json",
+        Pragma: sinComillas,
+      },
+      data: data,
     };
+    console.log(config);
+    axios(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return { invoicesGet, Invoce, invoicePost };
 };

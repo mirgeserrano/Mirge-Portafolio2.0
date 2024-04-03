@@ -147,15 +147,15 @@ const InvoiceModal = ({
                     <tbody>
                       {items.map((item) => (
                         <tr key={item.id}>
-                          <td className="w-full">{item.name}</td>
+                          <td className="w-full">{item.descrip1}</td>
                           <td className="min-w-[50px] text-center">
-                            {item.qty}
+                            {item.cantidad}
                           </td>
                           <td className="min-w-[80px] text-right">
-                            ${Number(item.price).toFixed(2)}
+                            ${Number(item.precio).toFixed(2)}
                           </td>
                           <td className="min-w-[90px] text-right">
-                            ${Number(item.price * item.qty).toFixed(2)}
+                            ${Number(item.precio * item.cantidad).toFixed(2)}
                           </td>
                         </tr>
                       ))}

@@ -1,40 +1,52 @@
 import "../index.css";
-
-import { Route, Routes } from "react-router-dom";
-
-import { Facturacion } from "../page/Facturacion";
-import { Home } from "../page/Home";
-import InvoiceForm from "../components/invoices/InvoiceForm";
-import Login from "../page/Login";
-import Modal from "../components/Modal";
-import Product from "../page/Product";
+import { Facturacion, Home, Login, NotFound, Product, Services } from "../page";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Search } from "../components/search";
 import { Toaster } from "react-hot-toast";
-
-//import { InvoiceForm } from "../components/invoices";
-
-//import Prueba from "../components/MyComponent";
-//import { Search } from "../components/search/Search";
+import InvoiceForm from "../components/invoices/InvoiceForm";
+import Modal from "../components/Modal";
+import useAuthStore from "../hooks/useAuthStore";
+import { useEffect } from "react";
 
 const AppRouter = () => {
+  const { status, startLoginWithEmailPassword } = useAuthStore();
+  console.log(status);
+
+  useEffect(() => {
+    startLoginWithEmailPassword();
+  }, []);
+
+  if (status === "checking") {
+    return <h3>cargandoooo.....</h3>;
+  }
   return (
     <>
       <Toaster />
       <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/invoice" element={<Facturacion />}></Route>
-        <Route path="/product" element={<Product />}></Route>
-        <Route path="/modal-edit/:id" element={<Modal />}></Route>
-        <Route path="/modal-post" element={<Modal />}></Route>
-        <Route path="/prueba" element={<Search />}></Route>
-        <Route
-          path="/invoice/invoiceForm/:id/:codclie"
-          element={<InvoiceForm />}
-        ></Route>
-
-        {/* Private routes */}
+        {status === "not-authenticated" ? (
+          <>
+            {/* Public routes */}
+            <Route path="/" element={<Login />} />
+            <Route path="/*" element={<Navigate to="/" />} />
+          </>
+        ) : (
+          <>
+            {/* Private routes */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/invoice" element={<Facturacion />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/modal-edit/:id" element={<Modal />} />
+            <Route path="/modal-post" element={<Modal />} />
+            <Route path="/prueba" element={<Search />} />
+            <Route path="/notFound" element={<NotFound />} />
+            <Route
+              path="/invoice/invoiceForm/:id/:codclie"
+              element={<InvoiceForm />}
+            />
+            <Route path="/invoice/invoiceForm" element={<InvoiceForm />} />
+          </>
+        )}
       </Routes>
     </>
   );

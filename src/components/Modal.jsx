@@ -1,11 +1,11 @@
+import { addProduct, editProduct } from "../redux/features/productSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Plus, Xmark } from "../assets";
-import { addProduct, editProduct } from "../redux/features/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-
 import { v4 as uuid } from "uuid";
+
 
 export default function Modal() {
   const [product, setProduct] = useState({
@@ -15,13 +15,13 @@ export default function Modal() {
     existen: "",
     precio1: "",
   });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const param = useParams();
   const products = useSelector((state) => state.product);
-
-  const [open, setOpen] = useState(true);
+  const param = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const cancelButtonRef = useRef(null);
+  const [open, setOpen] = useState(true);
+
 
   //captura los valores
   const handleChange = (e) => {
@@ -110,7 +110,7 @@ export default function Modal() {
                         id="codinst"
                         onChange={handleChange}
                         value={product.codinst}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        className="bg-gray-200 border border-transparent text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       />
                     </div>
                     <div className="col-span-2 sm:col-span-1">
@@ -123,7 +123,7 @@ export default function Modal() {
                         name=""
                         id="name"
                         value={product.descrip}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        className="bg-gray-200 border border-transparent text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Type product name"
                       />
                     </div>
@@ -137,7 +137,7 @@ export default function Modal() {
                         name="descrip"
                         id="price"
                         value={product.existen}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        className="bg-gray-200 border border-transparent text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder=""
                         required=""
                       />
@@ -152,7 +152,7 @@ export default function Modal() {
                         name="precio1"
                         id="price"
                         value={product.precio1}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        className="bg-gray-200 border border-transparent text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="$2999"
                         required=""
                       />

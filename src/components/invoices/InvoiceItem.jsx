@@ -7,34 +7,41 @@ export const InvoiceItem = ({
   descrip1,
   qty,
   price,
+  isloading,
   onDeleteItem,
   onEdtiItem,
+  
 }) => {
+  
+ console.log(isloading);
   const deleteItemHandler = () => {
     onDeleteItem(id);
   };
+
   return (
     <tr>
-      <td className="min-w-[65px] md:min-w-[80px]">
+      <td className="w-1/4">
         <InvoiceField
           onEditItem={(event) => onEdtiItem(event)}
           cellData={{
+            className: `bg-gray-200 border border-transparent rounded-lg `,
+            placeholder: "Codigo item",
             type: "text",
-            min: "1",
-            name: "codigo",
-            id: coditem,
+            name: "codItem",
+            id: id,
             value: coditem,
           }}
         />
       </td>
-      <td className="w-full">
+      <td className="w-1/2">
         <InvoiceField
           onEditItem={(event) => onEdtiItem(event)}
           cellData={{
-            placeholder: "Item name",
+            className: "bg-gray-200 border border-transparent rounded-lg",
+            placeholder: "Descripcion",
             type: "text",
-            name: "name",
-            id: descrip1,
+            name: "descrip1",
+            id: id,
             value: descrip1,
           }}
         />
@@ -43,10 +50,12 @@ export const InvoiceItem = ({
         <InvoiceField
           onEditItem={(event) => onEdtiItem(event)}
           cellData={{
+            className:
+              "text-right bg-gray-200 border border-transparent rounded-lg",
             type: "number",
             min: "1",
-            name: "qty",
-            id: qty,
+            name: "cantidad",
+            id: id,
             value: qty,
           }}
         />
@@ -56,12 +65,13 @@ export const InvoiceItem = ({
         <InvoiceField
           onEditItem={(event) => onEdtiItem(event)}
           cellData={{
-            className: "text-right",
+            className:
+              "text-right bg-gray-200 border border-transparent rounded-lg",
             type: "number",
             min: "0.01",
             step: "0.0001",
-            name: "price",
-            id: price,
+            name: "precio",
+            id: id,
             value: price,
           }}
         />
@@ -70,10 +80,10 @@ export const InvoiceItem = ({
       <td className="flex items-center justify-center">
         <button
           className={`rounded-md bg-red-500 p-2 text-white shadow-sm transition-colors duration-200 hover:bg-red-600 ${
-            price ? "opacity-50 cursor-not-allowed" : ""
+            isloading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           onClick={deleteItemHandler}
-          disabled={price ? true : false}
+          disabled={isloading ?true: false}
         >
           <Delete />
         </button>

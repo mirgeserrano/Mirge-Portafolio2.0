@@ -27,5 +27,4 @@ const ApiTheFatory = () => {
     });
 };
 
-//ApiTheFatory();
 export default ApiTheFatory;

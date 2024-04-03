@@ -33,14 +33,15 @@ const useAuthStore = () => {
           "x-api-key": VITE_SANIT_X_API_KEY,
         },
       };
+
       const requestData = {
         appID: VITE_SANIT_ID_APP,
       };
+      
       const response = await axios.post(url, requestData, config);
-
+      console.log(response);
       if (response.headers.pragma) {
         const responseData = response.data;
-        console.log(response.headers.pragma);
         localStorage.setItem(
           "userInfo",
           JSON.stringify(response.headers.pragma)
@@ -59,6 +60,20 @@ const useAuthStore = () => {
       throw new Error("Error en la solicitud: " + error.message);
     }
   };
+
+//  const checkAuthToken = async () => {
+    
+//       try {
+//         const { data } = await calendarApi.get("/auth/renew");
+//         localStorage.setItem("token", data.token);
+//         localStorage.setItem("token-init-date", new Date().getTime());
+//         dispatch(onlogin({}));
+//       } catch (error) {
+//         localStorage.clear();
+//         dispatch(onLogout());
+//       }
+//     };
+
 
   const startLogout = () => async (dispatch) => {
     dispatch(onLogout("Adios"));
