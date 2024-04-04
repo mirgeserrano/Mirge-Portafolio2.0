@@ -13,7 +13,6 @@ export const InvoiceItem = ({
   
 }) => {
   
- console.log(isloading);
   const deleteItemHandler = () => {
     onDeleteItem(id);
   };

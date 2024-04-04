@@ -1,22 +1,23 @@
 import axios from "axios";
-import { getEnvVariable } from "../helpers/getEnvVariable";
-
 import {
   ClearErrorMessage,
   onLogout,
   onlogin,
 } from "../redux/features/authSlice";
-import { useSelector } from "react-redux";
+import { getEnvVariable, setupAxiosInterceptors } from "../helpers";
 import { resetCustomerFailure } from "../redux/features/customerSlice";
 import { resetInvoice } from "../redux/features/invoiceSlice";
 import { resetProduct } from "../redux/features/productSlice";
-
-const { VITE_SANIT_API_URL, VITE_SANIT_X_API_KEY, VITE_SANIT_ID_APP } =
-  getEnvVariable();
+import { useDispatch, useSelector } from "react-redux";
 
 const useAuthStore = () => {
+  const { VITE_SANIT_API_URL, VITE_SANIT_X_API_KEY, VITE_SANIT_ID_APP } =
+    getEnvVariable();
+  const dispach = useDispatch();
   const { status, user, errorMessage } = useSelector((state) => state.auth);
-
+ 
+  setupAxiosInterceptors(dispach);
+  
   const startLoginWithEmailPassword = (data) => async (dispatch) => {
     const { user, password } = data;
 
@@ -37,7 +38,7 @@ const useAuthStore = () => {
       const requestData = {
         appID: VITE_SANIT_ID_APP,
       };
-      
+
       const response = await axios.post(url, requestData, config);
       console.log(response);
       if (response.headers.pragma) {
@@ -61,29 +62,13 @@ const useAuthStore = () => {
     }
   };
 
-//  const checkAuthToken = async () => {
-    
-//       try {
-//         const { data } = await calendarApi.get("/auth/renew");
-//         localStorage.setItem("token", data.token);
-//         localStorage.setItem("token-init-date", new Date().getTime());
-//         dispatch(onlogin({}));
-//       } catch (error) {
-//         localStorage.clear();
-//         dispatch(onLogout());
-//       }
-//     };
-
-
   const startLogout = () => async (dispatch) => {
     dispatch(onLogout("Adios"));
     setTimeout(() => {
       dispatch(resetCustomerFailure());
       dispatch(resetInvoice());
       dispatch(resetProduct());
-
     }, 10);
-   
   };
 
   return {

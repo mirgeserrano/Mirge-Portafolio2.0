@@ -21,7 +21,8 @@ export const Services = () => {
         console.log(error);
       });
   }, []);
-
+ 
+  
   useEffect(() => {
     const escapedSearchTerm = searchTerm
       .trim()
@@ -46,6 +47,12 @@ export const Services = () => {
     { name: "precioi1", label: "Otra moneda" },
   ];
 
+  const codeMappings = {
+    cod: "codserv",
+  };
+
+  const tableName = "servicio";
+
   return (
     <div className="grid grid-cols-4 h-full bg-gray-200">
       <SideBar />
@@ -57,7 +64,12 @@ export const Services = () => {
           </div>
         </div>
 
-        <Table data={newCurrentPageData} fields={invoiceFields} />
+        <Table
+          data={newCurrentPageData}
+          fields={invoiceFields}
+          codeMappings={codeMappings}
+          tableName={tableName}
+        />
 
         <Pagination
           currentPage={currentPage}
@@ -70,5 +82,3 @@ export const Services = () => {
     </div>
   );
 };
-
-

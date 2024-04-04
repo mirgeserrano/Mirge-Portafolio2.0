@@ -3,21 +3,22 @@ import { getEnvVariable } from "../helpers/getEnvVariable";
 import { addInvoice } from "../redux/features/invoiceSlice";
 import { onLogout } from "../redux/features/authSlice";
 import { useNavigate } from "react-router-dom";
-
-const { VITE_SANIT_API_URL } = getEnvVariable();
+import { getToken, setupAxiosInterceptors } from "../helpers";
+import { useDispatch } from "react-redux";
 
 export const useInvoiceStore = () => {
+  const { VITE_SANIT_API_URL } = getEnvVariable();
   const navigate = useNavigate();
-  const pragma = localStorage.getItem("userInfo");
-  const sinComillas = pragma.replace(/"/g, "");
-
+  const dispach = useDispatch()
+  setupAxiosInterceptors(dispach);
+  
   const invoicesGet = async () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
       url: `${VITE_SANIT_API_URL}adm/invoices/?tipofac=A`,
       headers: {
-        Pragma: sinComillas,
+        Pragma: getToken(),
       },
     };
     try {
@@ -82,7 +83,7 @@ export const useInvoiceStore = () => {
       maxBodyLength: Infinity,
       url: `${VITE_SANIT_API_URL}adm/invoices/?numerod=${numerod}&tipofac=A`,
       headers: {
-        Pragma: sinComillas,
+        Pragma: getToken(),
       },
     };
     let config = {
@@ -90,7 +91,7 @@ export const useInvoiceStore = () => {
       maxBodyLength: Infinity,
       url: `${VITE_SANIT_API_URL}adm/invoiceitems?numerod=${numerod}&tipofac=A`,
       headers: {
-        Pragma: sinComillas,
+        Pragma: getToken(),
       },
     };
 
@@ -102,13 +103,8 @@ export const useInvoiceStore = () => {
       dispatch(addInvoice({ itemData: itemInvoce }));
       return items.data;
     } catch (itemsError) {
-      if (itemsError.response && itemsError.response.status === 403) {
-        console.log("La sesión ha expirado para la solicitud de items");
-        dispatch(onLogout("La sesión ha expirado para la solicitud de items"));
-        navigate("/");
-      } else {
-        console.log("Error en la solicitud de items:", itemsError.message);
-      }
+      console.log(itemsError);
+      
     }
 
     try {
@@ -117,23 +113,19 @@ export const useInvoiceStore = () => {
       
       dispatch(addInvoice({ invoiceData: invoce }));
     } catch (invocesError) {
-      if (invocesError.response && invocesError.response.status === 403) {
-        console.log("La sesión ha expirado para la solicitud de invoces");
-      } else {
-        console.log("Error en la solicitud de invoces:", invocesError.message);
-      }
+     console.log(invocesError);
     }
   };
 
   const invoicePost = (invoiceData) => async (dispatch) => {
     const data = invoiceData;
+    console.log(data);
     let config = {
       method: "post",
-      //  maxBodyLength: Infinity,
       url: `${VITE_SANIT_API_URL}adm/invoice`,
       headers: {
         "Content-Type": "application/json",
-        Pragma: sinComillas,
+        Pragma: getToken(),
       },
       data: data,
     };

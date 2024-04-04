@@ -125,9 +125,9 @@ const InvoiceForm = () => {
       precio: "1.00",
     },
   ]);
-  console.log(items);
   const reviewInvoiceHandler = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
+   
     const invoiceData = [
       {
         invoice: {

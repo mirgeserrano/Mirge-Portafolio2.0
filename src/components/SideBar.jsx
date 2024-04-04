@@ -20,8 +20,8 @@ export const SideBar = () => {
   const dispatch = useDispatch();
   
   const signIn = () => {
-    dispatch(startLogout());
     localStorage.clear();
+    dispatch(startLogout());
   };
 
   const menuItems = [
@@ -29,7 +29,7 @@ export const SideBar = () => {
     { title: "Facturacion", path: "/invoice" },
     { title: "Productos", path: "/product" },
     { title: "Servicios", path: "/services" },
-    { title: "Sign In", path: "/", specialFunction: signIn },
+    { title: "Sign In", path: "/*", specialFunction: signIn },
   ];
 
   const selectMenuItem = (index) => {

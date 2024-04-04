@@ -1,8 +1,7 @@
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast from "react-hot-toast";
 
- const showConfirmation = () => {
-  toast(<ConfirmationNotification />, {
+const ConfirmationNotification = () => {
+  toast(<ShowConfirmation />, {
     position: toast.POSITION.TOP_RIGHT,
     closeButton: false,
     closeOnClick: false,
@@ -11,9 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
   });
 };
 
-export const ConfirmationNotification = () => {
+export const ShowConfirmation = (id) => {
+  console.log('aquiii');
   const handleYes = () => {
-    // Acciones a realizar si se selecciona "Sí"
+      ConfirmationNotification(); // Acciones a realizar si se selecciona "Sí"
     toast.dismiss(); // Cierra la notificación
   };
 

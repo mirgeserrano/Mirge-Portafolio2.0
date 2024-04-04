@@ -7,6 +7,7 @@ import InvoiceForm from "../components/invoices/InvoiceForm";
 import Modal from "../components/Modal";
 import useAuthStore from "../hooks/useAuthStore";
 import { useEffect } from "react";
+import { ModalServices } from "../components/ModalServices";
 
 const AppRouter = () => {
   const { status, startLoginWithEmailPassword } = useAuthStore();
@@ -19,6 +20,7 @@ const AppRouter = () => {
   if (status === "checking") {
     return <h3>cargandoooo.....</h3>;
   }
+  
   return (
     <>
       <Toaster />
@@ -37,6 +39,10 @@ const AppRouter = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/product" element={<Product />} />
             <Route path="/modal-edit/:id" element={<Modal />} />
+            <Route
+              path="/modal-edit/servicio/:id"
+              element={<ModalServices />}
+            />
             <Route path="/modal-post" element={<Modal />} />
             <Route path="/prueba" element={<Search />} />
             <Route path="/notFound" element={<NotFound />} />
