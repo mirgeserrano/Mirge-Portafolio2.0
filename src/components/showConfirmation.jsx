@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-
+import "react-toastify/dist/ReactToastify.css";
 const ConfirmationNotification = () => {
   toast(<ShowConfirmation />, {
     position: toast.POSITION.TOP_RIGHT,

@@ -76,7 +76,7 @@ export const useInvoiceStore = () => {
   // }
 
   //   };
-  const Invoce = (params) => async (dispatch) => {
+  const getInvoce = (params) => async (dispatch) => {
     const numerod = params.id;
     let config1 = {
       method: "get",
@@ -89,7 +89,7 @@ export const useInvoiceStore = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `${VITE_SANIT_API_URL}adm/invoiceitems?numerod=${numerod}&tipofac=A`,
+      url: `${VITE_SANIT_API_URL}adm/invoiceitems/?numerod=${numerod}&tipofac=A`,
       headers: {
         Pragma: getToken(),
       },
@@ -129,6 +129,7 @@ export const useInvoiceStore = () => {
       },
       data: data,
     };
+    
     console.log(config);
     axios(config)
       .then((response) => {
@@ -139,5 +140,5 @@ export const useInvoiceStore = () => {
       });
   };
 
-  return { invoicesGet, Invoce, invoicePost };
+  return { invoicesGet, getInvoce, invoicePost };
 };

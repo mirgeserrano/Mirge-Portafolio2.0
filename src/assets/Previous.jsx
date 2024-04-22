@@ -1,5 +1,5 @@
 
-export const Previous = () => {
+ const Previous = () => {
   return (
     <div>
       
@@ -18,3 +18,4 @@ export const Previous = () => {
     </div>
   );
 }
+export default Previous;

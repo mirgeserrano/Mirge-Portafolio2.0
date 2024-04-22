@@ -17,3 +17,5 @@ export const Edit = () => {
     </svg>
   );
 }
+
+export default Edit;

@@ -1,5 +1,5 @@
 
-export const SideBarBurger = () => {
+ const SideBarBurger = () => {
   return (
     <svg
       className="w-6 h-6"
@@ -16,3 +16,4 @@ export const SideBarBurger = () => {
     </svg>
   );
 }
+export default SideBarBurger;

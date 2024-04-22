@@ -1,46 +1,38 @@
-import {
-  Content,
-  Navbar,
-  Pagination,
-  SearchBar,
-  SideBar,
-  Table,
-} from "../components";
+import { Content, Navbar, Pagination, SearchBar, SideBar, Table } from "../components";
 import { useEffect, useState } from "react";
-import { useServicesStore } from "../hooks/useServicesStore";
 import divideDataIntoPages from "../helpers/divideDataIntoPages ";
-import ExchangeRate from "../components/ExchangeRate";
+import { useCxcStore } from "../hooks";
 
-export const Services = () => {
-  const servicesStore = useServicesStore([]);
+export const Cxc = () => {
+ 
+  const { getAccountsReceivable } = useCxcStore();
   const [services, setServices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [filteredData, setFilteredData] = useState(services);
-  const pageSize = 8;
+  const pageSize = 10;
 
   useEffect(() => {
-    servicesStore
-      .getServices()
+    getAccountsReceivable()
       .then((data) => {
         setServices(data);
+        
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
- 
- 
+console.log(services);
   useEffect(() => {
     const escapedSearchTerm = searchTerm
       .trim()
       .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const regex = new RegExp(escapedSearchTerm, "i");
-    const filteredInvoices = services.filter(({ codserv, descrip }) => {
-      const codservLower = codserv ? codserv.toLowerCase() : "";
-      const descripLower = descrip ? descrip.toLowerCase() : "";
+    const filteredInvoices = services.filter(({ codclie, document }) => {
+      const codclieLower = codclie ? codclie.toLowerCase() : "";
+      const documentLower = document ? document.toLowerCase() : "";
 
-      return regex.test(codservLower) || regex.test(descripLower);
+      return regex.test(codclieLower) || regex.test(documentLower);
     });
     setFilteredData(filteredInvoices);
   }, [services, searchTerm]);
@@ -49,33 +41,29 @@ export const Services = () => {
   const newCurrentPageData = pages[currentPage] || [];
 
   const invoiceFields = [
-    { name: "codserv", label: "Codigo de Servicio" },
-    { name: "descrip", label: "Nombre" },
-    { name: "precio1", label: "Bolivares" },
-    { name: "precioi1", label: "Otra moneda" },
+    { name:"codclie", label: "Cod Cliente" },
+    { name:"document", label: "Documento" },
+    { name:"saldo", label: "Saldo" },
   ];
 
   const codeMappings = {
-    cod: "codserv",
+    cod: "id",
   };
 
-  const tableName = "servicio";
+  const tableName = "cxc";
 
   return (
     <>
       <Navbar />
-      <div className="lg:grid lg:grid-cols-4 md:grid-cols-4  xs:grid-cols-4 h-full  ">
+      <div className="lg:grid lg:grid-cols-4 md:grid-cols-4  xs:grid-cols-4  h-screen  pt-16">
         <div className="col-span-1 p-2 ">
           <SideBar />
         </div>
-        <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-16">
+        <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-6">
           <div className="flex justify-between sm:p-8">
-            <h1 className="flex text-2xl font-bold">Servicios</h1>
-            <div className="flex ">
+            <h1 className="text-2xl font-bold">Cuenta por Cobrar</h1>
+            <div className="flex items-center">
               <SearchBar filterFunction={setSearchTerm} />
-            </div>
-            <div className="flex ">
-              <ExchangeRate />
             </div>
           </div>
 

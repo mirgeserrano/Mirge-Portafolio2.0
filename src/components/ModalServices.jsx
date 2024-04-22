@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
-import { UseServicesStore } from "../hooks/UseServicesStore";
+import { useServicesStore } from "../hooks/useServicesStore";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const ModalServices = () => {
   const id = useParams();
   const navigate = useNavigate();
-  const servicesStore = UseServicesStore([]);
+  const servicesStore = useServicesStore([]);
   const [services, setServices] = useState([]);
+ 
   useEffect(() => {
     servicesStore
-      .getAccountReceivable(id)
+      .getService(id)
       .then((data) => {
-        setServices(data);
+        console.log(data);
+        if (data.length === 0 || data.length === undefined) {
+          // Si no se encontraron datos, redirigir al usuario a la página anterior
+          navigate('/');
+        } else {
+          setServices(data);
+        }
+    //    setServices(data);
       })
       .catch((error) => {
-        console.log(error);
+      console.log(error);
       });
   }, []);
 
@@ -33,12 +41,13 @@ export const ModalServices = () => {
   };
   return (
     <div>
-      <Modal
+      {data.length === 0 || data.length === undefined ?<Modal
         data={data}
-        tableData={services}
+        tableData={0}
         onSubmit={handleSubmit}
         onClose={handleClose}
-      />
+      />: null }
+      
     </div>
   );
 };

@@ -1,13 +1,15 @@
 import "../index.css";
-import { Facturacion, Home, Login, NotFound, Product, Services } from "../page";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { Search } from "../components/search";
+import { Cxc, Facturacion, Home, Login, NotFound, Product, Services } from "../page";
+import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import InvoiceForm from "../components/invoices/InvoiceForm";
 import Modal from "../components/Modal";
 import useAuthStore from "../hooks/useAuthStore";
 import { useEffect } from "react";
 import { ModalServices } from "../components/ModalServices";
+import { ModalCxc } from "../components/ModalCxc";
+import { Buscador } from "../components/search/Buscador";
+
 
 const AppRouter = () => {
   const { status, startLoginWithEmailPassword } = useAuthStore();
@@ -29,7 +31,7 @@ const AppRouter = () => {
           <>
             {/* Public routes */}
             <Route path="/" element={<Login />} />
-            <Route path="/*" element={<Navigate to="/" />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
           </>
         ) : (
           <>
@@ -37,20 +39,24 @@ const AppRouter = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/invoice" element={<Facturacion />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/cxc" element={<Cxc />} />
             <Route path="/product" element={<Product />} />
             <Route path="/modal-edit/:id" element={<Modal />} />
             <Route
               path="/modal-edit/servicio/:id"
               element={<ModalServices />}
             />
+            <Route path="/modal-edit/cxc/:id" element={<ModalCxc />} />
             <Route path="/modal-post" element={<Modal />} />
-            <Route path="/prueba" element={<Search />} />
+
             <Route path="/notFound" element={<NotFound />} />
             <Route
               path="/invoice/invoiceForm/:id/:codclie"
               element={<InvoiceForm />}
             />
             <Route path="/invoice/invoiceForm" element={<InvoiceForm />} />
+            <Route path="/search" element={<Buscador />} />
+            {/* <Route path="*" element={<Navigate to="/" />} /> */}
           </>
         )}
       </Routes>

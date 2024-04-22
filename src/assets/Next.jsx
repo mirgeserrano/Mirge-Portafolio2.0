@@ -1,5 +1,5 @@
 
-export const Next = () => {
+ const Next = () => {
   return (
     <div>
       <svg
@@ -17,3 +17,5 @@ export const Next = () => {
     </div>
   );
 }
+
+export default Next;

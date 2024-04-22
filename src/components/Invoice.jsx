@@ -5,9 +5,11 @@ import { SideBar } from "../components/SideBar";
 import { Pagination } from "./Pagination";
 import { Link } from "react-router-dom";
 import { InvoicesTrue,Search } from "../assets";
+import { SearchBar } from "./SearchBar";
+import Navbar from "./Navbar";
 
 //import Pagination from "./Pagination";
-Pagination
+
 export const Invoice = () => {
   const invoiceStore = useInvoiceStore([]);
   const [invoices, setInvoices] = useState([]);
@@ -47,91 +49,85 @@ export const Invoice = () => {
   const currentPageData = pages[currentPage] || [];
 console.log(currentPageData);
   return (
-    <div className="grid grid-cols-4 h-full bg-gray-200">
-      <div className="col-span-1e p-4 ">
-        <SideBar />
-      </div>
-      <div className="col-span-3 p-6">
-        <div className="flex justify-between mb-4">
-          <h1 className="text-2xl font-bold">Facturas</h1>
-          <div className="flex items-center">
-            <Search />
-            <input
-              type="text"
-              className="  bg-gray-300 border border-transparent rounded-lg w-48 py-2 px-4  text-gray-700 leading-tight focus:outline-none"
-              value={searchTerm}
-              onChange={handleInputChange}
-              placeholder="Buscar factura"
-            />
-          </div>
-          <Link to={`/invoice/invoiceForm`}>
-            <button
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              type="button"
-            >
-              Insertar Factura
-            </button>
-          </Link>
+    <>
+      <Navbar/>
+      <div className="lg:grid grid-cols-4 xs:grid-cols-4 h-full bg-gray-200 pt-16">
+        <div className="col-span-1 p-2 ">
+          <SideBar />
         </div>
-        <div className="grid grid-cols-6 gap-4">
-          <div className="font-semibold text-gray-700">
-            <div className="py-2">#</div>
+        <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-6">
+          <div className="flex justify-between mb-2">
+            <h1 className="text-2xl font-bold">Facturas</h1>
+            <SearchBar filterFunction={setSearchTerm} />
+            <Link to={`/invoice/invoiceForm`}>
+              <button
+                className="px-2 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type="button"
+              >
+                Insertar Factura
+              </button>
+            </Link>
           </div>
-          <div className="font-semibold text-gray-700">
-            <div className="py-2">Número de Factura</div>
-          </div>
-          <div className="font-semibold text-gray-700">
-            <div className="py-2">Cliente</div>
-          </div>
-          <div className="font-semibold text-gray-700">
-            <div className="py-2">Nombre</div>
-          </div>
-          <div className="font-semibold text-gray-700">
-            <div className="py-2">Fecha de vencimiento</div>
-          </div>
-          <div className="font-semibold text-gray-700">
-            <div className="py-2">Acciones</div>
-          </div>
-        </div>
-
-        {currentPageData &&
-          currentPageData.map((invoice, index) => (
-            <div className="grid grid-cols-6 gap-4" key={invoice.id}>
-              <div className="text-gray-700">
-                <div className="py-2">{index + 1}</div>
-              </div>
-              <div className="text-gray-500">
-                <div className="py-2">{invoice.numerod}</div>
-              </div>
-              <div className="text-gray-500">
-                <div className="py-2">{invoice.codclie}</div>
-              </div>
-              <div className="text-gray-500">
-                <div className="py-2">{invoice.descrip}</div>
-              </div>
-              <div className="text-gray-500">
-                <div className="py-2">{invoice.fechav}</div>
-              </div>
-
-              <div className="flex items-center">
-                <Link
-                  to={`/invoice/invoiceForm/${invoice.numerod}/${invoice.codclie}`}
-                >
-                  <button className="rounded-md bg-green-500 p-2 text-white shadow-sm transition-colors duration-200 hover:bg-green-600">
-                    <InvoicesTrue />
-                  </button>
-                </Link>
-              </div>
+          <div className="grid grid-cols-6 gap-4">
+            <div className="font-semibold text-gray-700">
+              <div className="py-2">#</div>
             </div>
-          ))}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          filteredData={filteredData}
-          pageSize={pageSize}
-          searchTerm={searchTerm}
-        />
+            <div className="font-semibold text-gray-700 sm">
+              <div className="py-2">Número de Factura</div>
+            </div>
+            <div className="font-semibold text-gray-700">
+              <div className="py-2">Cliente</div>
+            </div>
+            <div className="font-semibold text-gray-700">
+              <div className="py-2">Nombre</div>
+            </div>
+            <div className="font-semibold text-gray-700">
+              <div className="py-2">Fecha de vencimiento</div>
+            </div>
+            <div className="font-semibold text-gray-700">
+              <div className="py-2">Acciones</div>
+            </div>
+          </div>
+
+          {currentPageData &&
+            currentPageData.map((invoice, index) => (
+              <div className="grid grid-cols-6 gap-4" key={invoice.id}>
+                <div className="text-gray-700">
+                  <div className="py-2">{index + 1}</div>
+                </div>
+                <div className="text-gray-500">
+                  <div className="py-2">{invoice.numerod}</div>
+                </div>
+                <div className="text-gray-500">
+                  <div className="py-2">{invoice.codclie}</div>
+                </div>
+                <div className="text-gray-500">
+                  <div className="py-2">{invoice.descrip}</div>
+                </div>
+                <div className="text-gray-500">
+                  <div className="py-2">{invoice.fechav}</div>
+                </div>
+
+                <div className="flex items-center">
+                  <Link
+                    to={`/invoice/invoiceForm/${invoice.numerod}/${invoice.codclie}`}
+                  >
+                    <button className="rounded-md bg-green-500 p-2 text-white shadow-sm transition-colors duration-200 hover:bg-green-600">
+                      <InvoicesTrue />
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            filteredData={filteredData}
+            pageSize={pageSize}
+            searchTerm={searchTerm}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

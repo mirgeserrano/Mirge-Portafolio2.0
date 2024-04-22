@@ -10,7 +10,7 @@ export const SearchBar = ({ filterFunction }) => {
     <div className="flex items-center">
       <Search />
       <input
-        className=" flex-grow bg-gray-300 border border-transparent rounded-lg py-2 px-4  text-gray-700 leading-tight focus:outline-none"
+        className="flex-grow bg-gray-300 border border-transparent rounded-lg py-2 px-4  text-gray-700 leading-tight focus:outline-none"
         type="text"
         onChange={handleSearchTermChange}
         placeholder="Buscar..."

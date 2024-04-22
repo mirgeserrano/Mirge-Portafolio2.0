@@ -1,5 +1,5 @@
 
-export const Usd = () => {
+ const Usd = () => {
   return (
     <div>
       <svg
@@ -19,3 +19,4 @@ export const Usd = () => {
     </div>
   );
 }
+export default Usd;

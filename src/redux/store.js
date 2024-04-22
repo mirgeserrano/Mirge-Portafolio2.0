@@ -5,6 +5,7 @@ import { invoiceSlice } from "./features/invoiceSlice";
 import { productSlice } from "./features/productSlice";
 import { uiSlice } from "./features/uiSlice";
 
+
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem("state");
@@ -20,13 +21,13 @@ const loadState = () => {
 // Función para guardar el estado en el almacenamiento local
 const saveState = (state) => {
   try {
-    const { auth } = state; // Obtener solo las partes necesarias del estado
+    const { auth } = state;
     const stateToSave = { auth };
 
     const serializedState = JSON.stringify(stateToSave);
     localStorage.setItem("state", serializedState);
   } catch {
-    // ignore write errors
+   console.log(error);
   }
 };
 
@@ -41,7 +42,7 @@ export const store = configureStore({
     product: productSlice.reducer,
     ui: uiSlice.reducer,
   },
-
+  //thunk,
   //* borra el error de serializacion
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

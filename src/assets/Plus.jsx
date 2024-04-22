@@ -1,5 +1,5 @@
 
-export const Plus = () => {
+const Plus = () => {
   return (
     <svg
       className="me-1 -ms-1 w-5 h-5"
@@ -15,3 +15,4 @@ export const Plus = () => {
     </svg>
   );
 }
+export default Plus;

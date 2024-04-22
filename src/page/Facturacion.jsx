@@ -4,8 +4,6 @@ import { SideBar } from "../components/SideBar";
 export const Facturacion = () => {
   return (
     <>
-      {/* <SideBar /> */}
-
       <Invoice />
     </>
   );

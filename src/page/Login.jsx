@@ -8,10 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import invoices from "../assets/images/Invoice.png";
 import toast, { Toaster } from "react-hot-toast";
 import useAuthStore from "../hooks/useAuthStore";
-//import ApiFibre from "../api/ApiFibre";
+import ApiFibre from "../api/ApiFibre";
 
 import ApiTheFatory from "../api/ApiThefatory";
-
+import { ApiPyDolar } from "../api/ApiPyDolar";
 const schemaLogin = z.object({
   user: z.string(),
   password: z
@@ -20,8 +20,9 @@ const schemaLogin = z.object({
 });
 
 export const Login = () => {
-  const prueba = ApiTheFatory();
-  console.log(prueba);
+ //ApiTheFatory();
+ //ApiFibre()
+//ApiPyDolar()
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -72,7 +73,7 @@ export const Login = () => {
                 </label>
                 <input
                   type="text"
-                  className=" bg-gray-200 border border-transparent text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className=" bg-gray-200 border border-transparent text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-[#1b8758] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   {...register("user")}
                 />
                 {errors.user && (
@@ -86,7 +87,7 @@ export const Login = () => {
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className=" bg-gray-200 border border-transparent  border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className=" bg-gray-200 border border-transparent  border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-[#1b8758] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   {...register("password")}
                 />
                 {errors.password && (
@@ -95,7 +96,7 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white  bg-[#1b8758] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign in
               </button>

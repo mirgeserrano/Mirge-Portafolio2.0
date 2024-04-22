@@ -1,5 +1,5 @@
 
-export const Xmark = () => {
+const Xmark = () => {
   return (
     <svg
       className="w-3 h-3"
@@ -18,3 +18,5 @@ export const Xmark = () => {
     </svg>
   );
 }
+
+export default Xmark;

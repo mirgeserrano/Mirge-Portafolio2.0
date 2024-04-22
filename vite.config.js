@@ -1,28 +1,37 @@
-import { defineConfig, loadEnv} from "vite";
+// import { defineConfig } from "vite";
+// import react from "@vitejs/plugin-react";
+
+// export default defineConfig({
+//   server: {
+//     proxy: {
+//      "/api": {
+//         target: 'https://demoemision.thefactoryhka.com.ve',
+//         changeOrigin: true,
+//         rewrite: (path) => path.replace(/^\/api/, '')
+//       },
+//       "/api1": "http://uplinkfibra.net/api/v1",
+//       "/home": "http://192.168.1.51:6163/api/",
+//     },
+//   },
+//   plugins: [react()],
+// });
+
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig(({mode}) => {
-
-const env = loadEnv(mode, process.cwd(), "");
-
-	return {
-    plugins: [react()],
-    server: {
-      proxy: {
-        "/api2": {
-          target: env.VITE_FIBRE_API_URL,
-          changeOrigin: true,
-          secure: false,
-          rewrite: (p) => p.replace(/^\/api2/, ""),
-        },
-        "/api": {
-          target: env.VITE_THEFACTORY_API_URL,
-          changeOrigin: true,
-          secure: false,
-          rewrite: (p) => p.replace(/^\/api/, ""),
-        },
+export default defineConfig({
+  server: {
+    proxy: {
+     "/api": {
+        target: 'https://demoemision.thefactoryhka.com.ve',
+        changeOrigin: true,
       },
-      cors: false,
+      "/apiNew":  {
+        target: 'http://uplinkfibra.net/api/v1',
+        changeOrigin: true,
+      },
+      "/home": "http://192.168.1.51:6163/api/",
     },
-  };
+  },
+  plugins: [react()],
 });

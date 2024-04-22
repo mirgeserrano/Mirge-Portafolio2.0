@@ -25,12 +25,11 @@ const InvoiceForm = () => {
   // obtengo el usuario
   const { user } = useAuthStore();
   // obtengo los item de la facturas
-  const { Invoce, invoicePost } = useInvoiceStore();
+  const { getInvoce, invoicePost } = useInvoiceStore();
   //obtener el cliente
   const { getCustomer } = useCustomerStore();
 
   const [invoiceData, setInvoiceData] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [discount, setDiscount] = useState("");
@@ -50,7 +49,7 @@ const InvoiceForm = () => {
       setLoading(false);
       try {
         const [invoiceResponse, customerResponse] = await Promise.all([
-          dispatch(Invoce(params)),
+          dispatch(getInvoce(params)),
           dispatch(getCustomer(params)),
         ]);
 
@@ -115,6 +114,19 @@ const InvoiceForm = () => {
 
     fetchData();
   }, [dispatch, params]);
+
+  // useEffect(() => {
+  //   getInvoce(params)
+  //      .then((data) => {
+  //       console.log(data);
+  //       //dispatch(getInvoce(params)),
+
+  //      })
+  //      .catch((error) => {
+  //        console.log(error);
+  //      });
+  // }, []);
+
 
   const [items, setItems] = useState([
     {
@@ -232,17 +244,23 @@ const InvoiceForm = () => {
     else return prev;
   }, 0);
 
+  const handleInputChange=(e)=>{
+  const changeItemValue = e.target.value;
+  console.log(changeItemValue);
+
+  }
   const taxRate = (tax * subtotal) / 100;
   const discountRate = (discount * subtotal) / 100;
   const total = subtotal - discountRate + taxRate;
 
   return (
     <form
-      className="relative flex flex-col px-2 md:flex-row bg-gray-200 "
+      className="relative flex flex-col p-2 place-content-between t md:flex-row bg-gray-200 "
       onSubmit={reviewInvoiceHandler}
     >
-      <div className="my-6 flex-1 space-y-2  rounded-md bg-white p-4 shadow-sm sm:space-y-4 md:p-6">
-        <div className="flex flex-col justify-between space-y-2 border-b border-gray-900/10 pb-4 md:flex-row md:items-center md:space-y-0">
+      <div
+        className="my-6 flex-1 space-y-2 rounded-lg bg-white p-6 shadow-sm sm:space-y-4 md:p-6">
+        <div className="flex flex-col justify-between space-y-2 border-gray-900/10 md:flex-row md:items-center md:space-y-0">
           <div className="flex space-x-2">
             <span className="font-bold">Fecha Actual: </span>
             <span>{today}</span>
@@ -290,6 +308,7 @@ const InvoiceForm = () => {
               id="codCustomer"
               value={codCustomer}
               onChange={(event) => setCodCustomer(event.target.value)}
+              onBlur={handleInputChange}
             />
             <label
               htmlFor="customerName"
@@ -387,9 +406,9 @@ const InvoiceForm = () => {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <InvoiceItem
-                key={item.id}
+                key={index.id}
                 id={item.id}
                 coditem={item.codItem}
                 descrip1={item.descrip1}
@@ -418,13 +437,13 @@ const InvoiceForm = () => {
             <span>${subtotal.toFixed(2)}</span>
           </div>
           <div className="flex w-full justify-between md:w-1/2">
-            <span className="font-bold">Discount:</span>
+            <span className="font-bold">Descuento:</span>
             <span>
               ({discount || "0"}%)${discountRate.toFixed(2)}
             </span>
           </div>
           <div className="flex w-full justify-between md:w-1/2">
-            <span className="font-bold">Tax:</span>
+            <span className="font-bold">Iva:</span>
             <span>
               ({tax || "0"}%)${taxRate.toFixed(2)}
             </span>
@@ -435,14 +454,6 @@ const InvoiceForm = () => {
               ${total % 1 === 0 ? total : total.toFixed(2)}
             </span>
           </div>
-        </div>
-        <div className="flex flex-col items-center">
-          <button
-            className="flex flex-col items-center w-72 rounded-md bg-blue-500 py-2 text-sm text-white shadow-sm hover:bg-blue-600"
-            type="submit"
-          >
-            Procesar Factura
-          </button>
         </div>
       </div>
 
@@ -471,6 +482,63 @@ const InvoiceForm = () => {
         items={items}
         onAddNextInvoice={user ? null : addNextInvoiceHandler}
       />
+      <div
+        //className="mt-4 my-6 space-y-2 rounded-lg bg-white p-4 shadow-sm"
+        className="my-6 space-y-2 rounded-lg bg-gray-150 p-4 "
+      >
+        <div className="space-y-2">
+          <label className="text-sm font-bold md:text-base" htmlFor="tax">
+            Porcentaje de iva
+          </label>
+          <div className="flex items-center">
+            <input
+              disabled={loading}
+              className="flex-1 bg-whiter border border-transparent rounded-lg"
+              type="number"
+              name="tax"
+              id="tax"
+              min="0.01"
+              step="0.01"
+              placeholder="0.0"
+              value={tax}
+              onChange={(event) => setTax(event.target.value)}
+            />
+            <span className="rounded-lg bg-gray-300 py-2 px-4 text-gray-800  shadow-sm">
+              %
+            </span>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-bold md:text-base" htmlFor="discount">
+            Descuento
+          </label>
+          <div className="flex items-center">
+            <input
+              disabled={loading}
+              className="flex-1 bg-white border border-transparent rounded-lg"
+              type="number"
+              name="discount"
+              id="discount"
+              min="0"
+              step="0.01"
+              placeholder="0.0"
+              value={discount}
+              onChange={(event) => setDiscount(event.target.value)}
+            />
+            <span className="rounded-lg bg-gray-300 py-2 px-4 text-gray-800 shadow-sm">
+              %
+            </span>
+          </div>
+          <div className="flex flex-col items-center">
+            <button
+              className="flex flex-col items-center w-32 rounded-md bg-blue-500 py-2 text-sm text-white shadow-sm hover:bg-blue-600"
+              type="submit"
+            >
+              Procesar Factura
+            </button>
+          </div>
+        </div>
+      </div>
     </form>
   );
 };

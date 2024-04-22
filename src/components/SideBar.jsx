@@ -2,23 +2,24 @@ import { useDispatch } from "react-redux";
 import {
   Dashboard,
   Facuracion,
+  Inbox,
+  InboxArrowDown,
   Product,
   SideBarBurger,
   SignIn,
+  Users,
 } from "../assets";
 
 import { Link } from "react-router-dom";
 import useAuthStore from "../hooks/useAuthStore";
 import { useEffect, useRef, useState } from "react";
-import Users from "../assets/Users";
-
 export const SideBar = () => {
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+  const [selectedMenuItem, setSelectedMenuItem] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const startLogout = useAuthStore();
   const dispatch = useDispatch();
-  
+
   const signIn = () => {
     localStorage.clear();
     dispatch(startLogout());
@@ -29,16 +30,19 @@ export const SideBar = () => {
     { title: "Facturacion", path: "/invoice" },
     { title: "Productos", path: "/product" },
     { title: "Servicios", path: "/services" },
-    { title: "Sign In", path: "/*", specialFunction: signIn },
+    { title: "Cuenta por Cobrar", path: "/cxc" },
+    { title: "Sign In", path: "/", specialFunction: signIn },
   ];
 
-  const selectMenuItem = (index) => {
+  const selectMenuItemp = (index) => {
     setSelectedMenuItem(index);
+    return setSelectedMenuItem(index);
   };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   const sidebarRef = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -46,7 +50,7 @@ export const SideBar = () => {
       setIsSidebarOpen(false);
     }
   };
- 
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -78,27 +82,28 @@ export const SideBar = () => {
           //className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+          <div className="h-full mt-16 px-3 py-2 overflow-y-auto bg-gray-200 dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <Link
-                    className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group ${
-                      selectedMenuItem === index ? "bg-gray-300" : ""
-                    }`}
                     onClick={() => {
                       if (item.specialFunction) {
                         item.specialFunction();
                       }
-                      selectMenuItem(index);
+                      selectMenuItemp(index);
                     }}
+                    className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#BFE1D5] dark:hover:bg-gray-700 group ${
+                      selectedMenuItem == index ? "bg-[#BFE1D5]" : ""
+                    }`}
                     to={item.path}
                     value={item.title}
                   >
                     {item.title === "Home" && <Dashboard />}
                     {item.title === "Facturacion" && <Facuracion />}
-                    {item.title === "Productos" && <Product />}
+                    {item.title === "Productos" && <Inbox />}
                     {item.title === "Servicios" && <Users />}
+                    {item.title === "Cuenta por Cobrar" && <InboxArrowDown />}
                     {item.title === "Sign In" && <SignIn />}
                     <span className="flex-1 ms-3 whitespace-nowrap">
                       {item.title}

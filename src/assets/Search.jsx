@@ -1,5 +1,5 @@
 
-export const Search = () => {
+const Search = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,3 +17,4 @@ export const Search = () => {
     </svg>
   );
 }
+export default Search;

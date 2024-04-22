@@ -30,8 +30,11 @@ import divideDataIntoPages from "../helpers/divideDataIntoPages ";
   const pageNumber = Math.ceil(TotalInvoice / pageSize);
 
   return (
-    <div className="fixed bottom-0 right-0 w-4/5">
-      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+    <div
+      //className="fixed bottom-0 right-0 col-span-2 col-span-4 w-2/4"
+      className="col-span-2 sm:col-span-3 w-auto "
+    >
+      <div className="flex items-center justify-between border-t border-gray-200 bg-slate-300 px-4 py-3 sm:px-6">
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <p className="text-sm text-gray-700">
             Pagina
@@ -56,9 +59,9 @@ import divideDataIntoPages from "../helpers/divideDataIntoPages ";
             </a>
             <a
               href="#"
-            //     className={`relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
-            //     nextPage ? "cursor-pointer" : "cursor-not-allowed"
-            //   }`}
+              //     className={`relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
+              //     nextPage ? "cursor-pointer" : "cursor-not-allowed"
+              //   }`}
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               onClick={() => handlePageChange(currentPage + 1)}
             >

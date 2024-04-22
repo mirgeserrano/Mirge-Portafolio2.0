@@ -1,5 +1,4 @@
-
-export const InvoicesTrue = () => {
+ const InvoicesTrue = () => {
   return (
     <div>
       <svg
@@ -19,3 +18,6 @@ export const InvoicesTrue = () => {
     </div>
   );
 }
+
+
+export default InvoicesTrue;

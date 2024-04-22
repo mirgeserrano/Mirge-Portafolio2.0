@@ -1,21 +1,19 @@
 import axios from "axios";
 import getEnvVariable from "../helpers/getEnvVariable";
-import { onLogout } from "../redux/features/authSlice";
-import { useNavigate } from "react-router-dom";
 import { getToken, setupAxiosInterceptors } from "../helpers";
 import { useDispatch } from "react-redux";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
-const { VITE_SANIT_API_URL, VITE_SANIT_ID_APP } = getEnvVariable();
-
-export const UseServicesStore = () => {
+export const useServicesStore = () => {
+  const { VITE_SANIT_API_URL, VITE_SANIT_ID_APP } = getEnvVariable();
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
   setupAxiosInterceptors(dispatch);
-  const pragma = localStorage.getItem("userInfo");
-  const pragmaWithoutQuotes = pragma.replace(/"/g, "");
 
-  //obtener un arreglo de servicios
-  const getAccountsReceivable = () => {
+  //*obtener un arreglo de servicios
+  const getServices = () => {
     return new Promise(async (resolve, reject) => {
       let config = {
         method: "get",
@@ -28,7 +26,6 @@ export const UseServicesStore = () => {
 
       try {
         const response = await axios.request(config);
-        //  const accountsReceivable = response.data;
         resolve(response.data);
       } catch (error) {
         console.log(error);
@@ -36,66 +33,46 @@ export const UseServicesStore = () => {
     });
   };
 
-  // obtener un servicio
-  // const getAccountReceivable = (data) => {
-  //   const id = data.id;
-  //   return new Promise(async (resolve, reject) => {
-  //     let config = {
-  //       method: "get",
-  //       url: `${VITE_SANIT_API_URL}adm/services/?codserv=${id}`,
-  //       headers: {
-  //         Pragma: getToken(),
-  //       },
-  //     };
-
-  //     try {
-  //       const response = await axios.request(config);
-  //       //  const accountsReceivable = response.data;
-  //       resolve(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   });
-    
-  // };
-  const getAccountReceivable = (data) => {
-    const id = data.id;
+  //!obtener un servicio 
+  const getService = async (id) => {
+    const codserv = id.id;
+    const url = `${VITE_SANIT_API_URL}adm/services?codserv=${codserv}`;
     const config = {
-      method: "get",
-      url: `${VITE_SANIT_API_URL}adm/services/?codserv=${id}`,
       headers: {
         Pragma: getToken(),
       },
     };
 
-    return axios
-      .request(config)
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error("Error al obtener cuentas por cobrar:", error);
-        throw error; // Lanza el error para que el llamante pueda manejarlo
-      });
+    try {
+      // const response = await axios.get(urlFibre, dataFibre);
+      const response = await axios.get(url, config);
+      
+      console.log(response.data);
+      //    resolve(response.data);
+    } catch (error) {
+      console.log(error);
+       throw error; 
+    }
   };
 
-  
-//Editar un servicio
-  const putAccountReceivable = (data) => {
+  //!Editar un servicio
+  const putSevices = (data) => {
     const { id } = data;
     console.log(id);
     return new Promise(async (resolve, reject) => {
       let config = {
-        method: "put",
         maxBodyLength: Infinity,
         url: `${VITE_SANIT_API_URL}adm/services/?codserv=${id}`,
         headers: {
-          Pragma: pragmaWithoutQuotes,
+          Pragma: getToken(),
           appID: VITE_SANIT_ID_APP,
         },
       };
 
       console.log(config);
       try {
-        const response = await axios.request(config);
+        // const response = await axios.get(urlFibre, dataFibre);
+        const response = await axios.get(config);
         console.log(response.data);
         resolve(response.data);
       } catch (error) {
@@ -104,37 +81,37 @@ export const UseServicesStore = () => {
     });
   };
 
-  //borrar un servicio
-  const deleteAccountReceivable = (para) => {
-    const { id } = para;
-    return new Promise(async (resolve, reject) => {
-      let data = JSON.stringify({
-        appID: VITE_SANIT_ID_APP,
-      });
-      let config = {
-        method: "delete",
-        maxBodyLength: Infinity,
-        url: `${VITE_SANIT_API_URL}adm/services/?codserv=${id}`,
-        headers: {
-          Pragma: pragmaWithoutQuotes,
-        },
-        data: data,
-      };
-
+  //*borrar un servicio
+  //todo Con createAsync Acepta la respuesta de una funcion
+  const deleteServices = createAsyncThunk(
+    "services/deleteAccountReceivable",
+    async (id, { rejectWithValue }) => {
+      console.log(id);
       try {
+        const { VITE_SANIT_API_URL } = getEnvVariable();
+        const config = {
+          method: "delete",
+          url: `${VITE_SANIT_API_URL}adm/service/?codserv=${id}`,
+          headers: {
+            Pragma: getToken(),
+          },
+        };
+
         const response = await axios.request(config);
         console.log(response.data);
-        resolve(response.data);
+        return response.data;
       } catch (error) {
         console.log(error);
+         handleServerError(error, navigate);
+     //return rejectWithValue(error.response.data);
       }
-    });
-  };
+    }
+  );
 
   return {
-    getAccountsReceivable,
-    getAccountReceivable,
-    putAccountReceivable,
-    deleteAccountReceivable,
+    getServices,
+    getService,
+    putSevices,
+    deleteServices,
   };
 };

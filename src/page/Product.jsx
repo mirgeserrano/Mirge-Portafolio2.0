@@ -1,6 +1,6 @@
 import { deleteProdut } from "../redux/features/productSlice";
 import { Link } from "react-router-dom";
-import { Pagination, SearchBar, Table } from "../components";
+import { Content, Navbar, Pagination, SearchBar, Table } from "../components";
 import { SideBar } from "../components/SideBar";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -26,7 +26,8 @@ export  const Product = () => {
         console.log(error);
       });
   }, []);
-  console.log(products);
+
+
   const invoiceFields = [
     { name: "codserv", label: "Código" },
     { name: "descrip", label: "Descripción" },
@@ -36,14 +37,16 @@ export  const Product = () => {
   ];
   const pages = divideDataIntoPages(filteredData, pageSize);
   const newCurrentPageData = pages[currentPage] || [];
+const tableName = "servicio";
 
   return (
     <>
+      <Navbar />
       <div className="grid grid-cols-4 h-screen bg-gray-100">
         <div className="col-span-1 p-4">
           <SideBar />
         </div>
-        <div className="col-span-3 p-6">
+        <div className="col-span-3 pt-20 p-6">
           <div className="flex  justify-between mb-4">
             <h1 className="text-2xl font-bold">Productos</h1>
             <div className="flex items-center">
@@ -60,7 +63,7 @@ export  const Product = () => {
           </div>
 
           {Object.keys(products).length === 0 || products.length === 0 ? (
-            <p>No hay productos disponibles.</p>
+            <Content name={tableName} />
           ) : (
             <>
               <Table data={newCurrentPageData} fields={invoiceFields} />
