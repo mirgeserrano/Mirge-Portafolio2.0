@@ -8,16 +8,13 @@ import { getEnvVariable, getToken, setupAxiosInterceptors } from "../helpers";
 import { useDispatch } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 export const useCustomerStore = () => {
-  const dispach = useDispatch();
+  const dispatch = useDispatch();
   const { VITE_SANIT_API_URL } = getEnvVariable();
-  const pragma = localStorage.getItem("userInfo");
-  const sinComillas = pragma.replace(/"/g, "");
-  setupAxiosInterceptors(dispach);
-  
-  //*funcion para obtener cliente
-  const getCustomer = (params ) => async (dispatch) => {
+  setupAxiosInterceptors(dispatch);
+
+  //*funcion para obtener un cliente
+  const getCustomer = (params) => async (dispatch) => {
     const { codclie } = params;
-    console.log(codclie);
     dispatch(fetchCustomerStart());
 
     let config = {
@@ -35,60 +32,55 @@ export const useCustomerStore = () => {
       return response.data;
     } catch (error) {
       console.log(error);
-       dispatch(fetchCustomerFailure());
-  
-    }
-    
-  };
-  
-  const getCustomes = () => async (dispatch) => {
-    
-    dispatch(fetchCustomerStart());
-
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `${VITE_SANIT_API_URL}adm/customers/`,
-      headers: {
-        Pragma: sinComillas,
-      },
-    };
-
-    try {
-      const response = await axios.request(config);
-      dispatch(fetchCustomerSuccess(response.data));
-
-    console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.log(error);
       dispatch(fetchCustomerFailure());
     }
   };
-  // const getCustomes = createAsyncThunk(
-  //   "services/deleteAccountReceivable",
-  //   async ( { rejectWithValue }) => {
-  //    console.log(data);
-  //     try {
-  //       const config = {
-  //         method: "get",
-  //         url: `${VITE_SANIT_API_URL}adm/customers/`,
-  //         headers: {
-  //           Pragma: getToken(),
-  //         },
-          
-  //       };
-  //       console.log(config);
-  //       const response = await axios.request(config);
-  //       console.log(response.data);
-  //       return response.data;
-  //     } catch (error) {
-  //       return rejectWithValue(error.response.data);
-  //     }
-  //   }
-  // );
 
-  return { getCustomer, getCustomes };
+  //*funcion para obtener Todos los clientes
+  const getCustomes = () => {
+    return new Promise(async (resolve, reject) => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${VITE_SANIT_API_URL}adm/customers/`,
+        headers: {
+          Pragma: getToken(),
+        },
+      };
+
+      try {
+        const response = await axios.request(config);
+        resolve(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
+
+  //*promesa para eliminar un cliente
+  const deleteCustomer = createAsyncThunk(
+    "customer/deleteCustomer",
+    async (id, { rejectWithValue }) => {
+      console.log(id);
+      try {
+        const config = {
+          method: "delete",
+          url: `${VITE_SANIT_API_URL}adm/customer/${id}`,
+          headers: {
+            Pragma: getToken(),
+          },
+        };
+        console.log(config);
+        const response = await axios.request(config);
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    }
+  );
+
+  return { getCustomer, getCustomes, deleteCustomer };
 };
 
 export default useCustomerStore;

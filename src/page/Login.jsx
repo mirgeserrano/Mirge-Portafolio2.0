@@ -8,10 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import invoices from "../assets/images/Invoice.png";
 import toast, { Toaster } from "react-hot-toast";
 import useAuthStore from "../hooks/useAuthStore";
-import ApiFibre from "../api/ApiFibre";
 
-import ApiTheFatory from "../api/ApiThefatory";
-import { ApiPyDolar } from "../api/ApiPyDolar";
 const schemaLogin = z.object({
   user: z.string(),
   password: z
@@ -19,10 +16,7 @@ const schemaLogin = z.object({
     .min(5, "La contraseña debe tener al menos 5 caracteres."),
 });
 
-export const Login = () => {
- //ApiTheFatory();
- //ApiFibre()
-//ApiPyDolar()
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -113,4 +107,4 @@ export const Login = () => {
   );
 };
 
-
+export default Login;

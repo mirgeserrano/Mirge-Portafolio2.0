@@ -48,9 +48,9 @@ export const useCxcStore = () => {
     }
   };
 
-  //!Editar un servicio
+  //!Editar una cuenta por cobrar
   const putAccountReceivable = createAsyncThunk(
-    "services/deleteAccountReceivable",
+    "services/putAccountReceivable",
     async (data, { rejectWithValue }) => {
       console.log(data);
       try {
@@ -76,7 +76,7 @@ export const useCxcStore = () => {
     }
   );
 
-  //!borrar un servicio
+  //*borrar un servicio
   //Con createAsync Acepta la respuesta de una funcion
   const deleteAccountReceivable = createAsyncThunk(
     "services/deleteAccountReceivable",

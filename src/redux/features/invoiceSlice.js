@@ -37,7 +37,7 @@ export const invoiceSlice = createSlice({
       state.searchResults = action.payload;
     },
 
-    resetInvoice: (state,) => {
+    resetInvoice: (state) => {
       state.invoice= null;
     },
   },

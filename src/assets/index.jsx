@@ -14,5 +14,6 @@ export { default as Search } from "./Search";
 export { default as SideBarBurger } from "./SideBarBurger";
 export { default as SignIn } from "./SignIn";
 export { default as Usd } from "./Usd";
+export { default as User } from "./User";
 export { default as Users } from "./Users";
 export { default as Xmark } from "./Xmark";

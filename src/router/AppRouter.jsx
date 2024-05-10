@@ -1,5 +1,14 @@
 import "../index.css";
-import { Cxc, Facturacion, Home, Login, NotFound, Product, Services } from "../page";
+import {
+  Customer,
+  Cxc,
+  Facturacion,
+  Home,
+  Login,
+  NotFound,
+  Product,
+  Services,
+} from "../page";
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import InvoiceForm from "../components/invoices/InvoiceForm";
@@ -9,10 +18,12 @@ import { useEffect } from "react";
 import { ModalServices } from "../components/ModalServices";
 import { ModalCxc } from "../components/ModalCxc";
 import { Buscador } from "../components/search/Buscador";
-
+import InvoiceForm2 from "../components/invoices/InvoiceForm2";
+import SearchBar from "../components/search/SearchBar";
 
 const AppRouter = () => {
   const { status, startLoginWithEmailPassword } = useAuthStore();
+
   console.log(status);
 
   useEffect(() => {
@@ -22,7 +33,7 @@ const AppRouter = () => {
   if (status === "checking") {
     return <h3>cargandoooo.....</h3>;
   }
-  
+
   return (
     <>
       <Toaster />
@@ -30,17 +41,18 @@ const AppRouter = () => {
         {status === "not-authenticated" ? (
           <>
             {/* Public routes */}
-            <Route path="/" element={<Login />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="/" element={<Login />} />+
           </>
         ) : (
           <>
             {/* Private routes */}
             <Route path="/home" element={<Home />} />
             <Route path="/invoice" element={<Facturacion />} />
+            <Route path="/customer" element={<Customer />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/services" element={<Services />} />
             <Route path="/cxc" element={<Cxc />} />
-            <Route path="/product" element={<Product />} />
+
             <Route path="/modal-edit/:id" element={<Modal />} />
             <Route
               path="/modal-edit/servicio/:id"
@@ -48,15 +60,19 @@ const AppRouter = () => {
             />
             <Route path="/modal-edit/cxc/:id" element={<ModalCxc />} />
             <Route path="/modal-post" element={<Modal />} />
-
-            <Route path="/notFound" element={<NotFound />} />
+            <Route path="/invoice/invoiceForm" element={<InvoiceForm />} />
             <Route
               path="/invoice/invoiceForm/:id/:codclie"
               element={<InvoiceForm />}
             />
-            <Route path="/invoice/invoiceForm" element={<InvoiceForm />} />
+            <Route
+              path="/invoice/invoiceForm/InvoiceForm2"
+              element={<InvoiceForm2 />}
+            />
+            <Route path="/notFound" element={<NotFound />} />
             <Route path="/search" element={<Buscador />} />
-            {/* <Route path="*" element={<Navigate to="/" />} /> */}
+            <Route path="/searchBar" element={<SearchBar />} />
+            <Route path="*" element={<NotFound />} />
           </>
         )}
       </Routes>

@@ -20,7 +20,7 @@ export const ModalCxc = () => {
         console.log(error);
       });
   }, [id]);
-
+console.log(accountReceivable);
   const invoiceFields = [
     { name: "codclie", label: "Cod Cliente" },
     { name: "numerod", label: "Documento" },

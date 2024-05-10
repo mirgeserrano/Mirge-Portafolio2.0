@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useProductStore } from "../hooks/useProductStore";
 import divideDataIntoPages from "../helpers/divideDataIntoPages ";
 
-export  const Product = () => {
+const Product = () => {
   const dispatch = useDispatch(deleteProdut);
   const productStore = useProductStore();
   const [products, setProducts] = useState([]);
@@ -82,3 +82,4 @@ const tableName = "servicio";
   );
 };
 
+export default Product;

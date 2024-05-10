@@ -1,6 +1,24 @@
+import { useEffect, useState } from "react"
+import { ApiTheFatory } from "../api/ApiThefatory"
 import {Navbar, SideBar } from "../components"
 
-export const Home = () => {
+const Home = () => {
+const [data, setdata] = useState()
+  const {Autenticacion} = ApiTheFatory()
+
+   useEffect(() => {
+     Autenticacion()
+       .then((data) => {
+         setdata(data);
+       })
+       .catch((error) => {
+         console.log(error);
+       });
+   }, []);
+
+console.log(data);
+
+
   return (
     <>
     <Navbar/>
@@ -8,3 +26,4 @@ export const Home = () => {
     </>
   )
 }
+ export default Home

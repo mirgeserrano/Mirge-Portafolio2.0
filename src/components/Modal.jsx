@@ -4,10 +4,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Plus, Xmark } from "../assets";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { useCxcStore } from "../hooks";
+import { useCxcStore, useServicesStore } from "../hooks";
 
 export default function Modal({ fields, data = [], onClose, tableName }) {
   const { putAccountReceivable } = useCxcStore();
+  const { putSevices } = useServicesStore();
   const navigate = useNavigate()
   const [formData, setFormData] = useState([]);
   const dispatch = useDispatch();
@@ -43,26 +44,27 @@ export default function Modal({ fields, data = [], onClose, tableName }) {
     setFormData(dataEdit);
   };
 
-  console.log(formData);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formDataToSend = formData.reduce((accumulator, field) => {
       accumulator[field.name] = field.value;
       return accumulator;
     }, {});
-    
-    console.log(formDataToSend);
+
     switch (tableName) {
       case "servicio":
+         console.log(formDataToSend);
+         dispatch(putSevices(formDataToSend));
         break;
 
       case "cxc":
-     //  dispatch(putAccountReceivable(formDataToSend));
+        console.log(formDataToSend);
+        dispatch(putAccountReceivable(formDataToSend));
         break;
 
       case "factura":
         break;
-
       default:
         console.error("Tipo de dato no válido");
         return;

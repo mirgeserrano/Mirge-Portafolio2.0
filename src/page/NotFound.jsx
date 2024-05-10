@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import useAuthStore from "../hooks/useAuthStore";
 
-
-export const NotFound = () => {
+const NotFound = () => {
   
   const startLogout = useAuthStore();
   const dispatch = useDispatch()
@@ -40,3 +39,4 @@ export const NotFound = () => {
     </div>
   );
 }
+ export default NotFound

@@ -9,9 +9,9 @@ import { useDispatch } from "react-redux";
 export const useInvoiceStore = () => {
   const { VITE_SANIT_API_URL } = getEnvVariable();
   const navigate = useNavigate();
-  const dispach = useDispatch()
-  setupAxiosInterceptors(dispach);
-  
+  const dispatch = useDispatch();
+  setupAxiosInterceptors(dispatch);
+
   const invoicesGet = async () => {
     let config = {
       method: "get",
@@ -98,28 +98,112 @@ export const useInvoiceStore = () => {
     try {
       const items = await axios.request(config);
       const itemInvoce = items.data;
-      
       console.log(itemInvoce);
       dispatch(addInvoice({ itemData: itemInvoce }));
       return items.data;
     } catch (itemsError) {
       console.log(itemsError);
-      
     }
 
     try {
       const invoces = await axios.request(config1);
       const invoce = invoces.data;
-      
+
       dispatch(addInvoice({ invoiceData: invoce }));
     } catch (invocesError) {
-     console.log(invocesError);
+      console.log(invocesError);
     }
   };
 
-  const invoicePost = (invoiceData) => async (dispatch) => {
-    const data = invoiceData;
+  const invoicePost = (data) => async (dispatch) => {
     console.log(data);
+    const {
+      //Datos en BS
+      addresCustomer,
+      codCustomer,
+      customerEmail,
+      customerName,
+      customerTlf,
+      customerType,
+      codVend,
+      dolar,
+      invoiceNumber,
+      selectedDate,
+      subtotal,
+      subTotal,
+      subtotalConIVA,
+      subtotalExento,
+      tax,
+      totalAPagar,
+      IGTF,
+      total,
+      fechaA,
+      fechaB,
+      //Valores en dolares
+      refBaseIm,
+      refBaseExento,
+      refDescueto,
+      refSubtotal,
+      refIva,
+      refTotal,
+      refIgtf,
+      refTotalAPagar,
+      
+    } = data;
+    const Items = data.items.map((item) => ({
+      codUbic: item.codUbic,
+      codVend: item.codVend,
+      descrip1: item.descrip1,
+      priceO: item.priceO,
+      precio: item.precio,
+      cantidad: item.cantidad,
+      mtoTax: item.mtoTax,
+    }));
+
+    console.log(Items);
+
+    const invoiceData = [
+      {
+        invoice: {
+          codClie: codCustomer,
+          codUbic: "DP01",
+          codVend: codVend,
+          credito: total,
+          descrip: customerName,
+          direc1: addresCustomer,
+          direc2: "Maracaibo, Venezuela",
+          factor: 36.58,
+          fechaE: fechaA,
+          fechaV: fechaB,
+          Id3: codCustomer,
+          monto: total,
+          montomex: dolar,
+          mtoTax: subtotalConIVA,
+          mtoTotal: total,
+          saldoAct: total,
+          telef: customerTlf,
+          texento: 0,
+          tgravable: subtotal,
+          tipoCli: customerType,
+          tipoFac: "A",
+          totalSrv: subtotal,
+          //  debito: 0,
+          //* cuando intento ingresar codEsta explota
+          //codesta: "MQFERNANDO"
+          //terminal: "MQFERNANDO",
+        },
+        Items,
+        payments: [
+          {
+            monto: total,
+            codTarj: "-EFE-",
+            fechae: fechaA,
+            descrip: "efectivo",
+          },
+        ],
+      },
+    ];
+    dispatch(addInvoice({ invoiceData: invoiceData }));
     let config = {
       method: "post",
       url: `${VITE_SANIT_API_URL}adm/invoice`,
@@ -127,9 +211,9 @@ export const useInvoiceStore = () => {
         "Content-Type": "application/json",
         Pragma: getToken(),
       },
-      data: data,
+      data: invoiceData,
     };
-    
+
     console.log(config);
     axios(config)
       .then((response) => {

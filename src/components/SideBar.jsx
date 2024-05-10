@@ -7,6 +7,7 @@ import {
   Product,
   SideBarBurger,
   SignIn,
+  User,
   Users,
 } from "../assets";
 
@@ -28,6 +29,7 @@ export const SideBar = () => {
   const menuItems = [
     { title: "Home", path: "/notFound" },
     { title: "Facturacion", path: "/invoice" },
+    { title: "Clientes", path: "/customer" },
     { title: "Productos", path: "/product" },
     { title: "Servicios", path: "/services" },
     { title: "Cuenta por Cobrar", path: "/cxc" },
@@ -101,6 +103,7 @@ export const SideBar = () => {
                   >
                     {item.title === "Home" && <Dashboard />}
                     {item.title === "Facturacion" && <Facuracion />}
+                    {item.title === "Clientes" && <User/>}
                     {item.title === "Productos" && <Inbox />}
                     {item.title === "Servicios" && <Users />}
                     {item.title === "Cuenta por Cobrar" && <InboxArrowDown />}

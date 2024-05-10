@@ -1,25 +1,20 @@
-import {
-  Content,
-  Navbar,
-  Pagination,
-  SearchBar,
-  SideBar,
-  Table,
-} from "../components";
 import { useEffect, useState } from "react";
+import { Content, Navbar, Pagination, SearchBar, SideBar, Table } from "../components";
+import { useCustomerStore } from "../hooks";
 import divideDataIntoPages from "../helpers/divideDataIntoPages ";
-import { useCxcStore } from "../hooks";
 
-const Cxc = () => {
-  const { getAccountsReceivable } = useCxcStore();
-  const [services, setServices] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(0);
-  const [filteredData, setFilteredData] = useState(services);
-  const pageSize = 10;
 
+const Customer = () => {
+    const { getCustomes } = useCustomerStore();
+    const [services, setServices] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [currentPage, setCurrentPage] = useState(0);
+    const [filteredData, setFilteredData] = useState(services);
+    const pageSize = 10;
+
+    
   useEffect(() => {
-    getAccountsReceivable()
+    getCustomes()
       .then((data) => {
         setServices(data);
       })
@@ -27,7 +22,7 @@ const Cxc = () => {
         console.log(error);
       });
   }, []);
-  
+
   console.log(services);
 
   useEffect(() => {
@@ -48,16 +43,16 @@ const Cxc = () => {
   const newCurrentPageData = pages[currentPage] || [];
 
   const invoiceFields = [
-    { name: "codclie", label: "Cod Cliente" },
-    { name: "document", label: "Documento" },
-    { name: "saldo", label: "Saldo" },
+    { name: "codclie", label: "Cedula" },
+    { name: "descrip", label: "Nombres" },
+    { name: "email", label: "Correo" },
   ];
 
   const codeMappings = {
     cod: "id",
   };
 
-  const tableName = "cxc";
+  const tableName = "cliente";
 
   return (
     <>
@@ -68,7 +63,7 @@ const Cxc = () => {
         </div>
         <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-6">
           <div className="flex justify-between sm:p-8">
-            <h1 className="text-2xl font-bold">Cuenta por Cobrar</h1>
+            <h1 className="text-2xl font-bold">Cliente</h1>
             <div className="flex items-center">
               <SearchBar filterFunction={setSearchTerm} />
             </div>
@@ -98,6 +93,6 @@ const Cxc = () => {
       </div>
     </>
   );
-};
+}
 
-export default Cxc;
+export default Customer

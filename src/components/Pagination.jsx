@@ -31,7 +31,6 @@ import divideDataIntoPages from "../helpers/divideDataIntoPages ";
 
   return (
     <div
-      //className="fixed bottom-0 right-0 col-span-2 col-span-4 w-2/4"
       className="col-span-2 sm:col-span-3 w-auto "
     >
       <div className="flex items-center justify-between border-t border-gray-200 bg-slate-300 px-4 py-3 sm:px-6">

@@ -1,10 +1,11 @@
 import { Invoice } from "../components/Invoice";
-import { SideBar } from "../components/SideBar";
 
-export const Facturacion = () => {
+const Facturacion = () => {
   return (
     <>
       <Invoice />
     </>
   );
 };
+
+export default Facturacion;

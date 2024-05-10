@@ -11,12 +11,12 @@ import { useServicesStore } from "../hooks/useServicesStore";
 import divideDataIntoPages from "../helpers/divideDataIntoPages ";
 import ExchangeRate from "../components/ExchangeRate";
 
-export const Services = () => {
+const Services = () => {
   const servicesStore = useServicesStore([]);
   const [services, setServices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const [filteredData, setFilteredData] = useState(services);
+  const [filteredData, setFilteredData] = useState([]);
   const pageSize = 8;
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const Services = () => {
       });
   }, []);
  
- 
+ console.log(searchTerm);
   useEffect(() => {
     const escapedSearchTerm = searchTerm
       .trim()
@@ -45,6 +45,7 @@ export const Services = () => {
     setFilteredData(filteredInvoices);
   }, [services, searchTerm]);
 
+  console.log(filteredData);
   const pages = divideDataIntoPages(filteredData, pageSize);
   const newCurrentPageData = pages[currentPage] || [];
 
@@ -82,7 +83,7 @@ export const Services = () => {
           {Object.keys(services).length === 0 || services.length === 0 ? (
             <Content name={tableName} />
           ) : (
-            <>
+            <div >
               <Table
                 data={newCurrentPageData}
                 fields={invoiceFields}
@@ -97,10 +98,11 @@ export const Services = () => {
                 pageSize={pageSize}
                 searchTerm={searchTerm}
               />
-            </>
+            </div>
           )}
         </div>
       </div>
     </>
   );
 };
+ export default Services

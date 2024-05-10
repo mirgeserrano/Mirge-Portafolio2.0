@@ -33,10 +33,21 @@ export const useServicesStore = () => {
     });
   };
 
-  //!obtener un servicio 
+  //*obtener un servicio 
+  //todo Obtiene solo los que son varchar
   const getService = async (id) => {
     const codserv = id.id;
-    const url = `${VITE_SANIT_API_URL}adm/services?codserv=${codserv}`;
+    const cod = convertirEnteroACadena(codserv);
+
+    function convertirEnteroACadena(termino) {
+      if (Number.isInteger(termino)) {
+        return termino.toString(); // Convertir números enteros a cadenas
+      } else {
+        return termino; // Mantener el valor sin cambios si no es un número entero
+      }
+    }
+
+    const url = `${VITE_SANIT_API_URL}adm/services/?codserv=${cod}`;
     const config = {
       headers: {
         Pragma: getToken(),
@@ -44,11 +55,9 @@ export const useServicesStore = () => {
     };
 
     try {
-      // const response = await axios.get(urlFibre, dataFibre);
       const response = await axios.get(url, config);
-      
-      console.log(response.data);
-      //    resolve(response.data);
+      console.log(response);
+      return response.data
     } catch (error) {
       console.log(error);
        throw error; 
@@ -57,8 +66,8 @@ export const useServicesStore = () => {
 
   //!Editar un servicio
   const putSevices = (data) => {
-    const { id } = data;
-    console.log(id);
+   
+    console.log(data);
     return new Promise(async (resolve, reject) => {
       let config = {
         maxBodyLength: Infinity,

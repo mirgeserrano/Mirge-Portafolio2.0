@@ -29,7 +29,9 @@ const useAuthStore = () => {
       const config = {
         headers: {
           Authorization: authHeader,
+          "Content-Type": "application/json",
           "x-api-key": VITE_SANIT_X_API_KEY,
+          "x-api-id": VITE_SANIT_ID_APP,
         },
       };
 
@@ -37,7 +39,7 @@ const useAuthStore = () => {
         appID: VITE_SANIT_ID_APP,
       };
 
-      const response = await axios.post(url, requestData, config);
+      const response = await axios.post(url , requestData, config);
       if (response.headers.pragma) {
         const responseData = response.data;
         localStorage.setItem(
@@ -54,18 +56,18 @@ const useAuthStore = () => {
         throw new Error("Inicio de sesión incorrecto");
       }
     } catch (error) {
-      if (error.response && error.response.status === "Network Error") {
+      if (error.response && error.response.status === 401) {
         dispatch(onLogout("Error en la solicitud al servidor"));
         setTimeout(() => {
           dispatch(ClearErrorMessage());
-        }, 10);
+        }, 9);
       } 
-      // else {
-      //   dispatch(onLogout("Credenciales Incorrectas"));
-      //   setTimeout(() => {
-      //     dispatch(ClearErrorMessage());
-      //   }, 10);
-      // }
+      else {
+        dispatch(onLogout("Credenciales Incorrectas"));
+        setTimeout(() => {
+          dispatch(ClearErrorMessage());
+        }, 10);
+      }
         throw new Error("Error en la solicitud: " + error.message);
     }
   };
