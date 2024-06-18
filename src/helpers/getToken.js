@@ -1,5 +1,8 @@
 //*Token de Saint 
-export const getToken = () => {
+
+function getToken() {
   const pragma = localStorage.getItem("userInfo");
   return pragma ? pragma.replace(/"/g, "") : "";
-};
+}
+
+export default getToken

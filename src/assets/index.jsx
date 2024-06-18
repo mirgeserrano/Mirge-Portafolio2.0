@@ -17,3 +17,5 @@ export { default as Usd } from "./Usd";
 export { default as User } from "./User";
 export { default as Users } from "./Users";
 export { default as Xmark } from "./Xmark";
+export { default as Loading } from "./Loading";
+export { default as Home } from "./Home";

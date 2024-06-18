@@ -1,9 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+ import {  createSlice } from "@reduxjs/toolkit";
 
 export const invoiceSlice = createSlice({
   name: "invoice",
   initialState: {
     invoice: null,
+    numeroControl: null,
+    error: null,
+    loading: false, 
   },
   reducers: {
     addInvoice: (state, action) => {
@@ -11,22 +14,6 @@ export const invoiceSlice = createSlice({
         invoiceData: action.payload.invoiceData,
         itemData: action.payload.itemData,
       };
-    },
-
-    deleteProdut: (state, action) => {
-      console.log(state, action);
-      const productId = action.payload;
-      return state.filter((product) => product.id !== productId);
-    },
-
-    editProduct: (state, action) => {
-      const { id, codinst, codprod, descrip } = action.payload;
-      const foundTask = state.find((product) => product.id === id);
-      if (foundTask) {
-        foundTask.codinst = codinst;
-        foundTask.codprod = codprod;
-        foundTask.descrip = descrip;
-      }
     },
 
     setProducts: (state, action) => {
@@ -38,7 +25,15 @@ export const invoiceSlice = createSlice({
     },
 
     resetInvoice: (state) => {
-      state.invoice= null;
+      state.invoice = null;
+      state.numeroControl= null;
+    },
+    setNumeroControl: (state, action) => {
+      state.numeroControl = action.payload;
+    },
+
+    setError: (state, action) => {
+      state.error = action.payload;
     },
   },
 });
@@ -47,8 +42,10 @@ export const {
   addInvoice,
   deleteProdut,
   editProduct,
+  resetInvoice,
+  setError,
+  setNumeroControl,
   setProducts,
   setSearchResults,
-  resetInvoice,
 } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

@@ -4,13 +4,13 @@ import {
   fetchCustomerStart,
   fetchCustomerSuccess,
 } from "../redux/features/customerSlice";
-import { getEnvVariable, getToken, setupAxiosInterceptors } from "../helpers";
+import { getEnvVariable, getToken, useSetupAxiosInterceptors  } from "../helpers";
 import { useDispatch } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 export const useCustomerStore = () => {
   const dispatch = useDispatch();
   const { VITE_SANIT_API_URL } = getEnvVariable();
-  setupAxiosInterceptors(dispatch);
+  useSetupAxiosInterceptors(dispatch);
 
   //*funcion para obtener un cliente
   const getCustomer = (params) => async (dispatch) => {

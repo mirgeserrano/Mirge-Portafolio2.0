@@ -1,17 +1,15 @@
 import { addProduct } from "../redux/features/productSlice";
-import { getEnvVariable } from "../helpers/getEnvVariable";
-import { setupAxiosInterceptors } from "../helpers/setupAxiosInterceptors";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { getToken } from "../helpers/getToken";
+import { getEnvVariable, useSetupAxiosInterceptors , getToken} from "../helpers";
 
 const { VITE_SANIT_API_URL } = getEnvVariable();
 export const useProductStore = () => {
-  const dispach = useDispatch();
+  const dispatch = useDispatch();
   const pragma = localStorage.getItem("userInfo");
   const sinComillas = pragma.replace(/"/g, "");
 
-  setupAxiosInterceptors(dispach);
+  useSetupAxiosInterceptors(dispatch);
 
 
  const apiRequest = async (config) => {

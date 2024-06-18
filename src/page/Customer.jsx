@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Content, Navbar, Pagination, SearchBar, SideBar, Table } from "../components";
 import { useCustomerStore } from "../hooks";
-import divideDataIntoPages from "../helpers/divideDataIntoPages ";
+import {divideDataIntoPages} from "../helpers";
 
 
 const Customer = () => {
@@ -23,21 +23,24 @@ const Customer = () => {
       });
   }, []);
 
-  console.log(services);
 
   useEffect(() => {
-    const escapedSearchTerm = searchTerm
-      .trim()
-      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(escapedSearchTerm, "i");
-    const filteredInvoices = services.filter(({ codclie, document }) => {
-      const codclieLower = codclie ? codclie.toLowerCase() : "";
-      const documentLower = document ? document.toLowerCase() : "";
+    if (searchTerm.trim() === "") {
+      // Si no hay término de búsqueda, mostrar todos los datos
+      setFilteredData(services);
+  } else {
+      const escapedSearchTerm = searchTerm.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(escapedSearchTerm, "i");
 
-      return regex.test(codclieLower) || regex.test(documentLower);
-    });
-    setFilteredData(filteredInvoices);
-  }, [services, searchTerm]);
+      const filteredInvoices = services.filter(({ codclie, descrip }) => {
+          const codclieLower = codclie ? codclie.toLowerCase() : "";
+          const documentLower = descrip ? descrip.toLowerCase() : "";
+          return regex.test(codclieLower) || regex.test(documentLower);
+      }).slice(0, 5); // Limitar a los primeros 5 resultados
+
+      setFilteredData(filteredInvoices);
+  }
+}, [services, searchTerm]);
 
   const pages = divideDataIntoPages(filteredData, pageSize);
   const newCurrentPageData = pages[currentPage] || [];
@@ -61,7 +64,7 @@ const Customer = () => {
         <div className="col-span-1 p-2 ">
           <SideBar />
         </div>
-        <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-6">
+        <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-6 bg-white">
           <div className="flex justify-between sm:p-8">
             <h1 className="text-2xl font-bold">Cliente</h1>
             <div className="flex items-center">

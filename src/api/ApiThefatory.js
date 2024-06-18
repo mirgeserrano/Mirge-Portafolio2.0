@@ -1,14 +1,24 @@
 // //* listo
-
 import axios from "axios";
-import { getEnvVariable } from "../helpers/getEnvVariable";
-import { getTokenTheFactory, roundToTwoDecimalPlaces } from "../helpers";
+import {
+  formatearFechaTheFactory,
+  getEnvVariable,
+  getTokenTheFactory,
+  handleApiResponse,
+  roundToTwoDecimalPlaces,
+  separarIndiceNumero,
+} from "../helpers";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-const { VITE_THEFACTORY_USUARIO, VITE_THEFACTORY_CLAVE } = getEnvVariable();
+import { setNumeroControl } from "../redux/features/invoiceSlice";
+import { useDispatch } from "react-redux";
+import theFactoryApi from "./theFactoryApi";
+import { useInvoiceStore } from "../hooks";
 
-export const ApiTheFatory = () => {
+export const ApiTheFatory = () => { 
+  const { VITE_THEFACTORY_USUARIO, VITE_THEFACTORY_CLAVE } = getEnvVariable();
+  const { invoicePost} = useInvoiceStore();
+  const dispatch = useDispatch();
   const Autenticacion = () => {
-    // Devolver la promesa devuelta por axios.post()
     return axios
       .post(
         "/api/Autenticacion",
@@ -39,28 +49,32 @@ export const ApiTheFatory = () => {
       });
   };
 
+
   const Emision = createAsyncThunk(
-    "Emision",
+    "invoice/Emision",
     async (data, { rejectWithValue }) => {
       const {
         invoiceNumber,
         codCustomer,
         customerName,
         customerTlf,
-        customerEmail,
         addresCustomer,
-        tax,
-        discount,
-        selectedDate,
+        customerEmail,
+        fechaA,
+        datosPago,
+
+        //Valores en Bs
+        subtotalImponible,
         subtotalExento,
-        subtotalConIVA,
-        subtotal,
+        discountRate,
         subTotal,
+        subtotalConIVA,
         total,
+        totalMontoIgtf,
         totalAPagar,
-        dolar,
-        IGTF,
+
         //Valores en dolares
+        dolar,
         refBaseIm,
         refBaseExento,
         refDescueto,
@@ -70,25 +84,28 @@ export const ApiTheFatory = () => {
         refIgtf,
         refTotalAPagar,
       } = data;
+      const { fecha, hora } = formatearFechaTheFactory(fechaA);
+      const { indice, numero } = separarIndiceNumero(codCustomer);
+      console.log(data);
 
       const DetallesItems = data.items.map((item) => ({
         NumeroLinea: "1",
         CodigoCIIU: null,
         CodigoPLU: item.codItem,
         IndicadorBienoServicio: "1",
-        Descripcion: item.descrip1,
-        Cantidad: roundToTwoDecimalPlaces(item.cantidad),
+        Descripcion: item.descrp,
+        Cantidad: roundToTwoDecimalPlaces(item.unidades),
         UnidadMedida: "10",
         PrecioUnitario: "10.00",
         PrecioUnitarioDescuento: null,
         MontoBonificacion: null,
         DescripcionBonificacion: null,
         DescuentoMonto: null,
-        PrecioItem: roundToTwoDecimalPlaces(item.priceO),
+        PrecioItem: roundToTwoDecimalPlaces(item.precio),
         CodigoImpuesto: "E",
         TasaIVA: "16",
-        ValorIVA: roundToTwoDecimalPlaces(item.mtoTax),
-        ValorTotalItem: roundToTwoDecimalPlaces(item.precio),
+        ValorIVA: roundToTwoDecimalPlaces(item.imp),
+        ValorTotalItem: roundToTwoDecimalPlaces(item.total),
         InfoAdicionalItem: [],
         ListaItemOTI: null,
       }));
@@ -98,11 +115,11 @@ export const ApiTheFatory = () => {
           Encabezado: {
             IdentificacionDocumento: {
               TipoDocumento: "01",
-              NumeroDocumento: "1630",
+              NumeroDocumento: "1694",
               TipoProveedor: null,
               TipoTransaccion: "01",
-              FechaEmision: "14/03/2024",
-              HoraEmision: "10:54:18 pm",
+              FechaEmision: fecha,
+              HoraEmision: hora,
               Anulado: false,
               Serie: "",
               TipoDePago: "CONTADO",
@@ -113,8 +130,8 @@ export const ApiTheFatory = () => {
             },
             Vendedor: null,
             Comprador: {
-              TipoIdentificacion: "J",
-              NumeroIdentificacion: codCustomer,
+              TipoIdentificacion: indice,
+              NumeroIdentificacion: numero,
               RazonSocial: customerName,
               Direccion: addresCustomer,
               Ubigeo: null,
@@ -128,18 +145,18 @@ export const ApiTheFatory = () => {
             Tercero: null,
             Totales: {
               NroItems: "2",
-              MontoGravadoTotal: "00",
+              MontoGravadoTotal: roundToTwoDecimalPlaces(subtotalImponible),
               MontoExentoTotal: roundToTwoDecimalPlaces(subtotalExento),
               Subtotal: roundToTwoDecimalPlaces(subTotal),
               TotalAPagar: roundToTwoDecimalPlaces(totalAPagar),
               TotalIVA: roundToTwoDecimalPlaces(subtotalConIVA),
-              MontoTotalConIVA: roundToTwoDecimalPlaces(subTotal),
+              MontoTotalConIVA: roundToTwoDecimalPlaces(total),
               MontoEnLetras: null,
-              TotalDescuento: "00",
+              TotalDescuento: roundToTwoDecimalPlaces(discountRate),
               ListaDescBonificacion: [
                 {
                   DescDescuento: "",
-                  MontoDescuento: "00",
+                  MontoDescuento: roundToTwoDecimalPlaces(discountRate),
                 },
               ],
               ImpuestosSubtotal: [
@@ -152,34 +169,17 @@ export const ApiTheFatory = () => {
                 {
                   CodigoTotalImp: "IGTF",
                   AlicuotaImp: "3.00",
-                  BaseImponibleImp: roundToTwoDecimalPlaces(IGTF),
-                  ValorTotalImp: roundToTwoDecimalPlaces(IGTF),
+                  BaseImponibleImp: roundToTwoDecimalPlaces(total),
+                  ValorTotalImp: roundToTwoDecimalPlaces(totalMontoIgtf),
                 },
                 {
                   CodigoTotalImp: "G",
                   AlicuotaImp: "16.00",
-                  BaseImponibleImp: roundToTwoDecimalPlaces(subTotal),
+                  BaseImponibleImp: roundToTwoDecimalPlaces(subtotalImponible),
                   ValorTotalImp: roundToTwoDecimalPlaces(subtotalConIVA),
                 },
               ],
-              FormasPago: [
-                {
-                  Descripcion: "Efectivo Divisa",
-                  Fecha: "04/03/2024",
-                  Forma: "09",
-                  Monto: "2.00",
-                  Moneda: "USD",
-                  TipoCambio: roundToTwoDecimalPlaces(dolar),
-                },
-                {
-                  Descripcion: "Tarjeta de débito",
-                  Fecha: "04/03/2024",
-                  Forma: "05",
-                  Monto: "35.80",
-                  Moneda: "BSD",
-                  TipoCambio: roundToTwoDecimalPlaces(dolar),
-                },
-              ],
+              datosPago,
             },
             TotalesRetencion: null,
             TotalesOtraMoneda: {
@@ -192,11 +192,11 @@ export const ApiTheFatory = () => {
               TotalIVA: roundToTwoDecimalPlaces(refIva),
               MontoTotalConIVA: roundToTwoDecimalPlaces(refTotal),
               MontoEnLetras: null,
-              TotalDescuento: "0.0",
+              TotalDescuento: roundToTwoDecimalPlaces(refDescueto),
               ListaDescBonificacion: [
                 {
                   DescDescuento: "",
-                  MontoDescuento: "0.0",
+                  MontoDescuento: roundToTwoDecimalPlaces(refDescueto),
                 },
               ],
               ImpuestosSubtotal: [
@@ -209,14 +209,14 @@ export const ApiTheFatory = () => {
                 {
                   CodigoTotalImp: "IGTF",
                   AlicuotaImp: "3.00",
-                  BaseImponibleImp: roundToTwoDecimalPlaces(refIgtf),
-                  ValorTotalImp: roundToTwoDecimalPlaces(refTotalAPagar),
+                  BaseImponibleImp: roundToTwoDecimalPlaces(refTotal),
+                  ValorTotalImp: roundToTwoDecimalPlaces(refIgtf),
                 },
                 {
                   CodigoTotalImp: "G",
                   AlicuotaImp: "16.00",
-                  BaseImponibleImp: roundToTwoDecimalPlaces(refIva),
-                  ValorTotalImp: roundToTwoDecimalPlaces(refSubtotal),
+                  BaseImponibleImp: roundToTwoDecimalPlaces(refBaseIm),
+                  ValorTotalImp: roundToTwoDecimalPlaces(refIva),
                 },
               ],
             },
@@ -234,7 +234,7 @@ export const ApiTheFatory = () => {
             {
               Campo: "PDF",
               Valor:
-                "{'coletilla2':'En los casos en que la base imponible de la venta o prestación de servicio estuviere expresada en moneda extranjera, se establecerá la equivalencia en moneda nacional, al tipo de cambio corriente en el mercado del día en que ocurra el hecho imponible, salvo que éste ocurra en un día no hábil para el sector financiero, en cuyo caso se aplicará el vigente en el día hábil inmediatamente siguiente al de la operación. (ART. 25 Ley de IVA G.O N° 6.152 de fecha 18/11/2014)'}",
+                "{'coletilla2':'Esta factura se expresa en Bolívares con su equivalente en Dólares Americanos al tipo de cambio corriente del mercado a la fecha de su emisión, según lo establecido en el articulo 13 numeral 14 de la Providencia Administrativa SNAT /20244/0071 (..) en concordancia con el artículo 128  de la Ley del Banco Central de Venezuela (BCV); artículo 25 de la Ley que establece el Impuesto al Valor Agregado (IVA) y 38 del Reglamento General de la Ley que establece el Impuesto al Valor Agregado (RLIVA).'}",
             },
             {
               Campo: "PDF",
@@ -319,14 +319,23 @@ export const ApiTheFatory = () => {
         },
         data: theFactory,
       };
-   
-      axios
+      console.log(config);
+     return  axios
         .request(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+          console.log(response.data);
+          const resultado = handleApiResponse(response , "The Factory");
+        //   if (resultado) {
+        //     const numeroControl = response.data.resultado.numeroControl;     
+        //     dispatch(setNumeroControl(numeroControl));  
+        //  //   dispatch(invoicePost(data))  
+
+        //   }
+          return resultado.numeroControl
         })
         .catch((error) => {
           console.log(error.response.data);
+          return rejectWithValue(error.response.data);
         });
     }
   );

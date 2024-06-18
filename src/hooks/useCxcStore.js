@@ -1,13 +1,13 @@
 import axios from "axios";
 import getEnvVariable from "../helpers/getEnvVariable";
-import { getToken, setupAxiosInterceptors } from "../helpers";
+import { getToken, useSetupAxiosInterceptors } from "../helpers";
 import { useDispatch } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const useCxcStore = () => {
   const { VITE_SANIT_API_URL, VITE_SANIT_X_API_KEY, VITE_SANIT_ID_APP } = getEnvVariable();
   const dispatch = useDispatch();
-  setupAxiosInterceptors(dispatch);
+  useSetupAxiosInterceptors(dispatch);
 
   //*obtener un arreglo de servicios
   const getAccountsReceivable = () => {

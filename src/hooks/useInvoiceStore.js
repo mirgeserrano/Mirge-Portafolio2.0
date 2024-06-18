@@ -1,16 +1,22 @@
 import axios from "axios";
-import { getEnvVariable } from "../helpers/getEnvVariable";
 import { addInvoice } from "../redux/features/invoiceSlice";
 import { onLogout } from "../redux/features/authSlice";
 import { useNavigate } from "react-router-dom";
-import { getToken, setupAxiosInterceptors } from "../helpers";
-import { useDispatch } from "react-redux";
+import {
+  getToken,
+  handleApiResponse,
+  useSetupAxiosInterceptors,
+  getEnvVariable
+} from "../helpers";
+import { useDispatch, useSelector } from "react-redux";
 
 export const useInvoiceStore = () => {
+   
   const { VITE_SANIT_API_URL } = getEnvVariable();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  setupAxiosInterceptors(dispatch);
+  const {numeroControl}= useSelector((state)=> state.invoice)
+  useSetupAxiosInterceptors(dispatch)
 
   const invoicesGet = async () => {
     let config = {
@@ -76,6 +82,7 @@ export const useInvoiceStore = () => {
   // }
 
   //   };
+  
   const getInvoce = (params) => async (dispatch) => {
     const numerod = params.id;
     let config1 = {
@@ -129,13 +136,15 @@ export const useInvoiceStore = () => {
       dolar,
       invoiceNumber,
       selectedDate,
+      numeroControl,
       subtotal,
       subTotal,
       subtotalConIVA,
       subtotalExento,
       tax,
       totalAPagar,
-      IGTF,
+      datosPago,
+      items,
       total,
       fechaA,
       fechaB,
@@ -148,7 +157,6 @@ export const useInvoiceStore = () => {
       refTotal,
       refIgtf,
       refTotalAPagar,
-      
     } = data;
     const Items = data.items.map((item) => ({
       codUbic: item.codUbic,
@@ -159,12 +167,18 @@ export const useInvoiceStore = () => {
       cantidad: item.cantidad,
       mtoTax: item.mtoTax,
     }));
-
-    console.log(Items);
+    const payments = data.datosPago.pagos.map((dato) => ({
+      monto: dato.montoPagado,
+      codTarj: "-EFE-",
+      fechae: dato.Fecha,
+      descrip: dato.Descripcion,
+    }));
 
     const invoiceData = [
       {
         invoice: {
+          numerod: invoiceNumber,
+          nroCtrol: numeroControl,
           codClie: codCustomer,
           codUbic: "DP01",
           codVend: codVend,
@@ -172,7 +186,7 @@ export const useInvoiceStore = () => {
           descrip: customerName,
           direc1: addresCustomer,
           direc2: "Maracaibo, Venezuela",
-          factor: 36.58,
+          factor: dolar,
           fechaE: fechaA,
           fechaV: fechaB,
           Id3: codCustomer,
@@ -193,14 +207,7 @@ export const useInvoiceStore = () => {
           //terminal: "MQFERNANDO",
         },
         Items,
-        payments: [
-          {
-            monto: total,
-            codTarj: "-EFE-",
-            fechae: fechaA,
-            descrip: "efectivo",
-          },
-        ],
+        payments,
       },
     ];
     dispatch(addInvoice({ invoiceData: invoiceData }));
@@ -217,7 +224,11 @@ export const useInvoiceStore = () => {
     console.log(config);
     axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        console.log(response);
+        const resultado = handleApiResponse(response, "Saint");
+        if (resultado) {
+          console.log(JSON.stringify(response.data));
+        }
       })
       .catch((error) => {
         console.log(error);

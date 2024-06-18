@@ -3,8 +3,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { customerSlice } from "./features/customerSlice";
 import { invoiceSlice } from "./features/invoiceSlice";
 import { productSlice } from "./features/productSlice";
-import { uiSlice } from "./features/uiSlice";
-
+import { thefactorySlice  } from "./features";
+import multipleSlice from "./features/multipleSlice";
 
 const loadState = () => {
   try {
@@ -27,7 +27,7 @@ const saveState = (state) => {
     const serializedState = JSON.stringify(stateToSave);
     localStorage.setItem("state", serializedState);
   } catch {
-   console.log(error);
+    console.log(error);
   }
 };
 
@@ -36,11 +36,13 @@ const persistedState = loadState();
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice.reducer,
-    customer: customerSlice.reducer,
-    invoice: invoiceSlice.reducer,
-    product: productSlice.reducer,
-    ui: uiSlice.reducer,
+    auth:       authSlice.reducer,
+    customer:   customerSlice.reducer,
+    invoice:    invoiceSlice.reducer,
+    product:    productSlice.reducer,
+    thefactory: thefactorySlice.reducer,
+    multiple: multipleSlice,
+
   },
   //thunk,
   //* borra el error de serializacion
@@ -54,4 +56,3 @@ export const store = configureStore({
 store.subscribe(() => {
   saveState(store.getState());
 });
-

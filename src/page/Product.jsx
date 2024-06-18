@@ -5,7 +5,7 @@ import { SideBar } from "../components/SideBar";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useProductStore } from "../hooks/useProductStore";
-import divideDataIntoPages from "../helpers/divideDataIntoPages ";
+import {divideDataIntoPages} from "../helpers";
 
 const Product = () => {
   const dispatch = useDispatch(deleteProdut);

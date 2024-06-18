@@ -8,8 +8,8 @@ import {
 } from "../components";
 import { useEffect, useState } from "react";
 import { useServicesStore } from "../hooks/useServicesStore";
-import divideDataIntoPages from "../helpers/divideDataIntoPages ";
-import ExchangeRate from "../components/ExchangeRate";
+import {divideDataIntoPages} from "../helpers";
+import ExchangeRate from "../components/ExchageRate/ExchangeRate";
 
 const Services = () => {
   const servicesStore = useServicesStore([]);
@@ -30,7 +30,7 @@ const Services = () => {
       });
   }, []);
  
- console.log(searchTerm);
+ //console.log(searchTerm);
   useEffect(() => {
     const escapedSearchTerm = searchTerm
       .trim()
@@ -45,7 +45,7 @@ const Services = () => {
     setFilteredData(filteredInvoices);
   }, [services, searchTerm]);
 
-  console.log(filteredData);
+  //console.log(filteredData);
   const pages = divideDataIntoPages(filteredData, pageSize);
   const newCurrentPageData = pages[currentPage] || [];
 
@@ -64,15 +64,16 @@ const Services = () => {
 
   return (
     <>
+      {/* <div className="lg:grid lg:grid-cols-4 md:grid-cols-4 xs:grid-cols-4 h-full"> */}
+      <div className="flex justify-center pt-16 h-full ">
       <Navbar />
-      <div className="lg:grid lg:grid-cols-4 md:grid-cols-4  xs:grid-cols-4 h-full  ">
-        <div className="col-span-1 p-2 ">
+        <div >
           <SideBar />
         </div>
-        <div className="lg:col-span-3 md:col-span-3 sm:col-span-4 p-16">
+        <div className=" w-3/5">
           <div className="flex justify-between sm:p-8">
             <h1 className="flex text-2xl font-bold">Servicios</h1>
-            <div className="flex ">
+            <div className="flex">
               <SearchBar filterFunction={setSearchTerm} />
             </div>
             <div className="flex ">

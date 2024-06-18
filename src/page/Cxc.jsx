@@ -7,7 +7,7 @@ import {
   Table,
 } from "../components";
 import { useEffect, useState } from "react";
-import divideDataIntoPages from "../helpers/divideDataIntoPages ";
+import {divideDataIntoPages} from "../helpers";
 import { useCxcStore } from "../hooks";
 
 const Cxc = () => {
@@ -41,7 +41,9 @@ const Cxc = () => {
 
       return regex.test(codclieLower) || regex.test(documentLower);
     });
-    setFilteredData(filteredInvoices);
+    const limitedInvoices = filteredInvoices.slice(0, 5);
+    setFilteredData(limitedInvoices);
+  
   }, [services, searchTerm]);
 
   const pages = divideDataIntoPages(filteredData, pageSize);

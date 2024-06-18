@@ -22,15 +22,20 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   server: {
     proxy: {
-     "/api": {
-        target: 'https://demoemision.thefactoryhka.com.ve',
+      "/api": {
+        target: "https://demoemision.thefactoryhka.com.ve",
         changeOrigin: true,
       },
-      "/apiNew":  {
-        target: 'http://uplinkfibra.net/api/v1',
+      "/apiNew": {
+        target: "http://uplinkfibra.net",
         changeOrigin: true,
       },
-      "/home": "http://192.168.1.51:6163/api/",
+      "/home": {
+        target: "http://uplinkfibra.net",
+        changeOrigin: true,
+        cors:false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
     },
   },
   plugins: [react()],

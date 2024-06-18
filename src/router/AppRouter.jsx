@@ -18,7 +18,6 @@ import { useEffect } from "react";
 import { ModalServices } from "../components/ModalServices";
 import { ModalCxc } from "../components/ModalCxc";
 import { Buscador } from "../components/search/Buscador";
-import InvoiceForm2 from "../components/invoices/InvoiceForm2";
 import SearchBar from "../components/search/SearchBar";
 
 const AppRouter = () => {
@@ -64,10 +63,6 @@ const AppRouter = () => {
             <Route
               path="/invoice/invoiceForm/:id/:codclie"
               element={<InvoiceForm />}
-            />
-            <Route
-              path="/invoice/invoiceForm/InvoiceForm2"
-              element={<InvoiceForm2 />}
             />
             <Route path="/notFound" element={<NotFound />} />
             <Route path="/search" element={<Buscador />} />

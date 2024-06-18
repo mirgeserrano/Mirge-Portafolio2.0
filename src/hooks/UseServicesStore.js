@@ -1,6 +1,6 @@
 import axios from "axios";
 import getEnvVariable from "../helpers/getEnvVariable";
-import { getToken, setupAxiosInterceptors } from "../helpers";
+import { getToken, useSetupAxiosInterceptors } from "../helpers";
 import { useDispatch } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ export const useServicesStore = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   
-  setupAxiosInterceptors(dispatch);
+  useSetupAxiosInterceptors(dispatch);
 
   //*obtener un arreglo de servicios
   const getServices = () => {
@@ -56,7 +56,7 @@ export const useServicesStore = () => {
 
     try {
       const response = await axios.get(url, config);
-      console.log(response);
+    //  console.log(response);
       return response.data
     } catch (error) {
       console.log(error);
@@ -111,8 +111,8 @@ export const useServicesStore = () => {
         return response.data;
       } catch (error) {
         console.log(error);
-         handleServerError(error, navigate);
-     //return rejectWithValue(error.response.data);
+      //   handleServerError(error, navigate);
+      return rejectWithValue(error.response.data);
       }
     }
   );

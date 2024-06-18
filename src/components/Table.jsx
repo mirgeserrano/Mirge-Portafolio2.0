@@ -1,4 +1,4 @@
-//*depende de servicio ,producto, cuenta por pagar
+toast//*depende de servicio ,producto, cuenta por pagar
 
 import { Delete, InvoicesTrue } from "../assets";
 import { Link } from "react-router-dom";
@@ -60,8 +60,8 @@ const Table = ({ data, fields, codeMappings, tableName }) => {
 //    console.log("Es un móvil");
 //  }
   return (
-    <div className="flex flex-col shadow-sm   ">
-      <div className=" p-2 flex place-content-between rounded-lg bg-[#BFE1D5] h-12">
+    <div className="flex flex-col shadow-sm">
+      <div className="flex place-content-between items-center rounded-lg bg-[#8FD3F7] h-12  p-2">
         {fields.map((field, index) => (
           <div className="font-semibold text-gray-700" key={index}>
             <div className="">{field.label}</div>

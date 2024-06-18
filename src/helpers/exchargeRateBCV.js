@@ -8,6 +8,7 @@ const exchargeRateBCV = async () => {
     const resp = response.data;
     return resp;
   } catch (error) {
+    
     console.error(error);
   }
 };

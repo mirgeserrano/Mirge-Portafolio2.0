@@ -4,7 +4,6 @@ import {
   Facuracion,
   Inbox,
   InboxArrowDown,
-  Product,
   SideBarBurger,
   SignIn,
   User,
@@ -27,13 +26,13 @@ export const SideBar = () => {
   };
 
   const menuItems = [
-    { title: "Home", path: "/notFound" },
+    { title: "Home", path: "/home" },
     { title: "Facturacion", path: "/invoice" },
     { title: "Clientes", path: "/customer" },
     { title: "Productos", path: "/product" },
     { title: "Servicios", path: "/services" },
     { title: "Cuenta por Cobrar", path: "/cxc" },
-    { title: "Sign In", path: "/", specialFunction: signIn },
+    { title: "Salir ", path: "/", specialFunction: signIn },
   ];
 
   const selectMenuItemp = (index) => {
@@ -62,7 +61,7 @@ export const SideBar = () => {
 
   return (
     <div>
-      <nav className="fixed top-0 left-0 w-full bg-white">
+      <nav className="fixed top-0 left-0 w-full ">
         <button
           onClick={toggleSidebar}
           data-drawer-target="sidebar-multi-level-sidebar"
@@ -84,7 +83,7 @@ export const SideBar = () => {
           //className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
         >
-          <div className="h-full mt-16 px-3 py-2 overflow-y-auto bg-gray-200 dark:bg-gray-800">
+          <div className="h-full mt-20 px-3 py-2 overflow-y-auto bg-gray-200 dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
               {menuItems.map((item, index) => (
                 <li key={index}>
@@ -95,8 +94,8 @@ export const SideBar = () => {
                       }
                       selectMenuItemp(index);
                     }}
-                    className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#BFE1D5] dark:hover:bg-gray-700 group ${
-                      selectedMenuItem == index ? "bg-[#BFE1D5]" : ""
+                    className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#D0D3F4] dark:hover:bg-gray-700 group ${
+                      selectedMenuItem == index ? "bg-[#A1A7E8]" : ""
                     }`}
                     to={item.path}
                     value={item.title}
@@ -107,7 +106,7 @@ export const SideBar = () => {
                     {item.title === "Productos" && <Inbox />}
                     {item.title === "Servicios" && <Users />}
                     {item.title === "Cuenta por Cobrar" && <InboxArrowDown />}
-                    {item.title === "Sign In" && <SignIn />}
+                    {item.title === "Salir " && <SignIn />}
                     <span className="flex-1 ms-3 whitespace-nowrap">
                       {item.title}
                     </span>
