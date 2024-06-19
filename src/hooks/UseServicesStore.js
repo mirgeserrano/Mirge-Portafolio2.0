@@ -68,7 +68,7 @@ export const useServicesStore = () => {
   const putSevices = (data) => {
    
     console.log(data);
-    return new Promise(async (resolve, reject) => {
+    return new Promise( (resolve, reject) => {
       let config = {
         maxBodyLength: Infinity,
         url: `${VITE_SANIT_API_URL}adm/services/?codserv=${id}`,
@@ -81,10 +81,11 @@ export const useServicesStore = () => {
       console.log(config);
       try {
         // const response = await axios.get(urlFibre, dataFibre);
-        const response = await axios.get(config);
+        const response = axios.get(config);
         console.log(response.data);
         resolve(response.data);
       } catch (error) {
+        reject(error)
         console.log(error);
       }
     });
