@@ -7,12 +7,13 @@ import useTheFactory from "../../hooks/useTheFactory";
 import { useNavigate } from 'react-router-dom';
 
 
-const InvoiceModal = ({
-  isOpen,
-  setIsOpen,
-  invoiceInfo,
-  items,
-}) => {
+const InvoiceModal = (prop) => {
+  const {
+    isOpen,
+    setIsOpen,
+    invoiceInfo,
+    items,
+  }= prop
   const [data, setdata] = useState();
   const [trigger, setTrigger] = useState(false);
   const {descargaArchivo} =useTheFactory()

@@ -1,5 +1,6 @@
 
-const ExchageRateError = ({editablePrice, handlePriceChange}) => {
+const ExchageRateError = (prop) => {
+  let {editablePrice, handlePriceChange}= prop
   return (
     <div>  <div className="text-red-500">Por favor, ingrese el valor del dólar:</div>
     <input

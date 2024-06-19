@@ -1,8 +1,9 @@
+import React from "react"
 import InvoiceItem from "./InvoiceItem"
 
-
-
-const InvoiceTable = ({ items, loading, deleteItemHandler, edtiItemHandler}) => {
+const InvoiceTable = (prop) => {
+  let { items, loading, deleteItemHandler, edtiItemHandler}= prop
+  console.log(items);
   return (
     <div>  <table className="w-3/2 p-2 text-left">
     <thead>
@@ -23,9 +24,10 @@ const InvoiceTable = ({ items, loading, deleteItemHandler, edtiItemHandler}) => 
           id={item.id}
           codItem={item.codItem}
           descrp={item.descrp}
-          mtotax={item.imp}
-          qty={item.unidades}
-          price={item.precio}
+          imp={item.imp}
+          unidades={item.unidades}
+          precio={item.precio}
+          total={item.total}
           isloading={loading}
           onDeleteItem={deleteItemHandler}
           onEdtiItem={edtiItemHandler}
@@ -36,5 +38,7 @@ const InvoiceTable = ({ items, loading, deleteItemHandler, edtiItemHandler}) => 
   </div>
   )
 }
+const MemoizedInvoiceTable = React.memo(InvoiceTable);
 
-export default InvoiceTable
+export default MemoizedInvoiceTable ;
+

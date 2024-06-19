@@ -3,6 +3,7 @@ const getEnvVariable = () => {
     // fibre
     VITE_FIBRE_API_URL,
     VITE_FIBRE_TOKEN,
+
     //variables api the factory
     VITE_THEFACTORY_API_URL,
     VITE_THEFACTORY_USUARIO,
@@ -20,6 +21,7 @@ const getEnvVariable = () => {
     // fibre
     VITE_FIBRE_API_URL,
     VITE_FIBRE_TOKEN,
+    
     //variables api the factory
     VITE_THEFACTORY_API_URL,
     VITE_THEFACTORY_USUARIO,

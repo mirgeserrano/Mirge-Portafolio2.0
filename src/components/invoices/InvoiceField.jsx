@@ -1,5 +1,6 @@
 
-const InvoiceField = ({ onEditItem, cellData }) => {
+const InvoiceField = (prop) => {
+  let { onEditItem, cellData }= prop
   return (
     <input
       className={cellData.className}

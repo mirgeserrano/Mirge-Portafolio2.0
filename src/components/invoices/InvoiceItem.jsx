@@ -1,23 +1,26 @@
-import { Delete, Usd } from "../../assets";
+import { Delete } from "../../assets";
 import InvoiceField from "./InvoiceField";
 
-export const InvoiceItem = ({
-  id,
-  codItem,
-  descrp,
-  qty,
-  price,
-  mtotax,
-  isloading,
-  onDeleteItem,
-  onEdtiItem,
-}) => {
+export const InvoiceItem = (prop) => {
+ 
+  let{
+     id,
+    codItem,
+    descrp,
+    imp,
+    unidades,
+    precio,
+    total,
+    isloading,
+    onDeleteItem,
+    onEdtiItem,
+  }= prop
+
   const deleteItemHandler = () => {
     onDeleteItem(id);
   };
-   console.log(isloading);
-  const total = price*qty
-  const iva = ((total / 1.16) * 0.16).toFixed(2);
+
+ 
   return (
     <tr>
       <td className="w-1/2">
@@ -28,7 +31,7 @@ export const InvoiceItem = ({
               "block p-2.5 w-full z-20 text-sm text-gray-900 bg-[#F8F9FD] rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500",
             placeholder: "Codigo item",
             type: "text",
-            name: "id",
+            name: "codItem",
             id: id,
             value: codItem,
           }}
@@ -59,7 +62,7 @@ export const InvoiceItem = ({
             min: "1",
             name: "unidades",
             id: id,
-            value: qty,
+            value: unidades,
           }}
         />
       </td>
@@ -74,7 +77,7 @@ export const InvoiceItem = ({
             step: "0.0001",
             name: "precio",
             id: id,
-            value: price,
+            value: precio,
           }}
         />
       </td>
@@ -89,7 +92,7 @@ export const InvoiceItem = ({
             type: "number",
             name: "imp",
             id: id,
-            value: iva || "",
+            value: imp,
           }}
         />
       </td>

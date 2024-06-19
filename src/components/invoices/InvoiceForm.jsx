@@ -9,7 +9,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import es from "date-fns/locale/es"; // Importa la localización en español
 import "tailwindcss/tailwind.css";
 
@@ -20,24 +20,24 @@ import useApiFibre from "../../hooks/useApiFibre";
 
 // Internal components
 import Navbar from "../Navbar";
-import { InvoiceItem, PagoFactura } from "./index.jsx";
+import {
+  MemoizedInvoiceCostumerInfo,
+  MemoizedInvoiceTable,
+  MemoizedInvoiceTotals,
+  PagoFactura,
+} from "./index.jsx";
 import InvoiceModal from "./InvoiceModal";
 import ExchangeRate from "../ExchageRate/ExchangeRate.jsx";
-import SelectCustomer from "../SelectCustomer";
 import RenderLoading from "../RenderLoading";
 
 // Internal helpers
-//import  from "../../helpers/convertirFecha";
 import {
   formatDateString,
-  formatearFechaTheFactory,
   convertirFecha,
+  calculateInvoiceTotals,
 } from "../../helpers";
 import { Emision } from "../../hooks";
-import showToastPromise from "../showToastPromise.jsx";
-import ModalConfimation from "../ModalConfimation.jsx";
-import InvoiceTable from "./InvoiceTable.jsx";
-import InvoiceCostumerInfo from "./InvoiceCostumerInfo.jsx";
+//import DatePicker from "tailwind-datepicker-react";
 
 // Registra la localización
 registerLocale("es", es);
@@ -53,27 +53,24 @@ const today = date.toLocaleDateString("es-ES", {
 const fechaA = convertirFecha(date);
 
 const InvoiceForm = () => {
+  const dispatch = useDispatch();
+  const params = useParams();
+  const numerod = params.id;
+  const location = useLocation();
+
   const pending = useSelector((state) => state.multiple.invoiceEmision.pending);
   const dolarApi = useSelector((state) => state.multiple.dolarPrice);
 
-  if (pending) {
-    console.log("estoy cargando");
-  } else {
-    console.log("no estpy cargando ");
-  }
+  const { user } = useAuthStore();
 
   const [showModal, setShowModal] = useState(false);
   const { getInvoce, invoicePost } = useInvoiceStore();
   const { getInvoiceFibre, postClientsDetail, paymetInvoice } = useApiFibre();
-  const { user } = useAuthStore();
-  const dispatch = useDispatch();
-  const params = useParams();
-  const location = useLocation();
-  const numerod = params.id;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [discount, setDiscount] = useState("");
+  const [discount, setDiscount] = useState(0);
   const [invoiceNumber, setInvoiceNumber] = useState(numerod | 1);
   const [codVend, setCodVend] = useState(user.user);
   const [nameVend, setNameVend] = useState(user.firstname);
@@ -83,7 +80,7 @@ const InvoiceForm = () => {
   const [customerTlf, setCustomerTlf] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerType, setCustomerType] = useState("");
-  const [datosPago, setDatosPago] = useState(null);
+  const [datosPago, setDatosPago] = useState(0);
   const [datosFecha, setDatosFecha] = useState("");
 
   const [items, setItems] = useState([
@@ -93,7 +90,8 @@ const InvoiceForm = () => {
       descrp: "",
       unidades: "",
       precio: "",
-      imp: "",
+      imp: "0",
+      total:"0",
     },
   ]);
 
@@ -103,18 +101,14 @@ const InvoiceForm = () => {
         const [invoice] = await Promise.all([
           dispatch(getInvoiceFibre(params)),
         ]);
-        const invoiceitems = invoice.payload.invoice.items;
-        const invoiceData = invoice.payload.invoice.factura;
-        const data = invoiceData.vencimiento;
-        const profin = formatearFechaTheFactory(data);
-        console.log(profin);
-        const { fecha } = profin;
-        console.log(invoiceData);
-        setInvoiceNumber(invoiceData.id || "");
-        setDatosFecha(fecha || "");
 
-        const prueba = invoiceitems;
-        console.log(prueba);
+        //Procesar numero de factura
+        const invoiceData = invoice.payload.invoice.factura;
+        setInvoiceNumber(invoiceData.id || "");
+        setDatosFecha(formatDateString(invoiceData.vencimiento));
+
+        //Procesar los item
+        const invoiceitems = invoice.payload.invoice.items;
         setItems(invoiceitems);
 
         // Procesar respuesta del cliente
@@ -132,13 +126,14 @@ const InvoiceForm = () => {
       }
     };
 
-    if (numerod && params) {
+    if (params.id) {
       fetchData();
     } else {
       setLoading(false);
     }
-  }, [dispatch, params, location]);
+  }, [dispatch, params, location, getInvoiceFibre]);
 
+  // agregar item
   const addItemHandler = () => {
     setItems((prevItem) => [
       ...prevItem,
@@ -146,9 +141,10 @@ const InvoiceForm = () => {
         id: uuid(),
         codItem: "",
         descrp: "",
-        unidades: "",
-        precio: "",
-        imp: "",
+        unidades: "0",
+        precio: "0",
+        imp: "0",
+        total:"0",
       },
     ]);
   };
@@ -173,80 +169,32 @@ const InvoiceForm = () => {
       }
       return item;
     });
-    console.log(updatedItems);
     setItems(updatedItems);
   };
-  console.log(items);
-  //*Procedimientos para facturar en bolivares
 
-  let subtotalExento = 0;
-  let subtotalImponible = 0;
 
-  // Utilizamos reduce para calcular ambos subtotales en un solo ciclo
-  items.reduce((prev, curr) => {
-    // Convertimos el precio del ítem a un número
-    const precio = Number(curr.precio);
-    // Sumamos el precio del ítem al subtotal correspondiente según si es exento o no
-    if (curr.esexento === 1) {
-      subtotalExento += precio;
-    } else {
-      subtotalImponible += precio;
-    }
-    // No necesitamos devolver nada en el reduce, así que simplemente devolvemos prev
-    return prev;
-  }, 0);
+  const {
+    subtotalExento,
+    subtotalImponible,
+    total,
+    subtotalConIVA,
+    subTotal,
+    discountRate,
+    totalMontoIgtf,
+    baseIgtf,
+    totalMontoIgtfbs,
+    totalAPagar,
+    refBaseIm,
+    refBaseExento,
+    refDescueto,
+    refSubtotal,
+    refIva,
+    refTotal,
+    refBaseIgtf,
+    refTotalAPagar,
+  } = calculateInvoiceTotals(items, discount, datosPago, dolarApi);
 
-  const total = items.reduce((prev, curr) => {
-    if (curr.descrp && curr.descrp.trim().length > 0)
-      return prev + Number(curr.precio * Math.floor(curr.unidades));
-    else return prev;
-  }, 0);
-
-  //!! el descuento se lo estoy aplicando al total con iva
-
-  let subtotalConIVA = 0;
-
-  subtotalConIVA = items.reduce((prev, curr) => {
-    if (curr.descrp && curr.descrp.trim().length > 0) {
-      const totalConIVA = Number(curr.precio);
-      // Calcula el total del ítem sumando el precio y el impuesto
-      const calIva = (totalConIVA / 1.16) * 0.16;
-      return prev + calIva; // Suma el total del ítem con IVA al subtotal
-    } else {
-      return prev;
-    }
-  }, 0);
-
-  const subTotal = total - subtotalConIVA;
-  const discountRate = (discount * subTotal) / 100;
-
-  let totalMontoIgtf = 0;
-  let baseIgtf = 0;
-
-  if (datosPago?.pagos?.length > 0) {
-    datosPago.pagos.forEach((pago) => {
-      if (pago.montoIgtf) {
-        totalMontoIgtf += parseFloat(pago.montoIgtf);
-      }
-      if (pago.montoIgtfBs) {
-        baseIgtf += parseFloat(pago.montoIgtfBs);
-      }
-    });
-  }
-  console.log(totalMontoIgtf);
-  const totalMontoIgtfbs = totalMontoIgtf * dolarApi;
-  console.log(totalMontoIgtfbs);
-  const totalAPagar = total - discountRate + totalMontoIgtfbs;
-  //*Procedimiento para factura en dolares
-  const refBaseIm = subtotalImponible / dolarApi;
-  const refBaseExento = subtotalExento / dolarApi;
-  const refDescueto = discountRate / dolarApi;
-  const refSubtotal = subTotal / dolarApi;
-  const refIva = subtotalConIVA / dolarApi;
-  const refTotal = total / dolarApi;
-  const refBaseIgtf = baseIgtf / dolarApi;
-  const refTotalAPagar = totalAPagar / dolarApi;
-
+  //Funcion de envio
   const reviewInvoiceHandler = async (event) => {
     event.preventDefault();
 
@@ -315,7 +263,7 @@ const InvoiceForm = () => {
       console.error(error);
     }
   };
-
+console.log(items);
   //*--------Modales------------------------------
   const [modalPagoOpen, setModalPagoOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -356,8 +304,15 @@ const InvoiceForm = () => {
   }, [datosFecha]);
 
   const fechaB = formatDateString(selectedDate);
-  console.log(customerTlf);
+
   //*--------fecha------------------------------
+  const itemsWithImp = items.map((item) => {
+    const total = item.precio * item.unidades;
+    const imp = ((total / 1.16) * 0.16).toFixed(2);
+    return { ...item, imp, total };
+  });
+
+  
   return (
     <>
       <div>
@@ -402,18 +357,18 @@ const InvoiceForm = () => {
               </div>
             </div>
             <div className="flex flex-row space-y-2 items-center border-b border-gray-900/10 m-2 md:flex-row md:space-y-0 md:space-x-2">
-              <p className="font-bold">Vendedor:</p>
+              <div className="font-bold">Vendedor:</div>
               <h2>{codVend}</h2>
               <span>{nameVend}</span>
-              <p>{user.lastname}</p>
+              <div>{user.lastname}</div>
             </div>
             <div>
-              <InvoiceCostumerInfo
+              <MemoizedInvoiceCostumerInfo
                 codCustomer={codCustomer}
                 setCodCustomer={setCodCustomer}
-                handleOpenModal
+                handleOpenModal={handleOpenModal}
                 customerName={customerName}
-                setCustomerName={setCodCustomer}
+                setCustomerName={setCustomerName}
                 customerType={customerType}
                 setCustomerType={setCustomerType}
                 customerTlf={customerTlf}
@@ -425,10 +380,10 @@ const InvoiceForm = () => {
                 loading={loading}
               />
             </div>
-            <InvoiceTable
-              items={items}
+            <MemoizedInvoiceTable
+              items={itemsWithImp }
               loading={loading}
-              deleteItemHandler={loading}
+              deleteItemHandler={deleteItemHandler}
               edtiItemHandler={edtiItemHandler}
             />
             <button
@@ -462,7 +417,7 @@ const InvoiceForm = () => {
                 className="block w-full mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" // Estilos del DatePicker
               />
               {isTouched && !selectedDate && (
-                <p className="text-red-500 text-sm mt-1">{error}</p>
+                <div className="text-red-500 text-sm mt-1">{error}</div>
               )}
             </div>
 
@@ -516,90 +471,29 @@ const InvoiceForm = () => {
               )}
             </div>
 
-            {/* ------------------------------------------------------- */}
-            <div className="flex flex-col p-2">
-              {/* Dolares-------------------------------------------------------------------- */}
-
-              <div className="p-4">
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Subtotal:</span>
-                  <span>$ {refSubtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Descuento:</span>
-                  <span>$ {refDescueto.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Base Imponible(G):</span>
-                  <span>$ {refBaseIm.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">IVA 16%:</span>
-                  <span>$ {refIva.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Total:</span>
-                  <span>$ {refTotal.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Base imponible IGTF 3% :</span>
-                  <span>$ {totalMontoIgtf.toFixed(2)} </span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">IGTF 3% :</span>
-                  <span>$ {refBaseIgtf.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between bg-[#BFE1D5] shadow-lg p-2 rounded-lg ">
-                  <span className="font-bold">Total a pagar:</span>
-                  <span className="font-bold">
-                    $ {refTotalAPagar.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-              {/* Bolivares-------------------------------------------------------------------- */}
-              <div className=" bg-white p-4 rounded-lg ">
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Subtotal:</span>
-                  <span>Bs {subTotal.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Descuento:</span>
-                  <span>Bs {discountRate.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Base Imponible(G):</span>
-                  <span>Bs {subtotalImponible.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">IVA 16%:</span>
-                  <span>Bs {subtotalConIVA.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Total:</span>
-                  <span>Bs {total.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">Base Imponible IGTF 3% :</span>
-                  <span>Bs {totalMontoIgtfbs.toFixed(2)}</span>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <span className="font-bold">IGTF 3% :</span>
-                  <span>Bs {baseIgtf.toFixed(2)} </span>
-                </div>
-                <div className="flex w-full justify-between bg-gray-300 shadow-lg p-2 rounded-lg ">
-                  <span className="font-bold">Total a pagar:</span>
-                  <span className="font-bold  ">
-                    Bs {totalAPagar.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <MemoizedInvoiceTotals
+              refSubtotal={refSubtotal}
+              refDescuento={refDescueto}
+              refBaseIm={refBaseIm}
+              refIva={refIva}
+              refTotal={refTotal}
+              totalMontoIgtf={totalMontoIgtf}
+              refBaseIgtf={refBaseIgtf}
+              refTotalAPagar={refTotalAPagar}
+              subTotal={subTotal}
+              discountRate={discountRate}
+              subtotalImponible={subtotalImponible}
+              subtotalConIVA={subtotalConIVA}
+              total={total}
+              totalMontoIgtfbs={totalMontoIgtfbs}
+              baseIgtf={baseIgtf}
+            />
 
             <div className="flex flex-col items-center">
               <button
-                disabled={datosPago == null}
+                disabled={datosPago == 0}
                 className={`flex flex-col items-center w-32 rounded-md bg-blue-500 py-2 text-sm text-white shadow-sm hover:bg-blue-600 ${
-                  datosPago == null ? "opacity-50 cursor-not-allowed" : ""
+                  datosPago == 0 ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 onClick={reviewInvoiceHandler}
               >
@@ -607,7 +501,6 @@ const InvoiceForm = () => {
               </button>
 
               {pending ? (
-                //<RenderLoading isOpen={loading} setIsOpen={setIsOpen} />
                 <RenderLoading isOpen={loading} setIsOpen={setIsOpen} />
               ) : (
                 <ToastContainer />

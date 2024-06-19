@@ -1,21 +1,14 @@
 import axios from "axios";
-import { getEnvVariable, handleApiResponse,} from "../helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { addInvoice } from "../redux/features/invoiceSlice";
-import {
-  fetchCustomerSuccess,
-} from "../redux/features/customerSlice";
+import {  getEnvVariable, handleApiResponse,} from "../helpers";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useState } from "react";
 
 const useApiFibre = () => {
-  const dispatch = useDispatch();
-  const { VITE_FIBRE_API_URL, VITE_FIBRE_TOKEN } = getEnvVariable;
+  const { VITE_FIBRE_TOKEN }=getEnvVariable
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-const { status, user, errorMessage } = useSelector((state) => state.auth);
 
 //*llama a todas las facturas
   const GetInvoices = async () => {
@@ -253,13 +246,10 @@ export const getInvoiceFibre = createAsyncThunk(
         axios(configClient),
       ]);
 
-       console.log("Invoice Response Data:", invoiceResponse.data);
-      //  console.log("Client Response Data:", clientResponse.data);
+       //console.log("Invoice Response Data:", invoiceResponse.data);
+    
       const invoice = invoiceResponse.data;
       const client = clientResponse.data;
-
-    //  dispatch(addInvoice({ invoiceData: invoice }));
-      //dispatch(fetchCustomerSuccess({ client }));
       return {
         invoice,
         client,

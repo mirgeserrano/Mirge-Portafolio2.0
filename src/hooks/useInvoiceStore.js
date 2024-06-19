@@ -35,53 +35,6 @@ export const useInvoiceStore = () => {
       console.log(error);
     }
   };
-
-  //   const Invoce = (params) => async (dispatch) => {
-  //     const numerod = params.id;
-  //     console.log(numerod);
-  //     let config1 = {
-  //       method: "get",
-  //       maxBodyLength: Infinity,
-  //       url: `${VITE_SANIT_API_URL}adm/invoices/?numerod=${numerod}&tipofac=A`,
-  //       headers: {
-  //         Pragma: sinComillas,
-  //       },
-  //     };
-  //     let config = {
-  //       method: "get",
-  //       maxBodyLength: Infinity,
-  //       url: `${VITE_SANIT_API_URL}adm/invoiceitems?numerod=${numerod}&tipofac=A`,
-  //       headers: {
-  //         Pragma: sinComillas,
-  //       },
-  //     };
-
-  //     try {
-  //       const [items, invoces] = await Promise.all([
-  //         axios.request(config),
-  //         axios.request(config1),
-  //       ]);
-  //       const itemInvoce = items.data;
-  //       const invoce = invoces.data;
-
-  //       dispatch(addInvoice({ invoiceData: invoce, itemData: itemInvoce }));
-  //       return items.data;
-  //     }
-  //      catch (itemsError) {
-  //   if (itemsError.response && itemsError.response.status === 403) {
-  //     console.log("La sesión ha expirado para la solicitud de items");
-  //   } else {
-  //     console.log("Error en la solicitud de items:", itemsError.message);
-  //   }
-  // } catch (invocesError) {
-  //   if (invocesError.response && invocesError.response.status === 403) {
-  //     console.log("La sesión ha expirado para la solicitud de invoces");
-  //   } else {
-  //     console.log("Error en la solicitud de invoces:", invocesError.message);
-  //   }
-  // }
-
-  //   };
   
   const getInvoce = (params) => async (dispatch) => {
     const numerod = params.id;

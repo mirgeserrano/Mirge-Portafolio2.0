@@ -1,4 +1,3 @@
-import { addProduct } from "../redux/features/productSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { getEnvVariable, useSetupAxiosInterceptors , getToken} from "../helpers";

@@ -7,7 +7,7 @@ import { handleAsyncActions } from '../../helpers/handleAsyncActions ';
 const initialState = {
   invoiceEmision: { data: null, status: 'idle', error: null, pending:false },
   invoiceApiFibre: { data: null, status: 'idle', error: null, pending:false },
-  dolarPrice: null,
+  dolarPrice: 1
   // Agrega más estados iniciales según sea necesario
 };
 

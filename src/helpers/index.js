@@ -13,3 +13,4 @@ export { default as handleApiResponse } from "./handleApiResponse";
 export { default as incrementString } from "./incrementString";
 export { default as separarIndiceNumero } from "./separarIndiceNumero";
 export { default as useSetupAxiosInterceptors } from "./setupAxiosInterceptors";
+export { default as calculateInvoiceTotals} from "./calculateInvoiceTotals";

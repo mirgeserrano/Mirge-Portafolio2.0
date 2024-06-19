@@ -19,7 +19,6 @@ const InvoiceCostumerInfo = (prop) => {
   } = prop;
   return (
     <div>
-      <div>
         <div className="grid grid-cols-2 gap-2 p-2">
           <div className="relative w-full  ">
             <input
@@ -116,11 +115,11 @@ const InvoiceCostumerInfo = (prop) => {
             disabled={loading}
           />
         </div>
-      </div>
+    
     </div>
   );
 };
 
-const MemoizedInvoiceTable = React.memo(InvoiceCostumerInfo);
+const MemoizedInvoiceCostumerInfo = React.memo(InvoiceCostumerInfo);
 
-export default MemoizedInvoiceTable;
+export default MemoizedInvoiceCostumerInfo ;

@@ -111,7 +111,6 @@ export const Emision = createAsyncThunk(
       refIva,
       refTotal,
       refBaseIgtf,
-      refIgtf,
       refTotalAPagar,
     } = data;
     const { fecha, hora } = formatearFechaTheFactory(fechaA);
@@ -146,7 +145,7 @@ export const Emision = createAsyncThunk(
         Encabezado: {
           IdentificacionDocumento: {
             TipoDocumento: "01",
-            NumeroDocumento: "1730",
+            NumeroDocumento: "1731",
             TipoProveedor: null,
             TipoTransaccion: "01",
             FechaEmision: fecha,

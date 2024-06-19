@@ -292,7 +292,8 @@ import { Delete } from "../../assets";
 const date = new Date();
 const fechaA = convertirFecha(date);
 
-function PagoFactura({ monto, onSubmit, isOpen, setIsOpen, dolar }) {
+function PagoFactura(prop) {
+  let { monto, onSubmit, isOpen, setIsOpen, dolar }= prop
   const [formaPago, setFormaPago] = useState("");
   const [montoPagado, setMontoPagado] = useState(0);
   const [saldoPendiente, setSaldoPendiente] = useState(monto);
