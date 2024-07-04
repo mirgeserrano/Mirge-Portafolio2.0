@@ -1,21 +1,22 @@
 
-const User = () => {
+function User() {
   return (
     <svg
+      className="w-[29px] h-[29px] text-gray-800 dark:text-white hover:text-white"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
       fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+      viewBox="0 0 20 20"
     >
       <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
       />
     </svg>
   );
 }
 
-export default User
+export default User;
