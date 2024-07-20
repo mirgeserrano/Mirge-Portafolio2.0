@@ -1,7 +1,10 @@
+
 import Carouse from "./Carouse";
 import { Line, Back, Bd, Debug,Front } from "../../assets";
 
-const About = () => {
+const About = () => {  
+ 
+
   return (
     <div>
       <div>
@@ -76,7 +79,9 @@ const About = () => {
           </div>
         </div>
       </div>
-    
+      
+
+
       <Carouse/>
     </div>
   );
