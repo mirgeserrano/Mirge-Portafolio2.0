@@ -3,7 +3,7 @@ import avatar from "../assets/images/Foto.jpg";
 
 import DataCard from "./DataCard";
 import InfoCard from "./InfoCard";
-
+ 
 const InfBox = () => {
   return (
     <div className="col-span-12 lg:col-span-4 hidden lg:block h-screen sticky top-44">
