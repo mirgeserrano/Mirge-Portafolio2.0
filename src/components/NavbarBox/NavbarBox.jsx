@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BookList, Book, WorkI, User } from "../../assets";
 import { About, Contact, Resume, Work } from ".";
-import Aos from "aos";
+
 import Footer from "./Footer";
 
 const NavbarBox = () => {
   const [activeSection, setActiveSection] = useState("about");
-  useEffect(() => {
-    Aos.init({});
-  }, []);
 
   return (
     <div className="col-span-12 lg:col-span-8  ">

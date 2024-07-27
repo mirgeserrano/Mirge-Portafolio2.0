@@ -1,6 +1,5 @@
 import { Download } from "../assets";
 import avatar from "../assets/images/Foto.jpg";
-
 import DataCard from "./DataCard";
 import InfoCard from "./InfoCard";
  
@@ -22,14 +21,13 @@ const InfBox = () => {
           </h2>
           <InfoCard />
           <DataCard />
-          <div>
-            <Download />
-          </div>
+        
 
-          <div className="inline-flex items-center mx-auto bg-gradient-to-r from-[#FA5252] to-[#DD2476] duration-200 transition ease-linear hover:bg-gradient-to-l bg-[#DD2476]  px-8 py-3 text-lg text-white rounded-[35px] mt-6">
-            <a href="https://drive.usercontent.google.com/u/0/uc?id=177xK4Fpw7VIZBRt3JYbqeDNhZxE_JSfu&export=download">
+          <div className="inline-flex justify-between items-center mx-auto bg-gradient-to-r from-[#FA5252] to-[#DD2476] duration-200 transition ease-linear hover:bg-gradient-to-l bg-[#DD2476]  px-8 py-3 text-lg text-white rounded-[35px] mt-6">
+          <Download />
+            <a href="https://drive.usercontent.google.com/u/0/uc?id=177xK4Fpw7VIZBRt3JYbqeDNhZxE_JSfu&export=download" className="p-2">
               Descargar CV
-            </a>
+            </a>  
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
-import { Brain, BriefCase, Graduation, Line } from "../../assets";
+import { Brain, BriefCase, Flecha, Graduation, Line } from "../../assets";
 import { useState } from "react";
+
 const Resume = () => {
   const [activeSection, setActiveSection] = useState(0);
 
@@ -134,17 +135,21 @@ const Resume = () => {
                   activeSection === index ? "active" : ""
                 }`}
               >
-                <button
+              <div className="flex justify-between"> <button
                   className="text-xl font-bold"
                   onClick={() => handleSectionClick(index)}
                 >
+                
                   {section.empresa}
-                </button>
+                </button> <Flecha/>
+                </div>
+                 
+               
                 <div
-                  className={`p-2 dark:bg-transparent rounded-lg`}
+                  className={`flex p-2 dark:bg-transparent rounded-lg`}
                 >
                   {activeSection === index && (
-                    <div className=" flex flex-wrap space-y-2">
+                    <div className=" space-y-2">
                       <h5 className=" text-gray-500 dark:text-white text-lg ">
                         {section.fecha}
                       </h5>

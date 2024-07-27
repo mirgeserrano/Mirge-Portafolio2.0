@@ -1,5 +1,4 @@
 import  { useEffect, useState } from 'react';
-import  Back  from '../../assets/images/css.png';
 
 
 const images = [
