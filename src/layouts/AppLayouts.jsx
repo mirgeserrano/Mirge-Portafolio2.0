@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import { InfBox, Navbar } from "../components";
 import { NavbarBox } from "../components/NavbarBox";
 
@@ -12,7 +11,6 @@ const AppLayouts = () => {
       <div className="container mx-auto grid grid-cols-12 md:gap-10  justify-between lg:mt-[220px]  ">
         <InfBox />
         <NavbarBox />
-        <Outlet />
       </div>
     </div>
   );

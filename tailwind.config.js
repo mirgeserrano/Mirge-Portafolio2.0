@@ -12,8 +12,8 @@ export default {
         opensans: ["Open Sans", "sans-serif"],
       },
       backgroundImage: {
-        fondo: "url('public/images/fondo.png')",
-        fondoDark: "url('public/images/fondoDark.png')",
+        fondo: "url('/public/images/fondo.png')",
+        fondoDark: "url('/public/images/fondoDark.png')",
       },
     },
   },
