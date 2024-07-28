@@ -173,28 +173,28 @@ const Resume = () => {
         </div>
         <div className="p-7 rounded-2xl mt-7  bg-[#F3F6F6] dark:bg-[#1D1D1D]">
           <div className=" flex flex-wrap justify-between p-4 ">
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 bg rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50  ">
+            <h2 className="m-4 p-2 shadow-lg inline-block dark:bg-[#1D1D1D] rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50  ">
               Pensamiento Analítico
             </h2>
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#FFF0F0]   dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
+            <h2 className="m-4 p-2  shadow-lg inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#FFF0F0]   dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
               Gestión de Proyecto
             </h2>
-            <h2 className="mb-4 shadow-lg  inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#E9F8FF]  dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
+            <h2 className="m-4 p-2  shadow-lg  inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#E9F8FF]  dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
               Constancia
             </h2>
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
+            <h2 className="m-4 p-2  shadow-lg inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
               Liderazgo de equipos
             </h2>
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#FCF4FF]  dark:text-[#A6A6A6]  dark:border dark:border-red-50">
+            <h2 className="m-4 p-2  shadow-lg inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#FCF4FF]  dark:text-[#A6A6A6]  dark:border dark:border-red-50">
               Proactivo
             </h2>
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
+            <h2 className="m-4 p-2  shadow-lg inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
               Habilidades de Comunicación
             </h2>
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
+            <h2 className="m-4 p-2  shadow-lg inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#FFFDF5] dark:text-[#A6A6A6] dark:border dark:border-red-50 ">
               Trabajo en equipo
             </h2>
-            <h2 className="mb-4 shadow-lg inline-block dark:bg-[#1D1D1D] px-5 py-1.5 rounded-lg bg-[#E9F8FF]  dark:text-[#A6A6A6]  dark:border dark:border-red-50 ">
+            <h2 className="m-4 p-2  shadow-lg inline-block dark:bg-[#1D1D1D]  rounded-lg bg-[#E9F8FF]  dark:text-[#A6A6A6]  dark:border dark:border-red-50 ">
               UX/UI
             </h2>
           </div>

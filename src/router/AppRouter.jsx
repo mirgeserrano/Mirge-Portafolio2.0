@@ -2,7 +2,6 @@
 import { About, Contact, Resume, Work } from "../components/NavbarBox";
 import "../index.css";
 import AppLayouts from "../layouts/AppLayouts";
-//import {Content} from "../page";
 import { Route, Routes } from "react-router-dom";
 
 const AppRouter = () => {

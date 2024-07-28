@@ -1,6 +1,5 @@
 import { Line } from "../../assets";
 import ContanerCar from "../ContanerCar";
-import Tarjeta from "../Tarjeta";
 
 const Work = () => {
   return (
@@ -9,6 +8,7 @@ const Work = () => {
         Portafolio
         <Line />
       </h2>
+      <p className=" p-4">En construcción ... </p>
 
       <ContanerCar />
     </>

@@ -38,6 +38,7 @@ const ContanerCar = () => {
   console.log();
   return (
     <div className="grid grid-cols-2 gap-4 p-4">
+    
       {datos.map((dato) => (
         <Tarjeta
           key={dato.imagen}
