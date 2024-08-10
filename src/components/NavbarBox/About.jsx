@@ -3,24 +3,22 @@ import { Line, Back, Bd, Debug, Front } from "../../assets";
 
 const About = () => {
   return (
-    <div>
-      <div>
-        <di className="flex ">
-          <h1 className="text-6xl dark:text-white font-bold mb-12 md:mb-[30px] pl-4 md:pl-[60px] pt-12">
-            Sobre Mí
-            <Line />
-          </h1>
-        </di>
-        <div className="lpb-12 px-2 sm:px-5 md:px-10 lg:px-14 ">
-          <div className="col-span-12 space-y-2.5">
-            <div className="lg:mr-16">
-              <div className="text-gray-lite  dark:text-white  leading-7">
-                Soy una programadora full stack con amplia experiencia en el
-                desarrollo de aplicaciones web modernas y escalables. A lo largo
-                de mi carrera, he adquirido un sólido dominio de las tecnologías
-                front-end y back-end, lo que me permite crear soluciones
-                integrales que satisfacen las necesidades de mis clientes.
-              </div>
+    <>
+      <div className="flex">
+        <h1 className="text-6xl dark:text-white font-bold mb-12 md:mb-[30px] pl-4 md:pl-[60px] pt-12">
+          Sobre Mí
+          <Line />
+        </h1>
+      </div>
+      <div className="pb-12 px-2 sm:px-5 md:px-10 lg:px-14 ">
+        <div className="col-span-12 space-y-2.5">
+          <div className="lg:mr-16">
+            <div className="text-gray-lite  dark:text-white  leading-7">
+              Soy una programadora full stack con amplia experiencia en el
+              desarrollo de aplicaciones web modernas y escalables. A lo largo
+              de mi carrera, he adquirido un sólido dominio de las tecnologías
+              front-end y back-end, lo que me permite crear soluciones
+              integrales que satisfacen las necesidades de mis clientes.
             </div>
           </div>
         </div>
@@ -84,7 +82,7 @@ const About = () => {
       </div>
 
       <Carouse />
-    </div>
+    </>
   );
 };
 

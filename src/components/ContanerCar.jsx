@@ -1,22 +1,27 @@
 import { useState } from "react";
 import Tarjeta from "./Tarjeta";
+import lgofactupro from "../assets/images/LogoFactuPro.png";
+import logofinaza from "../assets/images/LogoFinanza.png";
+import logopov from "../assets/images/LogoPov.png";
 
 const ContanerCar = () => {
   const [datos, setDatos] = useState([
     {
-      imagen: "Foto.jpg",
+      id: "1",
+      imagen: lgofactupro,
       titulo: "FactuPro",
       empresa: "EiA sitemas",
       colorFondo: "#E9F8FF",
     },
     {
-      imagen: "Foto.jpg",
+      id: "2",
+      imagen: logopov,
       titulo: "POV",
       empresa: "noCountry",
       colorFondo: "#FFF0F8",
     },
-    {
-      imagen: "imagen3.webp",
+    {id: "3",
+      imagen: logofinaza,
       titulo: "MiFinanzas",
       empresa: "noCountry",
       colorFondo: "#FCF4FF",
@@ -33,14 +38,13 @@ const ContanerCar = () => {
       empresa: "Educativo",
       colorFondo: "#FFFDF5",
     },
-
   ]);
   console.log();
   return (
     <div className="grid grid-cols-2 gap-4 p-4">
-    
       {datos.map((dato) => (
         <Tarjeta
+          id={dato.id}
           key={dato.imagen}
           srcImagen={dato.imagen}
           altImagen={dato.titulo}
