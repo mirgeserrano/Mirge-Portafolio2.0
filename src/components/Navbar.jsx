@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <div
-      className="container w-full bg-[#F3F6F6] dark:bg-black lg:bg-transparent lg:dark:bg-transparent flex justify-between py-5 lg:px-0 lg:pt-[50px]"
+      className="container mx-auto w-full  dark:bg-transparent lg:bg-transparent lg:dark:b0g-transparent flex justify-between py-5 lg:px-0 lg:pt-[50px] aos-init aos-animate z-50 "
       data-aos="fade"
     >
       <div className="w-full flex justify-between px-4">
