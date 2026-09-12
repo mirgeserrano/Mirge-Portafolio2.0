@@ -1,0 +1,38 @@
+[
+  {
+    "id": "frontend",
+    "icon": "Front",
+    "title": "Frontend",
+    "description": "Diseño y desarrollo interfaces de usuario atractivas, responsivas e intuitivas utilizando HTML5, CSS3, JavaScript y frameworks modernos.",
+    "backgroundColor": "#FCF4FF",
+    "accentColor": "#9A4CFF",
+    "borderColor": "#EADCFF"
+  },
+  {
+    "id": "backend",
+    "icon": "Back",
+    "title": "Backend",
+    "description": "Construyo la lógica y los servicios que hacen que las aplicaciones sean rápidas, seguras y escalables.",
+    "backgroundColor": "#FFFDF5",
+    "accentColor": "#F4B740",
+    "borderColor": "#F5E8B8"
+  },
+  {
+    "id": "database",
+    "icon": "Bd",
+    "title": "Base de datos",
+    "description": "Almaceno y gestiono datos de manera eficiente utilizando bases de datos relacionales y no relacionales.",
+    "backgroundColor": "#E9F8FF",
+    "accentColor": "#36A9E1",
+    "borderColor": "#C7ECFA"
+  },
+  {
+    "id": "debugging",
+    "icon": "Debug",
+    "title": "Depuración",
+    "description": "Resuelvo problemas y depuro código front-end y back-end para garantizar el correcto funcionamiento de las aplicaciones.",
+    "backgroundColor": "#FFF0F8",
+    "accentColor": "#E85D9E",
+    "borderColor": "#F7CDE2"
+  }
+]

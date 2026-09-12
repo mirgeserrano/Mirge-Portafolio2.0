@@ -1,8 +1,8 @@
-import Github from "../assets/Github";
-import Linkedin from "../assets/Linkedin";
-import Telegram from "../assets/Telegram";
+import Github from "../../assets/Github";
+import Linkedin from "../../assets/Linkedin";
+import Telegram from "../../assets/Telegram";
 
-const InfoCard = () => {
+const SocialLinks = () => {
   return (
     <div className="">
       <div className="flex justify-center space-x-3 ">
@@ -26,4 +26,4 @@ const InfoCard = () => {
   );
 };
 
-export default InfoCard;
+export default SocialLinks;

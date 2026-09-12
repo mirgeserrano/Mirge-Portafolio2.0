@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MapIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-import Pent from "../assets/Pent";
+import Pent from "../../assets/Pent";
 
 const ImageSelector = () => {
   const [selectedImage, setSelectedImage] = useState("/images/Foto.jpg");
@@ -16,13 +16,13 @@ const ImageSelector = () => {
   };
 
   return (
-    <div className="absolute container mx-auto p-4">
+    <div className="profile-image-selector absolute container mx-auto p-4">
       <div className="flex flex-col items-center">
         <div className="relative group">
           <img
             src={selectedImage}
             alt="Selected"
-            className="w-[236px] left-[50%] transform  h-[287px] drop-shadow-xl mx-auto  rounded-[20px] -mt-[140px]"
+            className="profile-image w-[236px] left-[50%] transform h-[287px] drop-shadow-xl mx-auto rounded-[20px] -mt-[140px]"
           />
           <div className="flex flex-row absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-[20px]  duration-300 bg-black bg-opacity-50">
             <div className="left-0 mt-2 w-14 bg-white shadow-md rounded group-hover:block">

@@ -1,7 +1,7 @@
 // DarkModeToggle.js
 import { useEffect, useState } from "react";
-import Mom from "../assets/Mom";
-import Sun from "../assets/Sun";
+import Mom from "../../assets/Mom";
+import Sun from "../../assets/Sun";
 
 const DarkModeToggle = () => {
   const [darkMode, setDarkMode] = useState(

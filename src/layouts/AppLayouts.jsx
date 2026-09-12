@@ -1,16 +1,20 @@
-import { InfBox, Navbar } from "../components";
-import { NavbarBox } from "../components/NavbarBox";
+import Navbar from "../components/navigation/Navbar";
+import ProfileSidebar from "../components/profile/ProfileSidebar";
+import ContentNavigation from "../components/navigation/ContentNavigation";
+import { Outlet } from "react-router-dom";
 
 const AppLayouts = () => {
   return (
     <div
-      className="bg-fondo dark:bg-fondoDark min-h-screen bg-no-repeat bg-center bg-cover bg-fixed md:pb-16 w-full "
+      className="app-shell bg-fondo dark:bg-fondoDark min-h-screen bg-no-repeat bg-center bg-cover bg-fixed md:pb-16 w-full"
       data-aos="fade"
     >
       <Navbar />
-      <div className="container mx-auto grid grid-cols-12 md:gap-10  justify-between lg:mt-[220px]  ">
-        <InfBox />
-        <NavbarBox />
+      <div className="app-layout container mx-auto grid grid-cols-12 justify-between">
+        <ProfileSidebar />
+        <ContentNavigation>
+          <Outlet />
+        </ContentNavigation>
       </div>
     </div>
   );

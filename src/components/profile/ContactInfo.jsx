@@ -1,7 +1,7 @@
-import { Email, Location, Calendar } from "../assets";
-import Phone from "../assets/Phone";
+import { Email, Location } from "../../assets";
+import Phone from "../../assets/Phone";
 
-const DataCard = () => {
+const ContactInfo = () => {
   return (
     <div className="p-7 rounded-2xl mt-7  bg-[#F3F6F6] dark:bg-[#1D1D1D]">
 
@@ -20,21 +20,6 @@ const DataCard = () => {
         </div>
       </div>
 
-      <div className="flex border-b border-[#E3E3E3] dark:border-[#3D3A3A] py-2.5">
-        <span className="flex-shrink-0 bg-white dark:bg-black text-[#E93B81] shadow-md h-10 w-10 rounded-[10px] cursor-pointer transition-all duration-300 ease-in-out justify-center flex flex-col items-center text-xtiny text-gray-lite dark:text-white hover:text-white hover:bg-gradient-to-r from-[#FA5252] to-[#DD2476]">
-          <Calendar />
-        </span>
-        <div className="text-left ml-2.5">
-          <div className="text-xs text-[#44566C] dark:text-[#A6A6A6]">
-            Cumpleaños
-          </div>
-          <div className="dark:text-white break-all">
-            <a className="hover:text-[#FA5252] duration-300 transition">
-              Enero 23, 1997
-            </a>
-          </div>
-        </div>
-      </div>
 
       <div className="flex border-b border-[#E3E3E3] dark:border-[#3D3A3A] py-2.5">
         <span className="flex-shrink-0 bg-white dark:bg-black text-[#E93B81] shadow-md h-10 w-10 rounded-[10px] cursor-pointer transition-all duration-300 ease-in-out justify-center flex flex-col items-center text-xtiny text-gray-lite dark:text-white hover:text-white hover:bg-gradient-to-r from-[#FA5252] to-[#DD2476]">
@@ -67,4 +52,4 @@ const DataCard = () => {
   );
 };
 
-export default DataCard;
+export default ContactInfo;

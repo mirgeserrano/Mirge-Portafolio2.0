@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/Logo";
-import DarkModeToggle from "./DarkModeToogle";
-import { BookList, Book, WorkI, User, Xmark, BurgerMenu } from "../assets";
+import Logo from "../../assets/Logo";
+import DarkModeToggle from "./DarkModeToggle";
+import { BookList, Book, WorkI, User, Xmark, BurgerMenu } from "../../assets";
 import { useState } from "react";
 const Navbar = () => {
   const [hidden, sethidden] = useState(false);

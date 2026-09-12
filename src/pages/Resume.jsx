@@ -1,10 +1,10 @@
-import { Brain, BriefCase, Flecha, Graduation, Line } from "../../assets";
+import { Brain, BriefCase, Flecha, Graduation, Line } from "../assets";
 import { useState } from "react";
 
 const Resume = () => {
   const [activeSection, setActiveSection] = useState(0);
 
-  const [datos, setDatos] = useState([
+  const [datos] = useState([
     {
       cargo: "Front-end Developer",
       fecha: " 2023 / Act. Maracaibo - Venezuela",

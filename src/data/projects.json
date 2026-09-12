@@ -1,0 +1,153 @@
+[     {
+    "id": "11",
+    "image": "ftmdigitalizacion",
+    "title": "Automatizacion de Reporte",
+    "company": "Ftm Sourcing",
+    "client": "Ftm Sourcing",
+    "language": "Appsheet + Google Sheets",
+    "link": "https://ftmsourcing.com.mx/",
+    "backgroundColor": "#FFFDF5",
+    "description": "Automatización de reportes para centralizar información y reducir tareas manuales.",
+    "caseStudy": {
+      "problem": "La información del reporte estaba dispersa y requería consolidación manual.",
+      "solution": "Se creó un flujo digital para capturar, organizar y consultar los datos desde un mismo lugar.",
+      "work": "Diseñé la estructura del formulario, las vistas y el flujo de actualización de la información.",
+      "result": "Un proceso más ordenado, rápido y fácil de consultar para el equipo."
+    }
+  }, {
+    "id": "7",
+    "image": "cepin1",
+    "title": "Fundación Cepin",
+    "company": "Fundación Cepin",
+    "client": "Jeannette Makenga",
+    "language": "React + Tailwind CSS",
+    "link": "https://www.fundacioncepin.org/",
+    "backgroundColor": "#FFFDF5",
+    "description": "Sitio web institucional para comunicar el trabajo y el impacto de la Fundación Cepin.",
+    "caseStudy": {
+      "problem": "La fundación necesitaba presentar su misión, actividades y formas de colaboración con claridad.",
+      "solution": "Se estructuró una experiencia web clara, accesible y orientada a la confianza.",
+      "work": "Organicé las secciones, adapté la interfaz a distintos dispositivos y construí los componentes visuales.",
+      "result": "Una presencia digital más profesional para informar y conectar con su comunidad."
+    }
+  },
+  {
+    "id": "8",
+    "image": "nails",
+    "title": "Eliananails Studio",
+    "company": "Eliananails Studio",
+    "client": "Jeannette Makenga",
+    "language": "Wordpress + Elementor",
+    "link": "https://eliananailsstudio.com/",
+    "backgroundColor": "#FFFDF5",
+    "description": "Sitio web para presentar los servicios, trabajos y propuesta visual de un estudio de uñas.",
+    "caseStudy": {
+      "problem": "El negocio necesitaba mostrar sus servicios y facilitar el primer contacto con clientes.",
+      "solution": "Se creó una página visual, directa y adaptable, enfocada en mostrar el trabajo del estudio.",
+      "work": "Configuré la estructura de contenido, la presentación de servicios y la experiencia responsive.",
+      "result": "Una vitrina digital clara que ayuda a convertir visitas en consultas."
+    }
+  },
+   {
+    "id": "9",
+    "image": "ftmpage",
+    "title": "Ftm Sourcing",
+    "company": "Ftm Sourcing",
+    "client": "Jeannette Makenga",
+    "language": "Wordpress + Elementor",
+    "link": "https://ftmsourcing.com.mx/",
+    "backgroundColor": "#FFFDF5",
+    "description": "Sitio web corporativo para presentar los servicios y soluciones de Ftm Sourcing.",
+    "caseStudy": {
+      "problem": "La empresa necesitaba explicar su propuesta de valor de manera clara y profesional.",
+      "solution": "Se organizó el contenido en una experiencia web corporativa con mensajes fáciles de recorrer.",
+      "work": "Construí la estructura visual, ajusté los contenidos y cuidé la adaptación responsive.",
+      "result": "Una página más clara para comunicar servicios y generar nuevas oportunidades."
+    }
+  },
+  {
+    "id": "1",
+    "image": "factupro",
+    "title": "FactuPro",
+    "company": "EIA Sistemas",
+    "client": "Un Link",
+    "language": "React + Tailwind CSS",
+    "link": "https://www.youtube.com/watch?v=hRrg5v0wMfI",
+    "backgroundColor": "#E9F8FF",
+    "description": "Aplicación web de facturación para gestionar clientes, productos, servicios y el ciclo de vida completo de las facturas.",
+    "caseStudy": {
+      "problem": "La gestión de facturas requería centralizar clientes, productos y servicios en un solo flujo.",
+      "solution": "Se desarrolló una aplicación para administrar el ciclo completo de facturación.",
+      "work": "Implementé interfaces, formularios y vistas reutilizables para los principales procesos del sistema.",
+      "result": "Una operación más ordenada y una experiencia más eficiente para el usuario."
+    }
+  },
+  {
+    "id": "2",
+    "image": "pov",
+    "title": "POV",
+    "company": "No Country",
+    "client": "No Country",
+    "language": "React + Tailwind CSS, Vite, Redux Toolkit, JavaScript y DaisyUI",
+    "link": "https://pov-chat.netlify.app/",
+    "backgroundColor": "#FFF0F8",
+    "description": "Plataforma social para conectar directamente con ídolos, expertos y amigos mediante chats exclusivos y conversaciones significativas.",
+    "caseStudy": {
+      "problem": "Las personas necesitaban una forma más directa de conectar y mantener conversaciones privadas.",
+      "solution": "Se diseñó una plataforma social con perfiles, conversaciones y una experiencia de interacción clara.",
+      "work": "Construí componentes de interfaz, estados de navegación y una experiencia responsive.",
+      "result": "Una base funcional para conectar usuarios y facilitar conversaciones significativas."
+    }
+  },
+  {
+    "id": "3",
+    "image": "finanza",
+    "title": "MiFinanzas",
+    "company": "No Country",
+    "client": "No Country",
+    "language": "MongoDB y Node.js",
+    "link": "https://mifinanz.vercel.app/",
+    "backgroundColor": "#FCF4FF",
+    "description": "Aplicación diseñada para llevar un control efectivo de las finanzas personales de forma sencilla y eficiente.",
+    "caseStudy": {
+      "problem": "Llevar el control de ingresos y gastos podía resultar disperso y poco práctico.",
+      "solution": "Se creó una aplicación para registrar y visualizar las finanzas personales de forma simple.",
+      "work": "Desarrollé la interfaz y conecté la experiencia con la lógica de datos de la aplicación.",
+      "result": "Una herramienta más clara para revisar hábitos y tomar mejores decisiones financieras."
+    }
+  },
+  {
+    "id": "4",
+    "image": "placeholder",
+    "title": "Bienes raíces",
+    "company": "Educativo",
+    "client": "Estudio",
+    "language": "React + Tailwind CSS",
+    "link": "",
+    "backgroundColor": "#E9F8FF",
+    "description": "Proyecto de práctica para explorar la presentación y búsqueda de propiedades.",
+    "caseStudy": {
+      "problem": "La información de propiedades debía presentarse de forma ordenada y fácil de comparar.",
+      "solution": "Se planteó una interfaz con tarjetas y filtros para explorar distintas opciones.",
+      "work": "Diseñé la estructura de las tarjetas, los estados de navegación y la adaptación responsive.",
+      "result": "Una experiencia de consulta más clara para descubrir propiedades."
+    }
+  },
+  {
+    "id": "6",
+    "image": "placeholder",
+    "title": "Calendario",
+    "company": "Educativo",
+    "client": "Estudio",
+    "language": "React + Tailwind CSS",
+    "link": "",
+    "backgroundColor": "#FFFDF5",
+    "description": "Proyecto de práctica para organizar eventos y actividades en un calendario.",
+    "caseStudy": {
+      "problem": "Las actividades necesitaban organizarse en una vista simple y fácil de consultar.",
+      "solution": "Se creó una interfaz de calendario para visualizar eventos y tareas.",
+      "work": "Construí la distribución visual y los componentes necesarios para representar las actividades.",
+      "result": "Una forma más ordenada de revisar compromisos y eventos."
+    }
+  }
+]
