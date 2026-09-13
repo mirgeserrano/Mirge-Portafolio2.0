@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./about.css";
+@import "./work.css";
+@import "./project-detail.css";
+@import "./contact.css";
+@import "./techstack.css";
+
+@config "../../tailwind.config.js";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";

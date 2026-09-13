@@ -1,4 +1,5 @@
-[     {
+[
+  {
     "id": "11",
     "image": "ftmdigitalizacion",
     "title": "Automatizacion de Reporte",
@@ -7,6 +8,7 @@
     "language": "Appsheet + Google Sheets",
     "link": "https://ftmsourcing.com.mx/",
     "backgroundColor": "#FFFDF5",
+    "category": "featured",
     "description": "Automatización de reportes para centralizar información y reducir tareas manuales.",
     "caseStudy": {
       "problem": "La información del reporte estaba dispersa y requería consolidación manual.",
@@ -14,7 +16,8 @@
       "work": "Diseñé la estructura del formulario, las vistas y el flujo de actualización de la información.",
       "result": "Un proceso más ordenado, rápido y fácil de consultar para el equipo."
     }
-  }, {
+  },
+  {
     "id": "7",
     "image": "cepin1",
     "title": "Fundación Cepin",
@@ -23,6 +26,7 @@
     "language": "React + Tailwind CSS",
     "link": "https://www.fundacioncepin.org/",
     "backgroundColor": "#FFFDF5",
+    "category": "frontend",
     "description": "Sitio web institucional para comunicar el trabajo y el impacto de la Fundación Cepin.",
     "caseStudy": {
       "problem": "La fundación necesitaba presentar su misión, actividades y formas de colaboración con claridad.",
@@ -40,6 +44,7 @@
     "language": "Wordpress + Elementor",
     "link": "https://eliananailsstudio.com/",
     "backgroundColor": "#FFFDF5",
+    "category": "frontend",
     "description": "Sitio web para presentar los servicios, trabajos y propuesta visual de un estudio de uñas.",
     "caseStudy": {
       "problem": "El negocio necesitaba mostrar sus servicios y facilitar el primer contacto con clientes.",
@@ -48,7 +53,7 @@
       "result": "Una vitrina digital clara que ayuda a convertir visitas en consultas."
     }
   },
-   {
+  {
     "id": "9",
     "image": "ftmpage",
     "title": "Ftm Sourcing",
@@ -57,6 +62,7 @@
     "language": "Wordpress + Elementor",
     "link": "https://ftmsourcing.com.mx/",
     "backgroundColor": "#FFFDF5",
+    "category": "frontend",
     "description": "Sitio web corporativo para presentar los servicios y soluciones de Ftm Sourcing.",
     "caseStudy": {
       "problem": "La empresa necesitaba explicar su propuesta de valor de manera clara y profesional.",
@@ -74,6 +80,7 @@
     "language": "React + Tailwind CSS",
     "link": "https://www.youtube.com/watch?v=hRrg5v0wMfI",
     "backgroundColor": "#E9F8FF",
+    "category": "frontend",
     "description": "Aplicación web de facturación para gestionar clientes, productos, servicios y el ciclo de vida completo de las facturas.",
     "caseStudy": {
       "problem": "La gestión de facturas requería centralizar clientes, productos y servicios en un solo flujo.",
@@ -91,6 +98,7 @@
     "language": "React + Tailwind CSS, Vite, Redux Toolkit, JavaScript y DaisyUI",
     "link": "https://pov-chat.netlify.app/",
     "backgroundColor": "#FFF0F8",
+    "category": "frontend",
     "description": "Plataforma social para conectar directamente con ídolos, expertos y amigos mediante chats exclusivos y conversaciones significativas.",
     "caseStudy": {
       "problem": "Las personas necesitaban una forma más directa de conectar y mantener conversaciones privadas.",
@@ -108,6 +116,7 @@
     "language": "MongoDB y Node.js",
     "link": "https://mifinanz.vercel.app/",
     "backgroundColor": "#FCF4FF",
+    "category": "backend",
     "description": "Aplicación diseñada para llevar un control efectivo de las finanzas personales de forma sencilla y eficiente.",
     "caseStudy": {
       "problem": "Llevar el control de ingresos y gastos podía resultar disperso y poco práctico.",
@@ -125,6 +134,7 @@
     "language": "React + Tailwind CSS",
     "link": "",
     "backgroundColor": "#E9F8FF",
+    "category": "featured",
     "description": "Proyecto de práctica para explorar la presentación y búsqueda de propiedades.",
     "caseStudy": {
       "problem": "La información de propiedades debía presentarse de forma ordenada y fácil de comparar.",
@@ -142,6 +152,7 @@
     "language": "React + Tailwind CSS",
     "link": "",
     "backgroundColor": "#FFFDF5",
+    "category": "mobile",
     "description": "Proyecto de práctica para organizar eventos y actividades en un calendario.",
     "caseStudy": {
       "problem": "Las actividades necesitaban organizarse en una vista simple y fácil de consultar.",

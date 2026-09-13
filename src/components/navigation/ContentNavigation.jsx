@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { BookList, Book, WorkI, User } from "../../assets";
 import Footer from "./Footer";
+import { navigationItems } from "../../content/siteContent";
 
-const navigationItems = [
-  { path: "/about", label: "Sobre Mi", Icon: User },
-  { path: "/resume", label: "Resumen", Icon: BookList },
-  { path: "/work", label: "Trabajos", Icon: WorkI },
-  { path: "/contact", label: "Contactame", Icon: Book },
-];
+const iconMap = {
+  about: User,
+  resume: BookList,
+  work: WorkI,
+  contact: Book,
+};
 
 const ContentNavigation = ({ children }) => {
   return (
@@ -15,17 +16,23 @@ const ContentNavigation = ({ children }) => {
       <header className="content-nav h-[144px] hidden lg:block p-[30px] ml-auto mb-10 rounded-[16px] bg-white dark:bg-[#111111]">
         <nav className="hidden lg:block">
           <ul className="flex">
-            {navigationItems.map(({ path, label, Icon }) => (
-              <NavLink
-                key={path}
-                to={path}
-                className={({ isActive }) => `w-full h-20 rounded-[10px] cursor-pointer transition-all duration-300 ease-in-out font-poppins bg-[#F3F6F6] font-medium mx-2.5 text-xtiny text-gray-lite dark:text-[#A6A6A6] justify-center flex flex-col items-center dark:hover:text-white dark:bg-[#212425] hover:text-white ${isActive ? "text-white bg-gradient-to-r from-[#FA5252] to-[#DD2476] dark:text-white" : ""}`}
-                data-aos="fade-right"
-              >
-                <Icon />
-                {label}
-              </NavLink>
-            ))}
+            {navigationItems.map(({ path, label, icon }) => {
+              const Icon = iconMap[icon];
+
+              return (
+                <NavLink
+                  key={path}
+                  to={path}
+                  end={path === "/about"}
+                  aria-current={({ isActive }) => (isActive ? "page" : undefined)}
+                  className={({ isActive }) => `w-full h-20 rounded-[10px] cursor-pointer transition-all duration-300 ease-in-out font-poppins bg-[#F3F6F6] font-medium mx-2.5 text-xtiny text-gray-lite dark:text-[#A6A6A6] justify-center flex flex-col items-center dark:hover:text-white dark:bg-[#212425] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FA5252] ${isActive ? "text-white bg-gradient-to-r from-[#FA5252] to-[#DD2476] dark:text-white" : ""}`}
+                  data-aos="fade-right"
+                >
+                  <Icon />
+                  {label}
+                </NavLink>
+              );
+            })}
           </ul>
         </nav>
       </header>

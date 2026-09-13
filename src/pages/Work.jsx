@@ -1,45 +1,21 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "../components/projects/ProjectCard";
 import projects from "../data/projects.json";
-import factupro from "../assets/images/factupro.png";
-import pov from "../assets/images/pov.png";
-import finanza from "../assets/images/finanza.png";
-import placeholder from "../assets/images/2.png";
-import cepin from "../assets/images/cepin.jpg";
-import nails from "../assets/images/nail.jpg";
-import ftmPage from "../assets/images/Ftmpage.png";
-import ftmdigitalizacion from "../assets/images/ftmdigitalizacion.jpg";
-
-
-const projectImages = {
-  factupro,
-  pov,
-  finanza,
-  placeholder,
-  cepin1: cepin,
-  nails,
-  ftmpage: ftmPage,
-ftmdigitalizacion:ftmdigitalizacion
-  
-};
-const filters = ["Todos", "Destacados", "Web / Frontend", "Apps Móviles / AppSheet", "Backend / APIs", "Otros"];
-
-const getCategory = (project) => {
-    if (project.title === "Automatizacion de Reporte" || project.title === "Bienes raíces") return "Destacados";
-
-  if (project.title === "Eliananails Studio" || project.title === "Ftm Sourcing" || project.title === "Fundación Cepin") return "Web / Frontend";
-  if (project.title === "POV" || project.title === "Calendario") return "Apps Móviles / AppSheet";
-  if (project.title === "MiFinanzas") return "Backend / APIs";
-  return "Otros";
-};
+import projectImages from "../data/projectImages";
+import { getVisibleProjects } from "../data/projectCatalog";
+import { workCta, workFilters } from "../content/siteContent";
 
 const Work = () => {
-  const [activeFilter, setActiveFilter] = useState("Todos");
-  const visibleProjects = projects.filter((project) => activeFilter === "Todos" || getCategory(project) === activeFilter);
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const visibleProjects = useMemo(
+    () => getVisibleProjects(projects, activeFilter),
+    [activeFilter]
+  );
 
   return (
-    <section className="work-page">
+    <section className="work-page" aria-live="polite">
       <header className="work-hero">
         <div>
           <h1>Proyectos</h1>
@@ -48,27 +24,43 @@ const Work = () => {
             Cada uno representa un reto, una solución y una parte de mi crecimiento profesional.
           </p>
         </div>
-      
       </header>
 
       <nav className="work-filters" aria-label="Filtrar proyectos">
-        {filters.map((filter) => (
-          <button key={filter} type="button" className={activeFilter === filter ? "is-active" : ""} onClick={() => setActiveFilter(filter)}>
-            <span aria-hidden="true">{filter === "Todos" ? "▦" : filter === "Otros" ? "•••" : "▣"}</span>{filter}
+        {workFilters.map((filter) => (
+          <button
+            key={filter.id}
+            type="button"
+            className={activeFilter === filter.id ? "is-active" : ""}
+            onClick={() => setActiveFilter(filter.id)}
+            aria-label={`Filtrar por ${filter.label}`}
+            aria-pressed={activeFilter === filter.id}
+          >
+            <span aria-hidden="true">{filter.id === "all" ? "▦" : filter.id === "other" ? "•••" : "▣"}</span>
+            {filter.label}
           </button>
         ))}
       </nav>
 
-      <div className="work-grid">
-        {visibleProjects.map((project) => (
-          <ProjectCard key={project.id} project={{ ...project, image: projectImages[project.image] }} />
-        ))}
-      </div>
+      {visibleProjects.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600" role="status" aria-live="polite">
+          No hay proyectos para este filtro en este momento.
+        </div>
+      ) : (
+        <div className="work-grid">
+          {visibleProjects.map((project) => (
+            <ProjectCard key={project.id} project={{ ...project, image: projectImages[project.image] }} />
+          ))}
+        </div>
+      )}
 
       <aside className="work-cta">
         <span className="work-cta-icon" aria-hidden="true">↗</span>
-        <div><strong>¿Te gustaría ver más proyectos?</strong><p>Estoy en constante aprendizaje y siempre trabajando en nuevas ideas.</p></div>
-        <Link to="/contact">Contactame <span aria-hidden="true">→</span></Link>
+        <div>
+          <strong>{workCta.title}</strong>
+          <p>{workCta.description}</p>
+        </div>
+        <Link to={workCta.linkTo}>{workCta.buttonLabel} <span aria-hidden="true">→</span></Link>
       </aside>
     </section>
   );

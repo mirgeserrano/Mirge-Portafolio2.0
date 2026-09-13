@@ -1,24 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import projects from "../../data/projects.json";
-import pov from "../../assets/images/pov.png";
-import finanza from "../../assets/images/finanza.png";
-import factupro from "../../assets/images/factupro.png";
-import placeholder from "../../assets/images/2.png";
-import cepin from "../../assets/images/cepin.jpg";
-import nails from "../../assets/images/nail.jpg";
-import ftmPage from "../../assets/images/Ftmpage.png";
-import ftmdigitalizacion from "../../assets/images/ftmdigitalizacion.jpg";
-
-const projectImages = {
-  factupro,
-  pov,
-  finanza,
-  placeholder,
-  cepin1: cepin,
-  nails,
-  ftmpage: ftmPage,
-  ftmdigitalizacion:ftmdigitalizacion
-};
+import projectImages from "../../data/projectImages";
+import LazyImage from "../common/LazyImage";
 
 const ProjectDetail = () => {
   const navigate = useNavigate();
@@ -27,7 +10,11 @@ const ProjectDetail = () => {
   const project = projects.find((item) => item.id === id);
 
   if (!project) {
-    return <div>Datos no encontrados</div>;
+    return (
+      <div className="flex min-h-[20rem] items-center justify-center p-6 text-center text-slate-600" role="status" aria-live="polite">
+        No se encontró este proyecto. Regresa a la lista para seguir explorando.
+      </div>
+    );
   }
 
   return (
@@ -43,7 +30,9 @@ const ProjectDetail = () => {
         <div className="project-detail-content">
           <button
             onClick={() => navigate(-1)}
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ef4060]"
+            aria-label="Cerrar detalle del proyecto"
+            type="button"
           >
             ✕
           </button>
@@ -54,7 +43,12 @@ const ProjectDetail = () => {
             </h2>
             <p className="project-detail-client">{project.company} · {project.client}</p>
           </div>
-          <img src={projectImages[project.image]} alt={`Vista previa de ${project.title}`} className="project-detail-image" />
+          <LazyImage
+            src={projectImages[project.image]}
+            alt={`Imagen principal del proyecto ${project.title}`}
+            className="project-detail-image"
+            placeholderClassName="lazy-image-placeholder project-detail-image-placeholder"
+          />
           <div className="project-detail-meta">
             <div><span>Rol</span><strong>Desarrollo web</strong></div>
             <div><span>Tecnologías</span><strong>{project.language}</strong></div>

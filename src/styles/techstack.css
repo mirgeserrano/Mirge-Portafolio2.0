@@ -1,0 +1,42 @@
+.tech-stack-panel {
+  margin: 2.5rem auto 0;
+  max-width: 920px;
+  padding: 2.25rem 2.5rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid #eee8f4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(63, 48, 79, 0.08);
+}
+
+.dark .tech-stack-panel { border-color: #333333; background: #1d1d1d; }
+.tech-stack-heading { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.tech-stack-heading h2 { color: #252132; font-size: 1.75rem; font-weight: 700; }
+.dark .tech-stack-heading h2 { color: white; }
+.tech-stack-line { width: 2.25rem; height: 2px; background: #9a4cff; }
+.tech-stack-line::after { display: block; width: 6px; height: 6px; margin: -3px auto 0; border-radius: 50%; background: #ef6fc0; content: ""; }
+.tech-stack-subtitle { margin: .5rem 0 1.5rem; color: #77727f; font-size: .8rem; text-align: center; }
+.tech-stack-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid #e6e1eb; }
+.tech-stack-tabs button { position: relative; display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3rem; color: #77727f; font-size: .8rem; transition: color 180ms ease; }
+.tech-stack-tabs button:hover, .tech-stack-tabs button.is-active { color: #732be4; }
+.tech-stack-tabs button.is-active::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: #9a4cff; content: ""; }
+.tech-stack-items { display: grid; grid-template-columns: repeat(7, minmax(92px, 1fr)); gap: .9rem; padding: 1.5rem 0 1.25rem; }
+.tech-stack-item { display: flex; align-items: center; flex-direction: column; justify-content: center; min-width: 0; min-height: 7.5rem; padding: 1rem .5rem; border: 1px solid #eeeaf1; border-radius: 10px; background: #fff; box-shadow: 0 4px 10px rgba(50, 39, 63, .08); }
+.dark .tech-stack-item { border-color: #3d3a3a; background: #252525; }
+.tech-stack-logo { display: grid; width: 3.75rem; height: 3.75rem; place-items: center; margin-bottom: .7rem; }
+.tech-stack-logo img { width: 100%; height: 100%; object-fit: contain; }
+.tech-stack-item span { overflow: hidden; width: 100%; color: #4b4652; font-size: .72rem; font-weight: 600; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+.dark .tech-stack-item span { color: #d0cbd5; }
+.tech-stack-dots { display: flex; justify-content: center; gap: .45rem; }
+.tech-stack-dots span { width: 7px; height: 7px; border-radius: 50%; background: #d9d5dd; }
+.tech-stack-dots span.is-active { background: #9a4cff; }
+
+@media (max-width: 640px) {
+  .tech-stack-panel { margin: 2rem .75rem 0; padding: 1.75rem .75rem 1rem; }
+  .tech-stack-heading h2 { font-size: 1.45rem; }
+  .tech-stack-subtitle { font-size: .72rem; line-height: 1.5; }
+  .tech-stack-tabs { display: flex; overflow-x: auto; }
+  .tech-stack-tabs button { flex: 0 0 7rem; }
+  .tech-stack-items { display: flex; overflow-x: auto; padding-bottom: 1rem; }
+  .tech-stack-item { flex: 0 0 7rem; min-height: 7rem; }
+}

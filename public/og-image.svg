@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="40" x2="1030" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="0.5" stop-color="#4C1D95"/>
+      <stop offset="1" stop-color="#9D174D"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="220" y1="150" x2="760" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F9A8D4"/>
+      <stop offset="1" stop-color="#FDE68A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#bg)"/>
+  <circle cx="999" cy="106" r="90" fill="#FDE68A" fill-opacity="0.18"/>
+  <circle cx="950" cy="515" r="140" fill="#F472B6" fill-opacity="0.15"/>
+  <rect x="92" y="96" width="128" height="128" rx="36" fill="url(#accent)"/>
+  <path d="M122 193V107H143L183 163.5L223 107H244V193H227V145.1L194.5 192H171.5L139 145.1V193H122Z" fill="#1F2937"/>
+  <text x="92" y="318" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="68" font-weight="700">Mirgelys Serrano</text>
+  <text x="92" y="388" fill="#E9D5FF" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="500">Product Designer · Frontend Developer</text>
+  <rect x="92" y="430" width="420" height="72" rx="24" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)"/>
+  <text x="124" y="477" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="600">Portfolio • Projects • Resume • Contact</text>
+</svg>

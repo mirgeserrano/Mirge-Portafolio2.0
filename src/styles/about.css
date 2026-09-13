@@ -1,0 +1,65 @@
+.about-hero {align-items: center; justify-content: center; padding: 2.75rem 2.5rem 2rem; }
+
+.about-eyebrow { display: flex; align-items: center; gap: .8rem; margin: 0 0 .65rem; color: #ef5cae; font-size: .72rem; font-weight: 700; letter-spacing: .04em; }
+.about-eyebrow span { width: 3rem; height: 1px; background: #ef8cc5; }
+.about-title { margin: 0; color: #202538; font-size: clamp(2.25rem, 5vw, 3.3rem); line-height: 1.08; font-weight: 800; }
+.about-title strong { color: #df64c1; }
+.about-intro { max-width: 590px; margin: 1rem 0 1.5rem; color: #5c6070; font-size: .9rem; line-height: 1.85; }
+.about-strengths { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6rem; }
+.about-strength { display: flex; align-items: center; gap: .65rem; min-width: 9rem; color: #565a6a; font-size: .75rem; text-align: left; }
+.about-strength-icon { display: grid; width: 2.65rem; height: 2.65rem; flex: 0 0 2.65rem; place-items: center; border-radius: 999px; background: #faedff; }
+.about-strength-icon svg { width: 1.25rem; height: 1.25rem; }
+.about-strength span:last-child { display: flex; flex-direction: column; line-height: 1.35; }
+.about-strength b { color: #4b4e5f; font-size: .75rem; font-weight: 700; }
+.about-strength small { font-size: .72rem; }
+.about-services { padding: 1rem 2.5rem 3rem; }
+.about-section-title { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 0 0 1.5rem; color: #202538; font-size: 1.65rem; font-weight: 700; }
+.about-section-title span { position: relative; width: 1.8rem; height: 2px; background: #9a4cff; }
+.about-section-title span::after { position: absolute; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: #ef6fc0; content: ""; }
+.about-section-title span:first-child::after { right: -9px; }
+.about-section-title span:last-child::after { left: -9px; }
+.dark .about-title, .dark .about-section-title { color: white; }
+.dark .about-intro, .dark .about-strength { color: #c4bfca; }
+.dark .about-strength b { color: white; }
+
+@media (max-width: 640px) {
+  .about-hero { padding: 2rem 1.25rem 1.25rem; }
+  .about-title { font-size: 2.25rem; }
+  .about-intro { font-size: .82rem; line-height: 1.7; }
+  .about-strengths { gap: .9rem; }
+  .about-strength { min-width: calc(50% - .5rem); }
+  .about-strength:last-child { min-width: 100%; }
+  .about-services { padding: .75rem 1.25rem 2rem; }
+}
+
+.about-service-card {
+  border: 2px solid #eadcff;
+  border-bottom: 5px solid #9a4cff;
+  box-shadow: 0 12px 24px rgba(101, 43, 173, 0.12);
+}
+
+.about-service-icon {
+  width: 5.75rem;
+  height: 5.75rem;
+  flex: 0 0 5.75rem;
+  border: 2px solid #eadcff;
+  box-shadow: 0 8px 18px rgba(101, 43, 173, 0.12);
+}
+
+.about-service-icon svg { width: 2.65rem; height: 2.65rem; }
+.about-service-card h3 { margin-bottom: .65rem; font-size: 1.25rem; line-height: 1.2; font-weight: 800; }
+.about-service-card > div:last-child { min-width: 0; }
+.about-service-card > div:last-child > div { font-size: .86rem; line-height: 1.65; }
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .profile-card { margin-top: 0; padding-inline: 2rem; }
+  .profile-image-selector { position: relative; top: 0; right: 0; left: 0; width: 100%; padding: 0; display: flex; justify-content: center; }
+  .profile-image { width: 12.5rem; height: 15rem; margin-top: 0; object-fit: cover; margin-inline: auto; }
+  .profile-content { padding-top: 1.5rem; }
+  .profile-name { font-size: 3.25rem; line-height: 1.08; }
+}
+
+@media (max-width: 640px) {
+  .about-service-icon { width: 5rem; height: 5rem; flex-basis: 5rem; }
+  .about-service-icon svg { width: 2.35rem; height: 2.35rem; }
+}

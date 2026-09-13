@@ -1,0 +1,27 @@
+.project-detail-modal { width: min(920px, calc(100% - 2rem)); max-height: calc(100vh - 2rem); overflow-y: auto; }
+.project-detail-content { padding: 2rem 2.25rem 2.25rem; }
+.project-detail-content > button { z-index: 2; width: 2rem; height: 2rem; border-radius: 50%; background: rgba(255,255,255,.7); font-size: 1rem; }
+.project-detail-header { padding-right: 2rem; margin-bottom: 1.25rem; }
+.project-detail-kicker { color: #bd55c9; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
+.project-detail-header h2 { margin: .35rem 0 .25rem; color: #22263a; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.1; font-weight: 800; }
+.project-detail-client { margin: 0; color: #6d7180; font-size: .82rem; }
+.project-detail-image { display: block; width: 100%; max-height: 20rem; border-radius: 10px; object-fit: contain; object-position: center; background: rgba(255,255,255,.4); }
+.project-detail-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin: 1.1rem 0; }
+.project-detail-meta div { padding: .75rem .9rem; border: 1px solid rgba(100, 72, 120, .12); border-radius: 8px; background: rgba(255,255,255,.5); }
+.project-detail-meta span { display: block; margin-bottom: .25rem; color: #8a7b94; font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.project-detail-meta strong { color: #353747; font-size: .76rem; font-weight: 700; }
+.project-detail-description { margin: 1rem 0 1.25rem; color: #555968; font-size: .88rem; line-height: 1.7; }
+.project-case-study { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+.project-case-study article { padding: 1rem; border-left: 3px solid #da67c5; border-radius: 0 8px 8px 0; background: rgba(255,255,255,.5); }
+.project-case-study article > span { color: #d35db9; font-size: .65rem; font-weight: 800; }
+.project-case-study h3 { margin: .3rem 0 .35rem; color: #2c3042; font-size: .95rem; font-weight: 800; }
+.project-case-study p { margin: 0; color: #606474; font-size: .75rem; line-height: 1.6; }
+.dark .project-detail-header h2, .dark .project-detail-meta strong, .dark .project-case-study h3 { color: #fff; }
+.dark .project-detail-client, .dark .project-detail-description, .dark .project-case-study p { color: #d0cbd4; }
+.dark .project-detail-meta div, .dark .project-case-study article { border-color: #4a414d; background: rgba(30, 28, 32, .5); }
+
+@media (max-width: 560px) {
+  .project-detail-modal { width: calc(100% - 1rem); max-height: calc(100vh - 1rem); }
+  .project-detail-content { padding: 1.5rem 1rem 1.25rem; }
+  .project-detail-meta, .project-case-study { grid-template-columns: 1fr; }
+}

@@ -1,6 +1,7 @@
 import TechStack from "../components/technology/TechStack";
 import { Back, Bd, Brain, BriefCase, Debug, Front } from "../assets";
 import services from "../data/services.json";
+import { aboutContent } from "../content/siteContent";
 
 const serviceIcons = { Front, Back, Bd, Debug };
 const strengths = [
@@ -15,16 +16,11 @@ const About = () => {
       <section className="about-hero">
         <div className="flex flex-col items-center text-center">
           <h1 className="about-title">
-            Desarrollo soluciones
+            {aboutContent.title}
             <br />
-            que generan <strong>impacto.</strong>
+            que generan <strong>{aboutContent.highlight}</strong>
           </h1>
-          <p className="about-intro">
-            Soy una programadora full stack apasionada por crear aplicaciones
-            web modernas, eficientes y escalables. Combino diseño, lógica y
-            tecnología para construir soluciones que resuelven problemas reales
-            y aportan valor a las personas y negocios.
-          </p>
+          <p className="about-intro">{aboutContent.intro}</p>
           <div className="about-strengths">
             {strengths.map(({ label, detail, Icon }) => (
               <div className="about-strength" key={label}>
@@ -43,7 +39,7 @@ const About = () => {
       <div className="about-services">
         <h2 className="about-section-title">
           <span aria-hidden="true" />
-          ¿Qué hago?
+          {aboutContent.strengthsLabel}
           <span aria-hidden="true" />
         </h2>
 

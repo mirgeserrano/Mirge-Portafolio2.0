@@ -1,0 +1,6 @@
+:root {
+  --font-body: "DM Sans", "Segoe UI", sans-serif;
+  --font-display: "Manrope", "Segoe UI", sans-serif;
+  --app-bg: linear-gradient(180deg, #f7f3ff 0%, #f5f7ff 100%);
+  --app-bg-dark: linear-gradient(180deg, #17141d 0%, #121825 100%);
+}

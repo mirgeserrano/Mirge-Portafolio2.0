@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 const AppLayouts = () => {
   return (
     <div
-      className="app-shell bg-fondo dark:bg-fondoDark min-h-screen bg-no-repeat bg-center bg-cover bg-fixed md:pb-16 w-full"
+      className="app-shell min-h-screen bg-no-repeat bg-center bg-cover md:pb-16 w-full"
       data-aos="fade"
     >
       <Navbar />

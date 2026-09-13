@@ -4,6 +4,7 @@ import emailjs from "@emailjs/browser";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { contactContent } from "../content/siteContent";
 
 const Contact = () => {
   const schema = yup.object().shape({
@@ -46,37 +47,40 @@ const Contact = () => {
   return (
     <section className="contact-page">
       <header className="contact-header">
-        <span className="contact-eyebrow">HABLEMOS</span>
-        <h1>Construyamos algo valioso.</h1>
-        <p>¿Tienes una idea, un reto o un proyecto en mente? Cuéntame qué necesitas y te responderé lo antes posible.</p>
+        <span className="contact-eyebrow">{contactContent.eyebrow}</span>
+        <h1>{contactContent.title}</h1>
+        <p>{contactContent.intro}</p>
       </header>
-        
-        <div className="contact-form-panel">
-          <div className="contact-form-heading">
-               <div className="contact-intro-mark" aria-hidden="true">✦</div>
-            <div><h2>Cuéntame sobre tu proyecto</h2><p>Los campos marcados con * son obligatorios.</p></div>
+
+      <div className="contact-form-panel">
+        <div className="contact-form-heading">
+          <div className="contact-intro-mark" aria-hidden="true">✦</div>
+          <div>
+            <h2>{contactContent.panelTitle}</h2>
+            <p>{contactContent.panelHint}</p>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className="contact-field">
-              <input className="contact-input" type="text" placeholder="Nombre*" {...register("from_name")} />
-              {errors.from_name && <p className="text-red-500">{errors.from_name.message}</p>}
-            </div>
-            <div className="contact-field">
-              <input className="contact-input" type="email" placeholder="Email*" {...register("to_name")} />
-              {errors.to_name && <p className="text-red-500">{errors.to_name.message}</p>}
-            </div>
-            <div className="contact-field">
-              <textarea className="contact-input contact-message" placeholder="Mensaje*" {...register("message")} />
-              {errors.message && <p className="text-red-500">{errors.message.message}</p>}
-            </div>
-            <div className="contact-submit-row">
-              <button type="submit" className="contact-submit" disabled={isSending}>
-                {isSending ? "Enviando..." : "Enviar mensaje"} <span aria-hidden="true">→</span>
-              </button>
-              <span className="contact-response-note">Respuesta habitual en 24–48 horas.</span>
-            </div>
-          </form>
         </div>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className="contact-field">
+            <input className="contact-input" type="text" placeholder={contactContent.namePlaceholder} {...register("from_name")} />
+            {errors.from_name && <p className="text-red-500">{errors.from_name.message}</p>}
+          </div>
+          <div className="contact-field">
+            <input className="contact-input" type="email" placeholder={contactContent.emailPlaceholder} {...register("to_name")} />
+            {errors.to_name && <p className="text-red-500">{errors.to_name.message}</p>}
+          </div>
+          <div className="contact-field">
+            <textarea className="contact-input contact-message" placeholder={contactContent.messagePlaceholder} {...register("message")} />
+            {errors.message && <p className="text-red-500">{errors.message.message}</p>}
+          </div>
+          <div className="contact-submit-row">
+            <button type="submit" className="contact-submit" disabled={isSending}>
+              {isSending ? contactContent.submitting : contactContent.submit} <span aria-hidden="true">→</span>
+            </button>
+            <span className="contact-response-note">{contactContent.responseNote}</span>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };
