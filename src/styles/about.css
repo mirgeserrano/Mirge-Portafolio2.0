@@ -22,6 +22,45 @@
 .dark .about-intro, .dark .about-strength { color: #c4bfca; }
 .dark .about-strength b { color: white; }
 
+.dark .about-service-card {
+  background-color: #17171b !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.dark .about-service-card h3,
+.dark .about-service-card .text-gray-lite,
+.dark .about-service-card > div:last-child > div,
+.dark .about-service-card > div:last-child > h3 {
+  color: #f3edf8 !important;
+}
+
+.dark .about-service-card .about-service-icon {
+  background-color: #232326 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark .resume-card {
+  background-color: #1b1b1d !important;
+  border-color: #3c3a40 !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.dark .resume-card-year,
+.dark .resume-card-detail,
+.dark .resume-card-role,
+.dark .resume-card-title,
+.dark .resume-card button {
+  color: #f3edf8 !important;
+}
+
+.dark .resume-card .text-gray-500,
+.dark .resume-card .text-gray-600,
+.dark .resume-card .text-gray-lite {
+  color: #d9d4df !important;
+}
+
 @media (max-width: 640px) {
   .about-hero { padding: 2rem 1.25rem 1.25rem; }
   .about-title { font-size: 2.25rem; }

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { resumeContent } from "../content/siteContent";
 
 const Resume = () => {
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = useState(null);
 
   const handleSectionClick = (index) => {
-    setActiveSection(index === activeSection ? -1 : index);
+    setActiveSection((current) => (current === index ? null : index));
   };
 
   return (
@@ -19,19 +19,27 @@ const Resume = () => {
           <div className="">
             <div className="flex p-4">
               <Graduation />
-              <h4 className="text-4xl dark:text-white font-medium">{resumeContent.studiesTitle}</h4>
+              <h4 className="text-4xl dark:text-white font-medium">
+                {resumeContent.studiesTitle}
+              </h4>
             </div>
 
             {resumeContent.studies.map((study) => (
               <div
                 key={study.year + study.title}
-                className="flex flex-wrap p-6 dark:bg-transparent dark:border dark:border-red-50 rounded-lg mb-4"
+                className="resume-card flex flex-wrap p-6 rounded-lg mb-4 border border-transparent dark:border-[#3c3a40] dark:bg-[#1b1b1d]"
                 style={{ backgroundColor: study.tone }}
               >
                 <div className="space-y-2">
-                  <h5 className="text-gray-500 dark:text-white text-lg">{study.year}</h5>
-                  <h3 className="dark:text-white text-xl font-semibold">{study.title}</h3>
-                  <div className="leading-8 text-gray-lite dark:text-[#A6A6A6]">{study.detail}</div>
+                  <h5 className="resume-card-year text-gray-500 dark:text-[#d9d4df] text-lg">
+                    {study.year}
+                  </h5>
+                  <h3 className="resume-card-title dark:text-white text-xl font-semibold">
+                    {study.title}
+                  </h3>
+                  <div className="resume-card-detail leading-8 text-gray-lite dark:text-[#d9d4df]">
+                    {study.detail}
+                  </div>
                 </div>
               </div>
             ))}
@@ -39,33 +47,45 @@ const Resume = () => {
           <div>
             <div className="flex p-4 ">
               <BriefCase />
-              <h4 className=" text-4xl dark:text-white font-medium">{resumeContent.experienceTitle}</h4>
+              <h4 className=" text-4xl dark:text-white font-medium">
+                {resumeContent.experienceTitle}
+              </h4>
             </div>
             {resumeContent.experience.map((section, index) => (
               <div
                 key={section.company}
-                className="p-6 dark:bg-transparent dark:border dark:text-white rounded-lg mb-4"
+                className="resume-card p-6 rounded-lg mb-4 border border-transparent dark:border-[#3c3a40] dark:bg-[#1b1b1d] dark:text-white"
                 style={{ backgroundColor: section.tone }}
               >
-                <div className="flex justify-between items-center gap-3">
-                  <button
-                    type="button"
-                    className="text-xl font-bold text-left"
-                    onClick={() => handleSectionClick(index)}
-                  >
+                <button
+                  type="button"
+                  className="flex justify-between items-center gap-3 w-full text-left"
+                  onClick={() => handleSectionClick(index)}
+                  aria-expanded={activeSection === index}
+                >
+                  <span className="text-xl font-bold dark:text-white">
                     {section.company}
-                  </button>
-                  <Flecha />
-                </div>
+                  </span>
+                  <span
+                    className={`transition-transform duration-300 ${activeSection === index ? "rotate-180" : "rotate-0"}`}
+                    aria-hidden="true"
+                  >
+                    <Flecha />
+                  </span>
+                </button>
 
-                <div className="flex p-2 dark:bg-transparent rounded-lg">
+                <div className="flex p-2 rounded-lg">
                   {activeSection === index && (
                     <div className="space-y-2">
-                      <h5 className="text-gray-500 dark:text-white text-lg">{section.period}</h5>
-                      <h3 className="text-gray-600 dark:text-white text-md font-semibold">
+                      <h5 className="resume-card-year text-gray-500 dark:text-[#d9d4df] text-lg">
+                        {section.period}
+                      </h5>
+                      <h3 className="resume-card-role text-gray-600 dark:text-white text-md font-semibold">
                         <span className="font-bold">{section.role}</span>
                       </h3>
-                      <div className="leading-8 text-gray-lite dark:text-[#A6A6A6]">{section.description}</div>
+                      <div className="resume-card-detail leading-8 text-gray-lite dark:text-[#d9d4df]">
+                        {section.description}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -76,7 +96,9 @@ const Resume = () => {
 
         <div className="flex p-4">
           <Brain />
-          <h4 className="text-4xl dark:text-white font-medium">{resumeContent.skillsTitle}</h4>
+          <h4 className="text-4xl dark:text-white font-medium">
+            {resumeContent.skillsTitle}
+          </h4>
         </div>
         <div className="p-7 rounded-2xl mt-7 bg-[#F3F6F6] dark:bg-[#1D1D1D]">
           <div className="flex flex-wrap justify-between p-4">

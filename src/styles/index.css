@@ -9,6 +9,7 @@
 @import "./contact.css";
 @import "./techstack.css";
 
-@config "../../tailwind.config.js";
+@custom-variant dark (&:where(.dark, .dark *));
+
 @plugin "flowbite/plugin";
 @source "../../node_modules/flowbite";
