@@ -1,14 +1,17 @@
 import { Download } from "../../assets";
+import LogoM from "../../assets/LogoM";
 import ContactInfo from "./ContactInfo";
 import ImageSelector from "./ImageSelector";
 import SocialLinks from "./SocialLinks";
 
 const ProfileSidebar = () => {
   return (
-    <div className="profile-column col-span-12 lg:col-span-4 lg:h-screen lg:sticky top-24">
-      
-     <div className="profile-card w-full mb-6 lg:mb-0 mx-auto relative bg-white text-center dark:bg-[#111111] px-6 rounded-[20px]">
-          <ImageSelector/>
+    <div className="profile-column col-span-12 lg:col-span-4 lg:sticky top-24">
+      <div className="profile-card w-full mb-6 lg:mb-0 mx-auto relative bg-white text-center dark:bg-[#111111] px-6 rounded-[20px]">
+        <div className="flex justify-center pt-6 pb-2">
+          <LogoM />
+        </div>
+        <ImageSelector />
         <div className="profile-content pb-8">
           <h1 className="profile-name mb-1 text-5xl font-semibold dark:text-white">
             Mirgelys Serrano

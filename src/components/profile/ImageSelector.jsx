@@ -16,15 +16,15 @@ const ImageSelector = () => {
   };
 
   return (
-    <div className="profile-image-selector absolute container mx-auto p-4">
+    <div className="profile-image-selector relative flex justify-center px-4">
       <div className="flex flex-col items-center">
         <div className="relative group">
           <img
             src={selectedImage}
             alt="Selected"
-            className="profile-image w-[236px] left-[50%] transform h-[287px] drop-shadow-xl mx-auto rounded-[20px] -mt-[140px]"
+            className="profile-image block w-[236px] h-[287px] object-cover drop-shadow-xl rounded-[20px] mx-auto"
           />
-          <div className="flex flex-row absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-[20px]  duration-300 bg-black bg-opacity-50">
+          <div className="flex flex-row absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-[20px] duration-300 bg-black bg-opacity-50">
             <div className="left-0 mt-2 w-14 bg-white shadow-md rounded group-hover:block">
               {images.map((image, index) => (
                 <div

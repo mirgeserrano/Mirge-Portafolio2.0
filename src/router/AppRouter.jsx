@@ -6,7 +6,7 @@ import Work from "../pages/Work";
 import ProjectDetail from "../components/projects/ProjectDetail";
 import "../index.css";
 import AppLayouts from "../layouts/AppLayouts";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 const AppRouter = () => {
   return (

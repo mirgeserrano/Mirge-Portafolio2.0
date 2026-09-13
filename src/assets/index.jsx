@@ -5,7 +5,6 @@ export { default as BookList } from "./BookList";
 export { default as Brain} from "./Brain";
 export { default as BriefCase } from "./BriefCase";
 export { default as BurgerMenu } from "./BurgerMenu";
-export { default as Calendar} from "./Calendar";
 export { default as Debug} from "./Debug";
 export { default as Download} from "./Download";
 export { default as Education } from "./Education";
@@ -14,7 +13,6 @@ export { default as Flecha} from "./Flecha";
 export { default as Front} from "./Front";
 export { default as Github} from "./Github";
 export { default as Graduation } from "./Graduation"
-export { default as Home } from "./Book";
 export { default as Line} from "./Line";
 export { default as Linkedin} from "./Linkedin";
 export { default as Location} from "./Location";

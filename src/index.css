@@ -15,24 +15,25 @@
 body { font-family: var(--font-body); }
 h1, h2, h3, h4, h5, h6, button, a { font-family: var(--font-display); }
 
-.app-layout { width: min(100% - 3rem, 1320px); column-gap: clamp(1.5rem, 3vw, 3.5rem); margin-top: 5.5rem; }
+.app-layout { width: min(100% - 3rem, 1320px); column-gap: clamp(1.5rem, 3vw, 3.5rem); margin-top: 2.5rem; align-items: start; }
 .profile-column { min-width: 0; }
 .profile-card { min-height: 560px; }
-.profile-content { padding-top: 10rem; }
-.content-column { min-width: 0; }
+.profile-content { padding-top: 1rem; }
+.content-column { min-width: 0; display: flex; flex-direction: column; }
+.content-column > section { flex: 1; }
 .content-nav { width: 100%; }
 
 @media (min-width: 1280px) {
-  .app-layout { width: min(100% - 5rem, 1380px); margin-top: 6.5rem; }
+  .app-layout { width: min(100% - 5rem, 1380px); margin-top: 2.25rem; }
 }
 
 @media (max-width: 1023px) {
-  .app-layout { width: min(100% - 2rem, 760px); margin-top: 2rem; }
+  .app-layout { width: min(100% - 2rem, 760px); margin-top: 1rem; }
   .profile-card { min-height: 0; }
 }
 
 @media (max-width: 640px) {
-  .app-layout { width: calc(100% - 1rem); margin-top: 1rem; }
+  .app-layout { width: calc(100% - 1rem); margin-top: .5rem; }
 }
 
 .about-hero {align-items: center; justify-content: center; padding: 2.75rem 2.5rem 2rem; }
@@ -89,10 +90,10 @@ h1, h2, h3, h4, h5, h6, button, a { font-family: var(--font-display); }
 .about-service-card > div:last-child > div { font-size: .86rem; line-height: 1.65; }
 
 @media (min-width: 641px) and (max-width: 1023px) {
-  .profile-card { margin-top: 6.5rem; padding-inline: 2rem; }
-  .profile-image-selector { top: -6.5rem; right: 0; left: 0; width: 100%; padding: 0; }
-  .profile-image { width: 12.5rem; height: 15rem; margin-top: 0; object-fit: cover; }
-  .profile-content { padding-top: 9rem; }
+  .profile-card { margin-top: 0; padding-inline: 2rem; }
+  .profile-image-selector { position: relative; top: 0; right: 0; left: 0; width: 100%; padding: 0; display: flex; justify-content: center; }
+  .profile-image { width: 12.5rem; height: 15rem; margin-top: 0; object-fit: cover; margin-inline: auto; }
+  .profile-content { padding-top: 1.5rem; }
   .profile-name { font-size: 3.25rem; line-height: 1.08; }
 }
 
@@ -238,10 +239,10 @@ h1, h2, h3, h4, h5, h6, button, a { font-family: var(--font-display); }
 }
 
 @media (max-width: 640px) {
-  .profile-card { margin-top: 5.75rem; padding-inline: 1.25rem; }
-  .profile-image-selector { top: -5.75rem; right: 0; left: 0; width: 100%; padding: 0; }
+  .profile-card { margin-top: 0; padding-inline: 1.25rem; }
+  .profile-image-selector { position: relative; top: 0; right: 0; left: 0; width: 100%; padding: 0; }
   .profile-image { width: min(68vw, 13rem); height: min(82vw, 15.5rem); margin-top: 0; object-fit: cover; }
-  .profile-content { padding-top: 10.5rem; padding-bottom: 1.75rem; }
+  .profile-content { padding-top: 1.25rem; padding-bottom: 1.75rem; }
   .profile-name { font-size: clamp(2.35rem, 12vw, 3.2rem); line-height: 1.05; }
   .profile-role { margin-bottom: 1.1rem; font-size: .95rem; }
   .profile-download { max-width: 100%; padding-inline: 1.5rem; font-size: .95rem; }

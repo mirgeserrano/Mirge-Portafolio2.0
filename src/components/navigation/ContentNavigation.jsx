@@ -11,7 +11,7 @@ const navigationItems = [
 
 const ContentNavigation = ({ children }) => {
   return (
-    <div className="content-column col-span-12 lg:col-span-8">
+    <div className="content-column col-span-12 lg:col-span-8 flex flex-col">
       <header className="content-nav h-[144px] hidden lg:block p-[30px] ml-auto mb-10 rounded-[16px] bg-white dark:bg-[#111111]">
         <nav className="hidden lg:block">
           <ul className="flex">
@@ -30,7 +30,7 @@ const ContentNavigation = ({ children }) => {
         </nav>
       </header>
 
-      <section className="bg-white rounded-t-2xl  dark:bg-[#111111]">
+      <section className="bg-white rounded-t-2xl flex-1 dark:bg-[#111111]">
         <div className="aos-init aos-animate">
           {children}
         </div>
