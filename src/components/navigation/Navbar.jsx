@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assets/Logo";
 import DarkModeToggle from "./DarkModeToggle";
 import { BookList, Book, WorkI, User, Xmark, BurgerMenu } from "../../assets";
@@ -14,10 +14,14 @@ const iconMap = {
 
 const Navbar = () => {
   const [hidden, sethidden] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
-    sethidden(!hidden);
+    sethidden((current) => !current);
   };
+
+  const isCurrentPath = (path) =>
+    location.pathname === path || (path === "/work" && location.pathname.startsWith("/work"));
 
   return (
     <div
@@ -54,7 +58,7 @@ const Navbar = () => {
                     <Link
                       to={path}
                       className="cursor-pointer transition-colors duration-300 ease-in-out font-poppins text-xs text-gray-lite font-medium flex text-xtiny py-2.5 md:px-4 xl:px-5 items-center dark:text-white dark:hover:text-[#FA5252] hover:text-[#FA5252] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FA5252]"
-                      aria-current={window.location.pathname === path || (path === "/work" && window.location.pathname.startsWith("/work")) ? "page" : undefined}
+                      aria-current={isCurrentPath(path) ? "page" : undefined}
                     >
                       <div className="px-2">
                         <Icon />

@@ -4,17 +4,29 @@ import Mom from "../../assets/Mom";
 import Sun from "../../assets/Sun";
 
 const DarkModeToggle = () => {
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("darkMode") === "enabled"
-  );
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return localStorage.getItem("darkMode") === "enabled";
+    } catch {
+      return false;
+    }
+  });
 
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("darkMode", "enabled");
+      try {
+        localStorage.setItem("darkMode", "enabled");
+      } catch {
+        // Ignorar si el navegador bloquea el almacenamiento.
+      }
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("darkMode", "disabled");
+      try {
+        localStorage.setItem("darkMode", "disabled");
+      } catch {
+        // Ignorar si el navegador bloquea el almacenamiento.
+      }
     }
   }, [darkMode]);
 
